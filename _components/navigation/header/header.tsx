@@ -40,7 +40,7 @@ export function Header() {
               Sell My Car
             </h3>
             <Image
-              src="/icons/click.svg"
+              src="/icons/click-blue.svg"
               alt="Sell My Car"
               width={62}
               height={50}
