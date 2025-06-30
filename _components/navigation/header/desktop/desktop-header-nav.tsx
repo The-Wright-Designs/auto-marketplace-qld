@@ -48,7 +48,7 @@ const DesktopHeaderNav = () => {
                     size={30}
                     strokeWidth={1.5}
                     color={activeId === id ? "#FFFD01" : "#FFFFFF"}
-                    className={classNames("transition-transform duration-200", {
+                    className={classNames("transition-transform duration-300", {
                       "rotate-180": activeId === id,
                     })}
                   />
@@ -59,7 +59,7 @@ const DesktopHeaderNav = () => {
               {hasSubmenu && (
                 <div
                   className={classNames(
-                    "absolute top-full left-0  z-50 transition-all duration-200",
+                    "absolute top-full left-0  z-50 transition-all duration-300",
                     {
                       "opacity-100 visible translate-y-0": activeId === id,
                       "-translate-x-[34px] min-w-[150px] min-[1700px]:-translate-x-12 min-[1700px]:min-w-[180px]":
@@ -75,7 +75,7 @@ const DesktopHeaderNav = () => {
                       <Link
                         key={subIndex}
                         href={subItem.url}
-                        className="block px-5 py-2.5 text-white hover:bg-yellow hover:text-black transition-colors duration-200 min-[1700px]:px-8"
+                        className="block px-5 py-2.5 text-white hover:bg-yellow hover:text-black transition-colors duration-300 min-[1700px]:px-8"
                       >
                         {subItem.title}
                       </Link>
@@ -90,32 +90,55 @@ const DesktopHeaderNav = () => {
           <Link
             href="sell-my-car"
             aria-label="Sell My Car"
-            className="px-6 bg-yellow min-[1700px]:px-[75px] h-[90px] flex items-center justify-center gap-3 ease-in-out duration-200"
+            className={classNames(
+              "px-4 min-[1700px]:px-[75px] border-8 border-yellow h-[90px] flex items-center justify-center gap-3 ease-in-out duration-300",
+              {
+                "bg-yellow": !ctaHover,
+                "bg-blue": ctaHover,
+              }
+            )}
             onMouseEnter={() => setCtaHover(true)}
             onMouseLeave={() => setCtaHover(false)}
           >
             <h3
               className={classNames(
-                "text-subheading  ease-in-out duration-200",
+                "text-subheading ease-in-out duration-300",
                 {
-                  "scale-[98%] translate-x-[1px]": ctaHover,
+                  "text-yellow": ctaHover,
                 }
               )}
             >
               Sell My Car
             </h3>
-            <Image
-              src="/icons/click.svg"
-              alt="Sell My Car"
-              width={62}
-              height={50}
-              className={classNames(
-                "h-auto w-12 min-[1700px]:w-[62px] ease-in-out duration-200",
-                {
-                  "scale-[98%] -translate-x-[1px]": ctaHover,
-                }
-              )}
-            />
+            {ctaHover ? (
+              <Image
+                src="/icons/click-yellow.svg"
+                alt="Sell My Car"
+                width={62}
+                height={50}
+                className={classNames(
+                  "h-auto w-12 min-[1700px]:w-[62px] ease-in-out duration-300",
+                  {
+                    "opacity-0": !ctaHover,
+                    "opacity-100": ctaHover,
+                  }
+                )}
+              />
+            ) : (
+              <Image
+                src="/icons/click-blue.svg"
+                alt="Sell My Car"
+                width={62}
+                height={50}
+                className={classNames(
+                  "h-auto w-12 min-[1700px]:w-[62px] ease-in-out duration-300",
+                  {
+                    "opacity-0": ctaHover,
+                    "opacity-100": !ctaHover,
+                  }
+                )}
+              />
+            )}
           </Link>
         </li>
       </ul>
