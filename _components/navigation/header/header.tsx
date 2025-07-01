@@ -22,7 +22,7 @@ export function Header() {
   }, [scrollPosition]);
 
   return (
-    <header className="sticky left-0 top-0 mx-auto desktop-small:bg-blue desktop-small:px-50px full-hd:px-120px">
+    <header className="sticky left-0 top-0 mx-auto z-50 desktop-small:bg-blue desktop-small:px-50px full-hd:px-120px">
       <div className="max-w-[1920px] mx-auto relative">
         <div>
           <MobileHeader />

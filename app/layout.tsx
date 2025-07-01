@@ -39,9 +39,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Header />
-      <body className={`${poppinsFont.variable} antialiased`}>{children}</body>
-      <Footer />
+      <body className={`${poppinsFont.variable} antialiased`}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
