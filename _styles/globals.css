@@ -38,7 +38,10 @@
   --breakpoint-*: initial;
   --breakpoint-phone: 425px;
   --breakpoint-tablet: 1000px;
+  --breakpoint-desktop-small: 1280px;
   --breakpoint-desktop: 1440px;
+  --breakpoint-desktop-large: 1700px;
+  --breakpoint-full-hd: 1920px;
 
   --padding-18px: 18px;
   --padding-50px: 50px;

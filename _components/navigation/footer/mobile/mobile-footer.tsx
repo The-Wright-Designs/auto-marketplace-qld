@@ -1,32 +1,50 @@
+import Image from "next/image";
 import Link from "next/link";
+
+import navData from "@/_data/nav-data.json";
+import classNames from "classnames";
+import SocialIcons from "@/_lib/utils/social-icons";
+
+const { footer: footerNavData } = navData;
 
 export function MobileFooter() {
   return (
-    <div className="flex flex-col gap-5 items-center px-7 py-10 desktop:hidden">
-      Logo
-      <div className="text-center">
-        <p className="text-[14px]">Designed & developed by</p>
-        <Link
-          href="https://thewrightdesigns.co.za"
-          aria-label="The Wright Designs"
-          className="text-[14px] text-link-blue p-2 -m-2 font-light"
-          target="_blank"
-        >
-          The Wright Designs
-        </Link>
-      </div>
-      <hr className="text-black/25 w-1/4" />
-      <div className="text-center">
+    <div className="flex flex-col gap-2 items-center desktop-small:hidden">
+      <div className="grid gap-5">
         <Link
           href="/"
-          className="text-[14px] p-2 -m-2 text-link-blue font-light"
+          className="flex gap-1 place-self-center"
+          aria-label="Auto Marketplace QLD - Home"
         >
-          www.lookoutcentre.co.za
+          <Image
+            src="/logo/amq-logo.png"
+            alt="Auto Marketplace QLD logo"
+            width={195}
+            height={195}
+          />
         </Link>
-        <h4 className="font-light text-[14px]">
-          © {new Date().getFullYear()} The Lookout Centre
-        </h4>
+        <ul className="grid gap-1 text-center">
+          {footerNavData.map(({ title, url }, id) => {
+            return (
+              <li
+                key={id}
+                className={classNames({
+                  "mt-2": title === "Terms & Conditions",
+                })}
+              >
+                <Link href={url} className="text-paragraph text-white p-1 -m-1">
+                  {title}
+                </Link>
+              </li>
+            );
+          })}
+          <li className="text-paragraph text-white">ABN - xxxxx</li>
+        </ul>
       </div>
+      <SocialIcons />
+      <h4 className="text-paragraph text-white text-center">
+        © {new Date().getFullYear()} Auto Marketplace QLD. All rights reserved
+      </h4>
     </div>
   );
 }

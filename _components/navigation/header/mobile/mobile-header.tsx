@@ -9,6 +9,8 @@ import classNames from "classnames";
 
 import navData from "@/_data/nav-data.json";
 
+const { header: headerNavData } = navData;
+
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +27,7 @@ export function MobileHeader() {
   }, [isOpen]);
 
   return (
-    <div className="relative bg-blue px-5 h-[90px] grid place-items-center z-50 desktop:hidden">
+    <div className="relative bg-blue px-5 h-[90px] grid place-items-center z-50 desktop-small:hidden">
       <div className="flex items-center justify-between w-full">
         <button
           onClick={() => setIsOpen(true)}
@@ -44,7 +46,7 @@ export function MobileHeader() {
           aria-label="Auto Marketplace QLD - Home"
         >
           <Image
-            src="/logo/amq-logo.svg"
+            src="/logo/amq-logo.png"
             alt="Auto Marketplace QLD logo"
             width={69}
             height={69}
@@ -77,7 +79,7 @@ export function MobileHeader() {
         </div>
         <nav>
           <ul className="grid gap-5 mt-4">
-            {navData.map(({ title, url }, id) => {
+            {headerNavData.map(({ title, url }, id) => {
               return (
                 <li key={id}>
                   <Link

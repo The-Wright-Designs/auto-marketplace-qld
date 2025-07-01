@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import { ChevronDown } from "lucide-react";
 
@@ -18,14 +19,18 @@ interface NavItem {
   }[];
 }
 
+const { header: headerNavData } = navData;
+
 const DesktopHeaderNav = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [ctaHover, setCtaHover] = useState(false);
 
+  const currentRoute = usePathname();
+
   return (
     <nav className="self-end">
-      <ul className="flex gap-5 items-center min-[1700px]:gap-50px">
-        {(navData as NavItem[]).map((item, id) => {
+      <ul className="flex gap-5 items-center full-hd:gap-50px">
+        {(headerNavData as NavItem[]).map((item, id) => {
           const hasSubmenu = item.submenu && item.submenu.length > 0;
 
           return (
@@ -39,7 +44,7 @@ const DesktopHeaderNav = () => {
                 href={item.url}
                 className={classNames("text-paragraph flex items-center", {
                   "text-white": activeId !== id,
-                  "text-yellow": activeId === id,
+                  "text-yellow": activeId === id || currentRoute === item.url,
                 })}
               >
                 {item.title}
@@ -59,13 +64,13 @@ const DesktopHeaderNav = () => {
               {hasSubmenu && (
                 <div
                   className={classNames(
-                    "absolute top-full left-0  z-50 transition-all duration-300",
+                    "absolute top-full left-0 z-50 transition-all duration-300",
                     {
-                      "opacity-100 visible translate-y-0": activeId === id,
-                      "-translate-x-[34px] min-w-[150px] min-[1700px]:-translate-x-12 min-[1700px]:min-w-[180px]":
+                      "opacity-100 visible translate-y-4": activeId === id,
+                      "-translate-x-[34px] min-w-[150px] full-hd:-translate-x-12 full-hd:min-w-[180px]":
                         item.title === "About",
                       "translate-x-3.5": item.title === "Dealership Portal",
-                      "opacity-0 invisible -translate-y-2": activeId !== id,
+                      "opacity-0 invisible translate-y-2": activeId !== id,
                     }
                   )}
                 >
@@ -75,7 +80,7 @@ const DesktopHeaderNav = () => {
                       <Link
                         key={subIndex}
                         href={subItem.url}
-                        className="block px-5 py-2.5 text-white hover:bg-yellow hover:text-black transition-colors duration-300 min-[1700px]:px-8"
+                        className="block px-5 py-2.5 text-white hover:bg-yellow hover:text-black transition-colors duration-300 full-hd:px-8"
                       >
                         {subItem.title}
                       </Link>
@@ -91,7 +96,7 @@ const DesktopHeaderNav = () => {
             href="sell-my-car"
             aria-label="Sell My Car"
             className={classNames(
-              "px-4 min-[1700px]:px-[75px] border-8 border-yellow h-[90px] flex items-center justify-center gap-3 ease-in-out duration-300",
+              "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-3 ease-in-out duration-300",
               {
                 "bg-yellow": !ctaHover,
                 "bg-blue": ctaHover,
@@ -102,7 +107,7 @@ const DesktopHeaderNav = () => {
           >
             <h3
               className={classNames(
-                "text-subheading ease-in-out duration-300",
+                "text-subheading uppercase ease-in-out duration-300",
                 {
                   "text-yellow": ctaHover,
                 }
@@ -117,7 +122,7 @@ const DesktopHeaderNav = () => {
                 width={62}
                 height={50}
                 className={classNames(
-                  "h-auto w-12 min-[1700px]:w-[62px] ease-in-out duration-300",
+                  "h-auto w-12 full-hd:w-[62px] ease-in-out duration-300",
                   {
                     "opacity-0": !ctaHover,
                     "opacity-100": ctaHover,
@@ -131,7 +136,7 @@ const DesktopHeaderNav = () => {
                 width={62}
                 height={50}
                 className={classNames(
-                  "h-auto w-12 min-[1700px]:w-[62px] ease-in-out duration-300",
+                  "h-auto w-12 full-hd:w-[62px] ease-in-out duration-300",
                   {
                     "opacity-0": ctaHover,
                     "opacity-100": !ctaHover,

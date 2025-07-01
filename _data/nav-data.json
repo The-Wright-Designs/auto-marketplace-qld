@@ -1,38 +1,70 @@
-[
-  {
-    "title": "Home",
-    "url": "/"
-  },
-  {
-    "title": "About",
-    "url": "/about",
-    "submenu": [
-      {
-        "title": "How It Works",
-        "url": "/about#how-it-works"
-      },
-      {
-        "title": "Our Story",
-        "url": "/about#our-story"
-      },
-      {
-        "title": "FAQs",
-        "url": "/about#faqs"
-      },
-      {
-        "title": "Seller Fees",
-        "url": "/about#seller-fees"
-      }
-    ]
-  },
-  {
-    "title": "Dealership Portal",
-    "url": "/dealership-portal",
-    "submenu": [
-      {
-        "title": "Register Now",
-        "url": "/register"
-      }
-    ]
-  }
-]
+{
+  "header": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "About",
+      "url": "/about",
+      "submenu": [
+        {
+          "title": "How It Works",
+          "url": "/about#how-it-works"
+        },
+        {
+          "title": "Our Story",
+          "url": "/about#our-story"
+        },
+        {
+          "title": "FAQs",
+          "url": "/about#faqs"
+        },
+        {
+          "title": "Seller Fees",
+          "url": "/about#seller-fees"
+        }
+      ]
+    },
+    {
+      "title": "Dealership Portal",
+      "url": "/dealership-portal",
+      "submenu": [
+        {
+          "title": "Register Now",
+          "url": "/register"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "How It Works",
+      "url": "/about#how-it-works"
+    },
+    {
+      "title": "Our Story",
+      "url": "/about#our-story"
+    },
+    {
+      "title": "Dealership Portal",
+      "url": "/dealership-portal"
+    },
+    {
+      "title": "Contact",
+      "url": "/contact"
+    },
+    {
+      "title": "Terms & Conditions",
+      "url": "/terms-and-conditions"
+    },
+    {
+      "title": "Privacy Policy",
+      "url": "/privacy-policy"
+    }
+  ]
+}

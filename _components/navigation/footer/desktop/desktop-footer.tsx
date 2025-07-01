@@ -1,58 +1,71 @@
 import Link from "next/link";
 
 import navData from "@/_data/nav-data.json";
+import Image from "next/image";
+import SocialIcons from "@/_lib/utils/social-icons";
+
+const { footer: footerNavData } = navData;
 
 export function DesktopFooter() {
   return (
-    <div className="hidden desktop:block bg-white pt-7 pb-5">
-      <div className="flex justify-between px-[52px]">
-        <nav>
-          <h4 className="mb-2">Navigation</h4>
-          <ul className="flex flex-col">
-            {navData.map((item) => {
-              return (
-                <li key={item.title}>
-                  <Link
-                    href={item.url}
-                    className=" text-[14px] font-light hover:text-opacity-80 ease-in-out duration-200 desktop:hover:text-green"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div className="flex flex-col gap-3 items-end justify-around">
-          Logo
-          <div className="text-right">
-            <p className="text-[14px]">Designed & developed by</p>
-            <Link
-              href="https://thewrightdesigns.co.za"
-              aria-label="The Wright Designs"
-              className="text-[14px] font-light text-link-blue hover:text-black ease-in-out duration-200"
-              target="_blank"
-            >
-              The Wright Designs
-            </Link>
+    <div className="hidden desktop-small:block">
+      <div className="grid grid-cols-[1fr_1.5fr]">
+        <Link
+          href="/"
+          aria-label="Auto Marketplace QLD - Home"
+          className="ease-in-out duration-300 hover:opacity-80"
+        >
+          <Image
+            src="/logo/amq-logo.png"
+            alt="Auto Marketplace QLD logo"
+            width={391}
+            height={391}
+          />
+        </Link>
+        <div className="grid grid-cols-[1.3fr_1fr] my-auto">
+          <nav>
+            <ul className="flex flex-col gap-0.5">
+              {footerNavData.slice(0, 5).map((item) => {
+                return (
+                  <li key={item.title}>
+                    <Link
+                      href={item.url}
+                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-paragraph-desktop"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <nav>
+            <ul className="flex flex-col gap-0.5">
+              {footerNavData.slice(5).map((item) => {
+                return (
+                  <li key={item.title}>
+                    <Link
+                      href={item.url}
+                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-paragraph-desktop"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })}
+              <li className="text-paragraph text-white desktop:text-paragraph-desktop">
+                ABN - xxxxx
+              </li>
+            </ul>
+            <SocialIcons iconCssClasses="w-[30px] h-auto desktop:w-[49px]" />
+          </nav>
+          <div className="col-span-2 mt-[25px] place-self-start">
+            <h4 className="text-paragraph text-white text-center desktop:text-paragraph-desktop">
+              © {new Date().getFullYear()} Auto Marketplace QLD. All rights
+              reserved
+            </h4>
           </div>
         </div>
-      </div>
-      <div className="text-center col-span-2 place-self-center w-full mt-6">
-        <h4
-          className="font-light pt-5 text-[14px]"
-          style={{ fontVariant: "normal" }}
-        >
-          © {new Date().getFullYear()} The Lookout Centre |
-          <Link
-            href="/"
-            className="text-[14px] font-light"
-            style={{ fontVariant: "normal" }}
-          >
-            www.lookoutcentre.co.za
-          </Link>
-        </h4>
       </div>
     </div>
   );

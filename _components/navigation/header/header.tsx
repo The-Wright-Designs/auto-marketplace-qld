@@ -22,7 +22,7 @@ export function Header() {
   }, [scrollPosition]);
 
   return (
-    <header className="sticky left-0 top-0 mx-auto desktop:bg-blue desktop:px-120px">
+    <header className="sticky left-0 top-0 mx-auto desktop-small:bg-blue desktop-small:px-50px full-hd:px-120px">
       <div className="max-w-[1920px] mx-auto relative">
         <div>
           <MobileHeader />
@@ -30,7 +30,7 @@ export function Header() {
             href="sell-my-car"
             aria-label="Sell My Car"
             className={classNames(
-              "bg-white h-[90px] flex items-center justify-center gap-3 ease-in-out duration-300 desktop:hidden",
+              "bg-white h-[90px] flex items-center justify-center gap-3 ease-in-out duration-300 desktop-small:hidden",
               {
                 "-translate-y-full": isScrolled,
               }

@@ -3,8 +3,8 @@ import { DesktopFooter } from "./desktop/desktop-footer";
 
 export function Footer() {
   return (
-    <footer className="bg-white mt-10 desktop:mt-15 desktop:px-[52px] border-t border-black">
-      <div className="max-w-[1280px] mx-auto">
+    <footer className="bg-blue py-50px desktop:py-[64px] desktop-small:px-50px full-hd:px-120px">
+      <div className="max-w-[1920px] mx-auto">
         <MobileFooter />
         <DesktopFooter />
       </div>
