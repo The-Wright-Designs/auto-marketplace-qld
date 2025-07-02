@@ -1,0 +1,40 @@
+{
+  "carBrands": [
+    {
+      "src": "/images/car-brand-logos/toyota.png",
+      "alt": "Toyota logo"
+    },
+    {
+      "src": "/images/car-brand-logos/honda.png",
+      "alt": "Honda logo"
+    },
+    {
+      "src": "/images/car-brand-logos/nissan.png",
+      "alt": "Nissan logo"
+    },
+    {
+      "src": "/images/car-brand-logos/subaru.png",
+      "alt": "Subaru logo"
+    },
+    {
+      "src": "/images/car-brand-logos/mazda.png",
+      "alt": "Mazda logo"
+    },
+    {
+      "src": "/images/car-brand-logos/mitsubishi.png",
+      "alt": "Mitsubishi logo"
+    },
+    {
+      "src": "/images/car-brand-logos/suzuki.png",
+      "alt": "Suzuki logo"
+    },
+    {
+      "src": "/images/car-brand-logos/ford.png",
+      "alt": "Ford logo"
+    },
+    {
+      "src": "/images/car-brand-logos/mercedes-benz.png",
+      "alt": "Mercedes-Benz logo"
+    }
+  ]
+}

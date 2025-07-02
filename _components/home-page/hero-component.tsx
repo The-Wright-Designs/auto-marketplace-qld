@@ -26,7 +26,8 @@ const HeroComponent = ({ cssClasses }: HeroComponentProps) => {
           alt="Sell smart, sell fast, sell online with AMQ."
           width={1380}
           height={1380}
-          className="min-w-[125%] h-auto -translate-x-8 min-[600px]:-translate-x-12 -translate-y-[calc(27.5vw)] tablet-small:min-w-[1000px] tablet-small:translate-x-24 tablet-small:-translate-y-[380px] min-[900px]:min-w-[1100px] min-[900px]:-translate-y-[410px] tablet:min-w-[1200px] tablet:-translate-y-[520px] tablet:translate-x-40 min-[1150px]:min-w-[1300px] min-[1150px]:-translate-y-[560px] desktop-small:min-w-[1362px] desktop-small:-translate-y-[700px] desktop-small:translate-x-[430px] desktop:-translate-y-[830px] desktop:translate-x-[675px] "
+          className="min-w-[125%] h-auto -translate-x-8 min-[600px]:-translate-x-12 -translate-y-[calc(27.5vw)] tablet-small:min-w-[1000px] tablet-small:translate-x-24 tablet-small:-translate-y-[380px] min-[900px]:min-w-[1100px] min-[900px]:-translate-y-[410px] tablet:min-w-[1200px] tablet:-translate-y-[520px] tablet:translate-x-40 min-[1150px]:min-w-[1300px] min-[1150px]:-translate-y-[560px] desktop-small:min-w-[1362px] desktop-small:-translate-y-[700px] desktop-small:translate-x-[430px] desktop:-translate-y-[830px] desktop:translate-x-[675px]"
+          sizes="125vw"
         />
       </div>
     </section>

@@ -1,3 +1,4 @@
+import CarBrandsSlider from "@/_components/home-page/car-brands-slider";
 import HeroComponent from "@/_components/home-page/hero-component";
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
     <div className="px-5 desktop-small:px-50px full-hd:px-120px">
       <div className="max-w-[1920px] mx-auto">
         <HeroComponent cssClasses="-mx-5 desktop-small:-mx-50px full-hd:-mx-120px" />
+        <CarBrandsSlider cssClasses="max-w-[1920px] my-[30px]" />
         <div className="py-50px">
           <h1>Heading</h1>
           <h3>Subheading</h3>
