@@ -9,7 +9,7 @@ const HeroComponent = ({ cssClasses }: HeroComponentProps) => {
   return (
     <section
       className={classNames(
-        "bg-yellow pt-16 tablet-small:pt-50px tablet:pt-100px desktop:pt-150px",
+        "bg-yellow pt-16 overflow-hidden tablet-small:pt-50px tablet:pt-100px desktop:pt-150px",
         cssClasses
       )}
     >
