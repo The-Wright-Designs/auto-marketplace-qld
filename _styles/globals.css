@@ -83,18 +83,18 @@
 
   h1,
   h2 {
-    @apply text-heading desktop:text-heading-desktop text-blue;
+    @apply text-heading text-blue;
   }
 
   h3,
   h4,
   h5,
   h6 {
-    @apply text-subheading desktop:text-subheading-desktop text-blue;
+    @apply text-subheading text-blue;
   }
 
   p {
-    @apply text-paragraph desktop:text-paragraph-desktop;
+    @apply text-paragraph;
   }
 
   input,

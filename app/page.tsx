@@ -1,3 +1,4 @@
+import AboutComponent from "@/_components/home-page/about-component";
 import CarBrandsSlider from "@/_components/home-page/car-brands-slider";
 import HeroComponent from "@/_components/home-page/hero-component";
 import WelcomeComponent from "@/_components/home-page/welcome-component";
@@ -9,6 +10,7 @@ export default function Home() {
         <HeroComponent cssClasses="-mx-5 desktop-small:-mx-50px full-hd:-mx-120px" />
         <CarBrandsSlider cssClasses="max-w-[1920px] my-[30px]" />
         <WelcomeComponent />
+        <AboutComponent />
       </div>
     </div>
   );
