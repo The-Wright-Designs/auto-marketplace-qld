@@ -19,7 +19,7 @@ const WelcomeComponent = () => {
           Welcome to Auto Marketplace QLD
         </h2>
         <p className="text-[1.25rem] leading-[1.875rem] min-[1485px]:text-paragraph-desktop">
-          – your trusted online portal for selling vehicles across Queensland.
+          Your trusted online portal for selling vehicles across Queensland.
           Whether you’re upgrading, downsizing, or simply ready to move on,
           we’re here to make it easy, fast, and secure to sell your car with
           confidence. Sell smarter and faster every time.

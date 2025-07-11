@@ -121,13 +121,7 @@ const DesktopHeaderNav = () => {
                 alt="Sell My Car"
                 width={62}
                 height={50}
-                className={classNames(
-                  "h-auto w-12 full-hd:w-[62px] ease-in-out duration-300",
-                  {
-                    "opacity-0": !ctaHover,
-                    "opacity-100": ctaHover,
-                  }
-                )}
+                className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
               />
             ) : (
               <Image
@@ -135,13 +129,7 @@ const DesktopHeaderNav = () => {
                 alt="Sell My Car"
                 width={62}
                 height={50}
-                className={classNames(
-                  "h-auto w-12 full-hd:w-[62px] ease-in-out duration-300",
-                  {
-                    "opacity-0": ctaHover,
-                    "opacity-100": !ctaHover,
-                  }
-                )}
+                className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
               />
             )}
           </Link>

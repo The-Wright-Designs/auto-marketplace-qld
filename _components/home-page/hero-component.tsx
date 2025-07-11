@@ -14,9 +14,9 @@ const HeroComponent = ({ cssClasses }: HeroComponentProps) => {
       )}
     >
       <h2 className="grid text-center text-subheading phone:text-subheading-desktop tablet-small:text-left tablet-small:ml-10 desktop-small:text-[100px] desktop-small:leading-[100px] desktop-small:ml-20 desktop:text-[150px] desktop:leading-[150px]">
-        Sell smart,
+        sell smart.
         <span className="text-blue text-subheading phone:text-subheading-desktop tablet-small:text-left desktop-small:text-[100px] desktop-small:leading-[100px] desktop:text-[150px] desktop:leading-[150px]">
-          sell fast,
+          sell fast.
         </span>
         sell online.
       </h2>

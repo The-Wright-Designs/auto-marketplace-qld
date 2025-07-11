@@ -1,5 +1,6 @@
 import AboutComponent from "@/_components/home-page/about-component";
 import CarBrandsSlider from "@/_components/home-page/car-brands-slider";
+import CtaComponent from "@/_components/home-page/cta-component";
 import HeroComponent from "@/_components/home-page/hero-component";
 import WelcomeComponent from "@/_components/home-page/welcome-component";
 
@@ -11,6 +12,7 @@ export default function Home() {
         <CarBrandsSlider cssClasses="max-w-[1920px] my-[30px]" />
         <WelcomeComponent />
         <AboutComponent />
+        <CtaComponent />
       </div>
     </div>
   );
