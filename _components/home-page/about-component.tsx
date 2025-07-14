@@ -1,7 +1,9 @@
 import aboutData from "@/_data/general-data.json";
 import Image from "next/image";
 
-const { aboutInfo } = aboutData;
+const {
+  homePage: { aboutInfo },
+} = aboutData;
 
 const AboutComponent = () => {
   return (

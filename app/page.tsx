@@ -1,3 +1,4 @@
+import About2Component from "@/_components/home-page/about-2-component";
 import AboutComponent from "@/_components/home-page/about-component";
 import CarBrandsSlider from "@/_components/home-page/car-brands-slider";
 import CtaComponent from "@/_components/home-page/cta-component";
@@ -13,6 +14,7 @@ export default function Home() {
         <WelcomeComponent />
         <AboutComponent />
         <CtaComponent />
+        <About2Component />
       </div>
     </div>
   );

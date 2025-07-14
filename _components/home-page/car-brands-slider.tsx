@@ -8,7 +8,9 @@ import data from "@/_data/general-data.json";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const { carBrands } = data;
+const {
+  homePage: { carBrands },
+} = data;
 
 interface Props {
   cssClasses?: string;

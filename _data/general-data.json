@@ -1,72 +1,88 @@
 {
-  "carBrands": [
-    {
-      "src": "/images/car-brand-logos/toyota.png",
-      "alt": "Toyota logo"
-    },
-    {
-      "src": "/images/car-brand-logos/honda.png",
-      "alt": "Honda logo"
-    },
-    {
-      "src": "/images/car-brand-logos/nissan.png",
-      "alt": "Nissan logo"
-    },
-    {
-      "src": "/images/car-brand-logos/subaru.png",
-      "alt": "Subaru logo"
-    },
-    {
-      "src": "/images/car-brand-logos/mazda.png",
-      "alt": "Mazda logo"
-    },
-    {
-      "src": "/images/car-brand-logos/mitsubishi.png",
-      "alt": "Mitsubishi logo"
-    },
-    {
-      "src": "/images/car-brand-logos/suzuki.png",
-      "alt": "Suzuki logo"
-    },
-    {
-      "src": "/images/car-brand-logos/ford.png",
-      "alt": "Ford logo"
-    },
-    {
-      "src": "/images/car-brand-logos/mercedes-benz.png",
-      "alt": "Mercedes-Benz logo"
-    }
-  ],
-  "aboutInfo": [
-    {
-      "heading": "Sell Your Car the Smart Way",
-      "paragraph": "Looking to sell your car quickly and with zero hassle? You’ve come to the right place. Simply list your vehicle online and start receiving genuine offers within hours — it’s that easy.",
-      "image": "/images/home-page/shot-of-a-young-businessman-using-a-computer-durin-2025-04-05-14-06-54-utc.jpg"
-    },
-    {
-      "heading": "The Fastest Way to Sell Your Car",
-      "paragraph": "We are here to make the whole selling your car process as fast as possible. Our platform is designed to help you sell your car fast with no roadworthy certificate required.",
-      "image": "/images/home-page/a-woman-holding-and-showing-car-key-while-sitting-2024-12-05-16-21-44-utc.jpg"
-    },
-    {
-      "heading": "Hassle-Free from Start to Finish",
-      "paragraph": "Our contactless online process means you can sell from the comfort of your home. It’s quick, straightforward, and supported by friendly local customer service every step of the way. Whether you’re tech-savvy or not, we make the process smooth and convenient.",
-      "image": "/images/home-page/portrait-of-success-business-people-working-togeth-2025-03-31-18-26-31-utc.jpg"
-    },
-    {
-      "heading": "Get the Best Price – Guaranteed",
-      "paragraph": "When you’re ready to say, “I want to sell my car,” we connect you with a trusted network of licensed car buyers actively looking to purchase. These are serious buyers, not time-wasters. We take care of all the negotiations on your behalf to ensure you get the best possible price — no stress, no pressure.",
-      "image": "/images/home-page/experienced-gray-haired-businessman-celebrating-vi-2025-04-02-21-35-48-utc.jpg"
-    },
-    {
-      "heading": "Safe, Secure, and Scam-Free",
-      "paragraph": "Don’t risk dealing with strangers or online scammers. All buyers on our platform are licensed professionals, so you can sell your car with confidence. The secure and trustworthy way to sell.",
-      "image": "/images/home-page/african-woman-indoors-at-home-using-laptop-compute-2025-02-15-10-32-37-utc.jpg"
-    },
-    {
-      "heading": "Free to List – No Sale, No Fee",
-      "paragraph": "It’s completely free to list your car, with no hidden advertising costs. If you don’t make a sale, you don’t pay — simple as that. So there’s nothing to lose and everything to gain.",
-      "image": "/images/home-page/young-man-with-blue-shirt-and-tie-getting-out-of-c-2024-10-18-16-25-16-utc.jpg"
-    }
-  ]
+  "homePage": {
+    "carBrands": [
+      {
+        "src": "/images/car-brand-logos/toyota.png",
+        "alt": "Toyota logo"
+      },
+      {
+        "src": "/images/car-brand-logos/honda.png",
+        "alt": "Honda logo"
+      },
+      {
+        "src": "/images/car-brand-logos/nissan.png",
+        "alt": "Nissan logo"
+      },
+      {
+        "src": "/images/car-brand-logos/subaru.png",
+        "alt": "Subaru logo"
+      },
+      {
+        "src": "/images/car-brand-logos/mazda.png",
+        "alt": "Mazda logo"
+      },
+      {
+        "src": "/images/car-brand-logos/mitsubishi.png",
+        "alt": "Mitsubishi logo"
+      },
+      {
+        "src": "/images/car-brand-logos/suzuki.png",
+        "alt": "Suzuki logo"
+      },
+      {
+        "src": "/images/car-brand-logos/ford.png",
+        "alt": "Ford logo"
+      },
+      {
+        "src": "/images/car-brand-logos/mercedes-benz.png",
+        "alt": "Mercedes-Benz logo"
+      }
+    ],
+    "aboutInfo": [
+      {
+        "heading": "Sell Your Car the Smart Way",
+        "paragraph": "Looking to sell your car quickly and with zero hassle? You’ve come to the right place. Simply list your vehicle online and start receiving genuine offers within hours — it’s that easy.",
+        "image": "/images/home-page/shot-of-a-young-businessman-using-a-computer-durin-2025-04-05-14-06-54-utc.jpg"
+      },
+      {
+        "heading": "The Fastest Way to Sell Your Car",
+        "paragraph": "We are here to make the whole selling your car process as fast as possible. Our platform is designed to help you sell your car fast with no roadworthy certificate required.",
+        "image": "/images/home-page/a-woman-holding-and-showing-car-key-while-sitting-2024-12-05-16-21-44-utc.jpg"
+      },
+      {
+        "heading": "Hassle-Free from Start to Finish",
+        "paragraph": "Our contactless online process means you can sell from the comfort of your home. It’s quick, straightforward, and supported by friendly local customer service every step of the way. Whether you’re tech-savvy or not, we make the process smooth and convenient.",
+        "image": "/images/home-page/portrait-of-success-business-people-working-togeth-2025-03-31-18-26-31-utc.jpg"
+      },
+      {
+        "heading": "Get the Best Price – Guaranteed",
+        "paragraph": "When you’re ready to say, “I want to sell my car,” we connect you with a trusted network of licensed car buyers actively looking to purchase. These are serious buyers, not time-wasters. We take care of all the negotiations on your behalf to ensure you get the best possible price — no stress, no pressure.",
+        "image": "/images/home-page/experienced-gray-haired-businessman-celebrating-vi-2025-04-02-21-35-48-utc.jpg"
+      },
+      {
+        "heading": "Safe, Secure, and Scam-Free",
+        "paragraph": "Don’t risk dealing with strangers or online scammers. All buyers on our platform are licensed professionals, so you can sell your car with confidence. The secure and trustworthy way to sell.",
+        "image": "/images/home-page/african-woman-indoors-at-home-using-laptop-compute-2025-02-15-10-32-37-utc.jpg"
+      },
+      {
+        "heading": "Free to List – No Sale, No Fee",
+        "paragraph": "It’s completely free to list your car, with no hidden advertising costs. If you don’t make a sale, you don’t pay — simple as that. So there’s nothing to lose and everything to gain.",
+        "image": "/images/home-page/young-man-with-blue-shirt-and-tie-getting-out-of-c-2024-10-18-16-25-16-utc.jpg"
+      }
+    ],
+    "about2Info": [
+      {
+        "heading": "How it works",
+        "paragraph": "At Auto Marketplace QLD, we’re redefining the way Queenslanders buy and sell cars. Our mission is simple: to help you sell your vehicle quickly, easily, and for the best trade-in price — all without the usual stress.",
+        "image": "/images/home-page/cheerful-mature-european-wife-hugging-husband-loo-2025-03-18-19-09-24-utc.jpg",
+        "link": "#"
+      },
+      {
+        "heading": "Our story ",
+        "paragraph": "After decades in the automotive industry, we saw too many car owners struggling with slow, stressful and unsafe selling options. That’s why we created a faster, safer and hassle-free way to sell your car - with same day offer, free pickup and dealers competing to give you the best price. No stress , no guesswork - just a better way to sell your vehicle.",
+        "image": "/images/home-page/smiling-businessman-driving-luxurious-car-through-2025-03-24-22-18-32-utc.jpg",
+        "link": "#"
+      }
+    ]
+  }
 }
