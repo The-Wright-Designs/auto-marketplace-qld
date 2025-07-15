@@ -13,7 +13,7 @@ export function DesktopFooter() {
         <Link
           href="/"
           aria-label="Auto Marketplace QLD - Home"
-          className="ease-in-out duration-300 hover:opacity-80"
+          className="ease-in-out duration-300 hover:opacity-80 mr-auto"
         >
           <Image
             src="/logo/amq-logo.png"

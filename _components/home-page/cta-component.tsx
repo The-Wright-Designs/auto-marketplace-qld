@@ -9,18 +9,18 @@ const CtaComponent = () => {
   const [ctaHover, setCtaHover] = useState(false);
 
   return (
-    <section className="-mx-5 desktop-small:-mx-50px desktop-small:relative desktop-small:h-[400px] desktop:h-[620px]">
+    <section className="-mx-5 overflow-hidden desktop-small:-mx-50px desktop-small:relative desktop-small:h-[400px] desktop:h-[620px]">
       <div className="bg-blue py-10 grid gap-8 desktop-small:grid-cols-[350px_1fr] desktop-small:h-full desktop:grid-cols-[450px_1fr] desktop-large:grid-cols-[440px_1fr]">
         <h4 className="text-[60px] px-5 leading-[120%] text-white flex flex-col text-center desktop-small:place-self-center desktop-small:text-left desktop-small:px-0 desktop-small:pl-50px desktop:text-[90px]">
           We sell <span className="text-yellow">so you don't have to.</span>
         </h4>
-        <div className="relative pb-[150px] min-[550px]:pb-[calc(24vw)] desktop-small:pb-0 desktop-small:place-self-center">
+        <div className="relative flex justify-center items-center desktop-small:block desktop-small:pb-0 desktop-small:place-self-center">
           <Image
             src="/images/graphics/05a.png"
             alt="Sell my car"
             width={1500}
             height={600}
-            className="min-w-[580px] h-auto absolute -left-24 min-[400px]:-left-20 phone:-left-14 min-[460]:-left-10 min-[500px]:-left-4 min-[550px]:left-0 desktop-small:min-w-[1200px] desktop-small:-left-[610px] desktop-small:-top-[130px] desktop:min-w-[1700px] desktop:-top-[160px] desktop:-left-[850px] desktop-large:min-w-[1920px] desktop-large:-top-[200px] desktop-large:-left-[1025px]"
+            className="w-full h-auto flex-shrink-0 desktop-small:absolute desktop-small:min-w-[970px] desktop-small:-left-[480px] desktop-small:-top-[130px] desktop:min-w-[1370px] desktop:-top-[160px] desktop:-left-[670px] desktop-large:min-w-[1550px] desktop-large:-top-[200px] desktop-large:-left-[825px]"
           />
         </div>
       </div>
