@@ -30,7 +30,7 @@ export function DesktopFooter() {
                   <li key={item.title}>
                     <Link
                       href={item.url}
-                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-paragraph-desktop"
+                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-subheading"
                     >
                       {item.title}
                     </Link>
@@ -46,14 +46,14 @@ export function DesktopFooter() {
                   <li key={item.title}>
                     <Link
                       href={item.url}
-                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-paragraph-desktop"
+                      className="text-paragraph text-white hover:text-yellow ease-in-out duration-300 desktop:text-subheading"
                     >
                       {item.title}
                     </Link>
                   </li>
                 );
               })}
-              <li className="text-paragraph text-white desktop:text-paragraph-desktop">
+              <li className="text-paragraph text-white desktop:text-subheading">
                 ABN - xxxxx
               </li>
             </ul>

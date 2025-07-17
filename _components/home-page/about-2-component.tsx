@@ -40,12 +40,8 @@ const About2Component = () => {
               />
             </div>
             <div className="grid gap-5 place-content-center desktop-large:gap-50px">
-              <h4 className="desktop-large:text-subheading-desktop">
-                {heading}
-              </h4>
-              <p className="desktop-large:text-paragraph-desktop">
-                {paragraph}
-              </p>
+              <h4 className="full-hd:text-subheading-desktop">{heading}</h4>
+              <p className="full-hd:text-paragraph-desktop">{paragraph}</p>
               <ButtonLink href={link} ariaLabel={heading} cssClasses="mr-auto">
                 Read more
               </ButtonLink>
