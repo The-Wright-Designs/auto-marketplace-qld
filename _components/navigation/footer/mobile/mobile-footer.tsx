@@ -13,7 +13,7 @@ export function MobileFooter() {
       <div className="grid gap-5">
         <Link
           href="/"
-          className="flex gap-1 place-self-center"
+          className="flex gap-2 place-self-center"
           aria-label="Auto Marketplace QLD - Home"
         >
           <Image
@@ -23,7 +23,7 @@ export function MobileFooter() {
             height={195}
           />
         </Link>
-        <ul className="grid gap-1 text-center">
+        <ul className="grid gap-2 text-center">
           {footerNavData.map(({ title, url }, id) => {
             return (
               <li
@@ -32,7 +32,7 @@ export function MobileFooter() {
                   "mt-2": title === "Terms & Conditions",
                 })}
               >
-                <Link href={url} className="text-paragraph text-white p-1 -m-1">
+                <Link href={url} className="text-paragraph text-white p-2 -m-2">
                   {title}
                 </Link>
               </li>

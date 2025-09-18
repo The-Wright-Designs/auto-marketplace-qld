@@ -8,9 +8,9 @@ const {
 const AboutComponent = () => {
   return (
     <main className="desktop-small:pt-5 pb-10 desktop-small:pb-100px">
-      <ul className="grid gap-10 tablet-small:grid-cols-2 desktop-large:gap-50px desktop-large:grid-cols-3">
+      <ul className="grid gap-10 tablet-small:grid-cols-2 desktop-large:gap-10 desktop-large:grid-cols-3">
         {aboutInfo.map(({ heading, paragraph, image }, index) => (
-          <li key={index} className="flex flex-col gap-5 full-hd:gap-50px">
+          <li key={index} className="flex flex-col gap-5 full-hd:gap-10">
             <div>
               <Image
                 src={image}

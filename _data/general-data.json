@@ -84,5 +84,22 @@
         "link": "#"
       }
     ]
+  },
+  "aboutPage": {
+    "paragraphs": [
+      "At Auto Marketplace QLD, we're redefining the way Queenslanders buy and sell cars. Our mission is simple: to help you sell your vehicle quickly, easily, and for the best trade-in price — all without the usual stress.",
+      "With deep industry expertise and a passion for innovation, we’ve built a smart, secure online platform that connects your car with a growing network of trusted, licensed buyers. Backed by local customer support and cutting-edge technology, we deliver a hassle-free selling experience from start to finish.",
+      "Whether you're ready to upgrade or simply looking for the best deal, Auto Marketplace QLD is your reliable partner in selling your car the smart way."
+    ],
+    "images": [
+      {
+        "src": "/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif",
+        "alt": "Auto Marketplace QLD"
+      },
+      {
+        "src": "/images/placeholders/01-2025-honda-civic-sedan-sport-touring-hybrid-67e7f55ddd5d9.jpg",
+        "alt": "Auto Marketplace QLD"
+      }
+    ]
   }
 }

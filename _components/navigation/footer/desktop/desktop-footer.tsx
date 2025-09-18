@@ -59,7 +59,7 @@ export function DesktopFooter() {
             </ul>
             <SocialIcons iconCssClasses="w-[30px] h-auto desktop:w-[49px]" />
           </nav>
-          <div className="col-span-2 mt-[25px] place-self-start">
+          <div className="col-span-2 mt-7 place-self-start">
             <h4 className="text-paragraph text-white text-center desktop:text-paragraph-desktop">
               © {new Date().getFullYear()} Auto Marketplace QLD. All rights
               reserved

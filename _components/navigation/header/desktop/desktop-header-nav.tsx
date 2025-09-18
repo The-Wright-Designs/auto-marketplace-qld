@@ -96,7 +96,7 @@ const DesktopHeaderNav = () => {
             href="sell-my-car"
             aria-label="Sell My Car"
             className={classNames(
-              "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-3 ease-in-out duration-300",
+              "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-2 ease-in-out duration-300",
               {
                 "bg-yellow": !ctaHover,
                 "bg-blue": ctaHover,

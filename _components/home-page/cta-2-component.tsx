@@ -3,14 +3,14 @@ import Link from "next/link";
 
 const Cta2Component = () => {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-blue pt-10 grid gap-8 desktop-small:grid-cols-[1fr_0.75fr] desktop-small:h-[480px] desktop-small:gap-0 desktop-small:-mx-50px desktop:h-[600px] desktop-large:grid-cols-[1fr_0.5fr] desktop-large:h-[700px]">
+    <section className="relative -mx-5 overflow-hidden bg-blue pt-10 grid gap-7 desktop-small:grid-cols-[1fr_0.75fr] desktop-small:h-[480px] desktop-small:gap-0 desktop-small:-mx-10 desktop:h-[600px] desktop-large:grid-cols-[1fr_0.5fr] desktop-large:h-[700px]">
       <h4 className="text-[40px] px-5 leading-[120%] tablet-small:text-[50px] text-white flex flex-col text-center desktop-small:pl-50px desktop-small:my-auto desktop-small:text-left min-[1350px]:text-[60px] desktop-large:text-[70px] full-hd:text-[90px]">
         Sell your car with
         <span className="text-yellow">Auto Marketplace QLD</span>
         <Link
           href="#"
           aria-label="Sell My Car"
-          className="flex justify-center gap-1 p-2 -m-2 mx-auto text-white desktop-small:justify-start desktop-small:p-0 desktop-small:m-0 desktop-small:gap-2 desktop-small:mr-auto desktop-small:hover:text-yellow ease-in-out duration-300"
+          className="flex justify-center gap-2 p-2 -m-2 mx-auto text-white desktop-small:justify-start desktop-small:p-0 desktop-small:m-0 desktop-small:gap-2 desktop-small:mr-auto desktop-small:hover:text-yellow ease-in-out duration-300"
         >
           Sell My Car
           <Image

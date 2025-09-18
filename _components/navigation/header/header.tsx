@@ -30,7 +30,7 @@ export function Header() {
             href="sell-my-car"
             aria-label="Sell My Car"
             className={classNames(
-              "bg-white h-[90px] flex items-center justify-center gap-3 ease-in-out duration-300 desktop-small:hidden",
+              "bg-white h-[90px] flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:hidden",
               {
                 "-translate-y-full": isScrolled,
               }

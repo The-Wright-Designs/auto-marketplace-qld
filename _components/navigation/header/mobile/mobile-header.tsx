@@ -78,7 +78,7 @@ export function MobileHeader() {
           </button>
         </div>
         <nav>
-          <ul className="grid gap-5 mt-4">
+          <ul className="grid gap-5 mt-5">
             {headerNavData.map(({ title, url }, id) => {
               return (
                 <li key={id}>

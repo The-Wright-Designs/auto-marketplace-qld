@@ -9,8 +9,8 @@ const CtaComponent = () => {
   const [ctaHover, setCtaHover] = useState(false);
 
   return (
-    <section className="-mx-5 overflow-hidden desktop-small:-mx-50px desktop-small:relative desktop-small:h-[400px] desktop:h-[620px]">
-      <div className="bg-blue py-10 grid gap-8 desktop-small:grid-cols-[350px_1fr] desktop-small:h-full desktop:grid-cols-[450px_1fr] desktop-large:grid-cols-[440px_1fr]">
+    <section className="-mx-5 overflow-hidden desktop-small:-mx-10 desktop-small:relative desktop-small:h-[400px] desktop:h-[620px]">
+      <div className="bg-blue py-10 grid gap-7 desktop-small:grid-cols-[350px_1fr] desktop-small:h-full desktop:grid-cols-[450px_1fr] desktop-large:grid-cols-[440px_1fr]">
         <h4 className="text-[60px] px-5 leading-[120%] text-white flex flex-col text-center desktop-small:place-self-center desktop-small:text-left desktop-small:px-0 desktop-small:pl-50px desktop:text-[90px]">
           We sell <span className="text-yellow">so you don't have to.</span>
         </h4>
@@ -28,7 +28,7 @@ const CtaComponent = () => {
         href="sell-my-car"
         aria-label="Sell My Car"
         className={classNames(
-          "bg-yellow py-4 min-[400px]:py-10 px-5 flex items-center justify-center gap-3 ease-in-out duration-300 desktop-small:absolute desktop-small:top-0 desktop-small:right-[100px] desktop-small:w-[300px] desktop-small:h-[400px] desktop-small:border-8 border-yellow desktop:h-[620px] desktop:right-[50px] desktop:w-[450px] desktop-large:w-[526px]",
+          "bg-yellow py-4 min-[400px]:py-10 px-5 flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:absolute desktop-small:top-0 desktop-small:right-[100px] desktop-small:w-[300px] desktop-small:h-[400px] desktop-small:border-8 border-yellow desktop:h-[620px] desktop:right-[50px] desktop:w-[450px] desktop-large:w-[526px]",
           {
             "desktop-small:bg-yellow": !ctaHover,
             "desktop-small:bg-blue": ctaHover,

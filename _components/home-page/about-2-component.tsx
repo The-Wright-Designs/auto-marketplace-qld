@@ -15,7 +15,7 @@ const About2Component = () => {
         {about2Info.map(({ heading, paragraph, image, link }, index) => (
           <li
             key={index}
-            className={classNames("grid gap-5 desktop-large:gap-50px", {
+            className={classNames("grid gap-5 desktop-large:gap-10", {
               "desktop-small:grid-cols-[1fr_0.925fr]": index % 2,
               "desktop-small:grid-cols-[1fr_2.10fr]": index % 2 === 0,
             })}
@@ -39,7 +39,7 @@ const About2Component = () => {
                 sizes="(max-width:1280px) 100vw, (max-width: 1440px) 60vw, 1100px"
               />
             </div>
-            <div className="grid gap-5 place-content-center desktop-large:gap-50px">
+            <div className="grid gap-5 place-content-center desktop-large:gap-10">
               <h4 className="full-hd:text-subheading-desktop">{heading}</h4>
               <p className="full-hd:text-paragraph-desktop">{paragraph}</p>
               <ButtonLink href={link} ariaLabel={heading} cssClasses="mr-auto">
