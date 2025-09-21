@@ -29,7 +29,7 @@ const DesktopHeaderNav = () => {
 
   return (
     <nav className="self-end">
-      <ul className="flex gap-5 items-center full-hd:gap-50px">
+      <ul className="flex gap-5 items-center full-hd:gap-7">
         {(headerNavData as NavItem[]).map((item, id) => {
           const hasSubmenu = item.submenu && item.submenu.length > 0;
 

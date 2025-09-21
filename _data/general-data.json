@@ -1,4 +1,8 @@
 {
+  "contact": {
+    "phone": "123456",
+    "email": "example@example.com"
+  },
   "homePage": {
     "carBrands": [
       {
