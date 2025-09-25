@@ -90,20 +90,241 @@
     ]
   },
   "aboutPage": {
-    "paragraphs": [
-      "At Auto Marketplace QLD, we're redefining the way Queenslanders buy and sell cars. Our mission is simple: to help you sell your vehicle quickly, easily, and for the best trade-in price — all without the usual stress.",
-      "With deep industry expertise and a passion for innovation, we’ve built a smart, secure online platform that connects your car with a growing network of trusted, licensed buyers. Backed by local customer support and cutting-edge technology, we deliver a hassle-free selling experience from start to finish.",
-      "Whether you're ready to upgrade or simply looking for the best deal, Auto Marketplace QLD is your reliable partner in selling your car the smart way."
-    ],
-    "images": [
-      {
-        "src": "/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif",
-        "alt": "Auto Marketplace QLD"
-      },
-      {
-        "src": "/images/placeholders/01-2025-honda-civic-sedan-sport-touring-hybrid-67e7f55ddd5d9.jpg",
+    "aboutSection": {
+      "paragraphs": [
+        "At Auto Marketplace QLD, we're redefining the way Queenslanders buy and sell cars. Our mission is simple: to help you sell your vehicle quickly, easily, and for the best trade-in price — all without the usual stress.",
+        "With deep industry expertise and a passion for innovation, we’ve built a smart, secure online platform that connects your car with a growing network of trusted, licensed buyers. Backed by local customer support and cutting-edge technology, we deliver a hassle-free selling experience from start to finish.",
+        "Whether you're ready to upgrade or simply looking for the best deal, Auto Marketplace QLD is your reliable partner in selling your car the smart way."
+      ],
+      "images": [
+        {
+          "src": "/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif",
+          "alt": "Auto Marketplace QLD"
+        },
+        {
+          "src": "/images/placeholders/01-2025-honda-civic-sedan-sport-touring-hybrid-67e7f55ddd5d9.jpg",
+          "alt": "Auto Marketplace QLD"
+        }
+      ]
+    },
+    "ourStorySection": {
+      "paragraphs": [
+        "After decades in the automotive industry — starting out as a hands-on car mechanic and later running successful car dealerships — Leo Pienaar saw a growing need for a better way to buy and sell cars. Drawing on his deep knowledge of vehicles and the dealership world, Leo envisioned a platform that would remove the usual headaches of selling a car, while creating a more transparent and trustworthy experience for both sellers and professional buyers.",
+        "That vision became Auto Marketplace QLD — an online portal designed to make it easy for everyday Queenslanders to connect directly with licensed, reputable car dealers. This ensures you can sell your car smart, fast, and online. Leo’s goal was simple: take the guesswork and pressure out of the car-selling process, and replace it with fair pricing, full transparency, and genuine support at every step.",
+        "He knows cars inside and out, and he knows what makes a good deal. With Auto Marketplace QLD, Leo has built more than just a marketplace — he’s built a smarter, more secure way for people to sell their cars with confidence."
+      ],
+      "image": {
+        "src": "/images/placeholders/_128000013_merc-benz-ayl-010.jpg",
         "alt": "Auto Marketplace QLD"
       }
-    ]
+    },
+    "faqs": [
+      {
+        "question": "Who takes care of transferring the registration into the buyer's name?",
+        "answer": "The buyer is responsible for updating the registration once the sale is complete, though we'll guide you on what's needed."
+      },
+      {
+        "question": "How much does it cost to use Auto Marketplace QLD?",
+        "answer": "You'll only pay our Success Fee when your car sells—no hidden extras or upfront listing fees."
+      },
+      {
+        "question": "What happens if the offers don't reach my reserve price?",
+        "answer": "If the highest offer isn't what you're happy with, you're not obliged to sell. The choice is completely yours."
+      },
+      {
+        "question": "When do I get billed for the Success Fee?",
+        "answer": "The fee is only charged after a successful sale, once the deal has gone through."
+      },
+      {
+        "question": "Can I back out of a sale after accepting an offer?",
+        "answer": "Yes, but backing out after agreement may have conditions or fees—chat with us if you're unsure."
+      },
+      {
+        "question": "How is the value of my car worked out?",
+        "answer": "We use market data, buyer demand, and dealership trends to provide a fair, current valuation for your vehicle."
+      },
+      {
+        "question": "Do dealers buy cars through Auto Marketplace QLD?",
+        "answer": "Yes all of our buyers are licensed dealers, meaning you can sell quickly without the stress of private advertising."
+      },
+      {
+        "question": "Who are the potential buyers of my car?",
+        "answer": "Your car could be purchased by dealers, wholesalers, or other registered buyers on our network."
+      },
+      {
+        "question": "Is the sale final as soon as I sign the documents?",
+        "answer": "Once the paperwork is signed and payment is arranged, your car is officially sold."
+      },
+      {
+        "question": "Can I advertise my car privately while using Auto Marketplace QLD?",
+        "answer": "Preferably not, as this can interfere with the pricing that dealers could offer."
+      },
+      {
+        "question": "How is my car's final price set?",
+        "answer": "Your reserve price plus live buyer offers determine the outcome—the final price is what you accept."
+      },
+      {
+        "question": "What documents do I need to sell my car?",
+        "answer": "Proof of registration, proof of ID, and any finance payout details (if applicable)."
+      },
+      {
+        "question": "How and when do I get paid?",
+        "answer": "Payment is arranged directly once the sale is completed between you and the dealer, so you can feel confident your money is secure."
+      },
+      {
+        "question": "Can I still sell my car if it has finance owing?",
+        "answer": "Yes—you'll just need to provide the payout figure so the finance can be settled as part of the process."
+      },
+      {
+        "question": "What happens after I say 'yes' to an offer?",
+        "answer": "We'll connect you with the buyer, help organise the paperwork, and guide you through to payment."
+      },
+      {
+        "question": "Does Auto Marketplace QLD handle the ownership transfer?",
+        "answer": "We don't transfer the registration ourselves, it is all done by the purchasing dealer."
+      },
+      {
+        "question": "How long does it usually take to sell my car?",
+        "answer": "Every car is different, but many vehicles sell within a few days once listed to our buyer network."
+      },
+      {
+        "question": "Do I need to get a roadworthy certificate before selling?",
+        "answer": "No, not when selling directly to a licensed dealer."
+      },
+      {
+        "question": "Can I sell a car that isn't running?",
+        "answer": "No, cars sold on our platform must be in running condition."
+      },
+      {
+        "question": "What makes Auto Marketplace QLD different from selling privately?",
+        "answer": "We connect you with serious, pre-qualified buyers, saving you time, hassle, and endless tyre-kickers."
+      }
+    ],
+    "fees": {
+      "sellerFees": [
+        {
+          "saleValue": {
+            "from": 0,
+            "to": 10000
+          },
+          "fee": "220",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 10000,
+            "to": 20000
+          },
+          "fee": "300",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 20000,
+            "to": 30000
+          },
+          "fee": "350",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 30000,
+            "to": 40000
+          },
+          "fee": "400",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 40000,
+            "to": 50000
+          },
+          "fee": "450",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 50000,
+            "to": 70000
+          },
+          "fee": "500",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 70000,
+            "to": 100000
+          },
+          "fee": "550",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 100000,
+            "to": null
+          },
+          "fee": "600",
+          "gst": "Incl Gst"
+        }
+      ],
+      "buyerFees": [
+        {
+          "saleValue": {
+            "from": 0,
+            "to": 10000
+          },
+          "fee": "220",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 10000,
+            "to": 20000
+          },
+          "fee": "330",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 20000,
+            "to": 30000
+          },
+          "fee": "440",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 30000,
+            "to": 40000
+          },
+          "fee": "550",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 40000,
+            "to": 50000
+          },
+          "fee": "660",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 50000,
+            "to": 70000
+          },
+          "fee": "770",
+          "gst": "Incl Gst"
+        },
+        {
+          "saleValue": {
+            "from": 70000,
+            "to": null
+          },
+          "fee": "880",
+          "gst": "Incl Gst"
+        }
+      ]
+    }
   }
 }

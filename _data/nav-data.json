@@ -17,12 +17,12 @@
           "url": "/about#our-story"
         },
         {
-          "title": "FAQs",
-          "url": "/about#faqs"
-        },
-        {
           "title": "Seller Fees",
           "url": "/about#seller-fees"
+        },
+        {
+          "title": "FAQs",
+          "url": "/about#faqs"
         }
       ]
     },

@@ -18,7 +18,7 @@ const WelcomeComponent = () => {
         <h2 className="text-subheading full-hd:text-subheading-desktop">
           Welcome to Auto Marketplace QLD
         </h2>
-        <p className="text-[1.25rem] leading-[1.875rem] min-[1485px]:text-paragraph-desktop">
+        <p className="text-[1.25rem] leading-[1.875rem] min-[1485px]:text-paragraph-desktop min-[1485px]:leading-[2.5rem]">
           Your trusted online portal for selling vehicles across Queensland.
           Whether you’re upgrading, downsizing, or simply ready to move on,
           we’re here to make it easy, fast, and secure to sell your car with
