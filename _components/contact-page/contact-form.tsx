@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/_components/ui/contact/forms/input";
 import { Textarea } from "@/_components/ui/contact/forms/textarea";
 import { Label } from "@/_components/ui/contact/forms/label";
-import ButtonType from "../ui/button-type";
+import ButtonType from "../ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { sendEmail } from "@/_actions/send-email-actions";
 
@@ -69,24 +69,50 @@ export const ContactForm = () => {
               }
             }}
           >
-            <input type="text" name="_honey" className="visually-hidden" tabIndex={-1} autoComplete="off" />
+            <input
+              type="text"
+              name="_honey"
+              className="visually-hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
             <div>
-              <Label htmlFor="name" className="visually-hidden">Name:</Label>
-              <Input type="text" placeholder="Name" name="name" id="name" required />
+              <Label htmlFor="name" className="visually-hidden">
+                Name:
+              </Label>
+              <Input
+                type="text"
+                placeholder="Name"
+                name="name"
+                id="name"
+                required
+              />
             </div>
 
             <div>
-              <Label htmlFor="email" className="visually-hidden">Email:</Label>
-              <Input type="email" placeholder="Email" name="email" id="email" required />
+              <Label htmlFor="email" className="visually-hidden">
+                Email:
+              </Label>
+              <Input
+                type="email"
+                placeholder="Email"
+                name="email"
+                id="email"
+                required
+              />
             </div>
 
             <div>
-              <Label htmlFor="phone" className="visually-hidden">Phone:</Label>
+              <Label htmlFor="phone" className="visually-hidden">
+                Phone:
+              </Label>
               <Input type="tel" placeholder="Phone" name="phone" id="phone" />
             </div>
 
             <div>
-              <Label htmlFor="message" className="visually-hidden">Message:</Label>
+              <Label htmlFor="message" className="visually-hidden">
+                Message:
+              </Label>
               <Textarea
                 placeholder="Message"
                 name="message"

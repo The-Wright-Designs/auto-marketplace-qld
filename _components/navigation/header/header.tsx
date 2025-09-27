@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollPosition = useScrollPosition();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (scrollPosition > 150) {
@@ -26,26 +28,28 @@ export function Header() {
       <div className="max-w-[1920px] mx-auto relative">
         <div>
           <MobileHeader />
-          <Link
-            href="sell-my-car"
-            aria-label="Sell My Car"
-            className={classNames(
-              "bg-white h-[90px] flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:hidden",
-              {
-                "-translate-y-full": isScrolled,
-              }
-            )}
-          >
-            <h3 className="text-paragraph-desktop font-bold min-[375px]:text-subheading uppercase">
-              Sell My Car
-            </h3>
-            <Image
-              src="/icons/click-blue.svg"
-              alt="Sell My Car"
-              width={62}
-              height={50}
-            />
-          </Link>
+          {pathname !== "/sell-my-car" && (
+            <Link
+              href="sell-my-car"
+              aria-label="Sell My Car"
+              className={classNames(
+                "bg-white h-[90px] flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:hidden",
+                {
+                  "-translate-y-full": isScrolled,
+                }
+              )}
+            >
+              <h3 className="text-paragraph-desktop font-bold min-[375px]:text-subheading uppercase">
+                Sell My Car
+              </h3>
+              <Image
+                src="/icons/click-blue.svg"
+                alt="Sell My Car"
+                width={62}
+                height={50}
+              />
+            </Link>
+          )}
         </div>
         <DesktopHeader />
       </div>

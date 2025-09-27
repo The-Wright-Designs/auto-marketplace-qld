@@ -28,7 +28,9 @@ const DesktopHeaderNav = () => {
   const currentRoute = usePathname();
 
   return (
-    <nav className="self-end">
+    <nav
+      className={classNames({ "self-end": currentRoute !== "/sell-my-car" })}
+    >
       <ul className="flex gap-5 items-center full-hd:gap-7">
         {(headerNavData as NavItem[]).map((item, id) => {
           const hasSubmenu = item.submenu && item.submenu.length > 0;
@@ -91,49 +93,51 @@ const DesktopHeaderNav = () => {
             </li>
           );
         })}
-        <li>
-          <Link
-            href="sell-my-car"
-            aria-label="Sell My Car"
-            className={classNames(
-              "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-2 ease-in-out duration-300",
-              {
-                "bg-yellow": !ctaHover,
-                "bg-blue": ctaHover,
-              }
-            )}
-            onMouseEnter={() => setCtaHover(true)}
-            onMouseLeave={() => setCtaHover(false)}
-          >
-            <h3
+        {currentRoute !== "/sell-my-car" && (
+          <li>
+            <Link
+              href="sell-my-car"
+              aria-label="Sell My Car"
               className={classNames(
-                "text-subheading uppercase ease-in-out duration-300",
+                "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-2 ease-in-out duration-300",
                 {
-                  "text-yellow": ctaHover,
+                  "bg-yellow": !ctaHover,
+                  "bg-blue": ctaHover,
                 }
               )}
+              onMouseEnter={() => setCtaHover(true)}
+              onMouseLeave={() => setCtaHover(false)}
             >
-              Sell My Car
-            </h3>
-            {ctaHover ? (
-              <Image
-                src="/icons/click-yellow.svg"
-                alt="Sell My Car"
-                width={62}
-                height={50}
-                className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
-              />
-            ) : (
-              <Image
-                src="/icons/click-blue.svg"
-                alt="Sell My Car"
-                width={62}
-                height={50}
-                className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
-              />
-            )}
-          </Link>
-        </li>
+              <h3
+                className={classNames(
+                  "text-subheading uppercase ease-in-out duration-300",
+                  {
+                    "text-yellow": ctaHover,
+                  }
+                )}
+              >
+                Sell My Car
+              </h3>
+              {ctaHover ? (
+                <Image
+                  src="/icons/click-yellow.svg"
+                  alt="Sell My Car"
+                  width={62}
+                  height={50}
+                  className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
+                />
+              ) : (
+                <Image
+                  src="/icons/click-blue.svg"
+                  alt="Sell My Car"
+                  width={62}
+                  height={50}
+                  className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
+                />
+              )}
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
