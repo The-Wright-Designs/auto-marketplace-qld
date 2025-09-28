@@ -1,7 +1,7 @@
 "use server";
 
 import nodemailer from "nodemailer";
-import { emailTemplate } from "@/_lib/email-template";
+import { contactEmailTemplate } from "@/_lib/utils/email-templates/contact-email-template";
 import DOMPurify from "isomorphic-dompurify";
 import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
@@ -50,7 +50,7 @@ export async function sendEmail(
         return { success: false, error: "All required fields must be filled" };
       }
 
-      const emailHtmlContent = emailTemplate({
+      const emailHtmlContent = contactEmailTemplate({
         name,
         email,
         phone,

@@ -5,7 +5,7 @@ interface EmailTemplateProps {
   message: string;
 }
 
-export const emailTemplate = ({
+export const contactEmailTemplate = ({
   name,
   email,
   phone,

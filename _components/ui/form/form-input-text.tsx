@@ -1,7 +1,7 @@
 import { formInputStyles, formLabelStyles } from "@/_styles/form-input-styles";
 import { FormInputTextProps } from "@/_types/form-types";
 
-export const FormInputText = ({
+const FormInputText = ({
   id,
   name,
   placeholder,
@@ -30,3 +30,4 @@ export const FormInputText = ({
     </div>
   );
 };
+export default FormInputText;

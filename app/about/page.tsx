@@ -1,7 +1,7 @@
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
-import AboutPageComponent from "@/_components/about-page/about-page-component";
-import OurStoryComponent from "@/_components/about-page/our-story-component";
-import FaqComponent from "@/_components/about-page/faq-component";
+import AboutPageComponent from "@/_components/pages/about-page/about-page-component";
+import OurStoryComponent from "@/_components/pages/about-page/our-story-component";
+import FaqComponent from "@/_components/pages/about-page/faq-component";
 import FeesComponent from "@/_lib/fees-component";
 import generalData from "@/_data/general-data.json";
 import Image from "next/image";

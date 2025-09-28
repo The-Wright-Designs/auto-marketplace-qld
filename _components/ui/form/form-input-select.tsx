@@ -2,7 +2,7 @@ import { formSelectStyles, formLabelStyles } from "@/_styles/form-input-styles";
 import { ChevronDown } from "lucide-react";
 import { FormInputSelectProps } from "@/_types/form-types";
 
-export const FormInputSelect = ({
+const FormInputSelect = ({
   id,
   name,
   options,
@@ -40,3 +40,4 @@ export const FormInputSelect = ({
     </div>
   );
 };
+export default FormInputSelect;

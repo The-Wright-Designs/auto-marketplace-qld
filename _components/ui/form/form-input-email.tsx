@@ -1,7 +1,7 @@
 import { formInputStyles, formLabelStyles } from "@/_styles/form-input-styles";
 import { FormInputEmailProps } from "@/_types/form-types";
 
-export const FormInputEmail = ({
+const FormInputEmail = ({
   id,
   name,
   placeholder,
@@ -30,3 +30,4 @@ export const FormInputEmail = ({
     </div>
   );
 };
+export default FormInputEmail;

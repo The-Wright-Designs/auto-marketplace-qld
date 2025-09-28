@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import about2Data from "@/_data/general-data.json";
-import ButtonLink from "../ui/buttons/button-link";
+import ButtonLink from "@/_components/ui/buttons/button-link";
 import classNames from "classnames";
 
 const {

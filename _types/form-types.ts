@@ -40,4 +40,5 @@ export interface FormInputFileProps extends FormInputBaseProps {
   description?: string;
   multiple?: boolean;
   accept?: string;
+  maxFiles?: number;
 }

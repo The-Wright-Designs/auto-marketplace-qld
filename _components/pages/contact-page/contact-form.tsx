@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/_components/ui/contact/forms/input";
 import { Textarea } from "@/_components/ui/contact/forms/textarea";
 import { Label } from "@/_components/ui/contact/forms/label";
-import ButtonType from "../ui/buttons/button-type";
+import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { sendEmail } from "@/_actions/send-email-actions";
 

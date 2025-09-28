@@ -1,7 +1,7 @@
 import { formInputStyles, formLabelStyles } from "@/_styles/form-input-styles";
 import { FormInputTelProps } from "@/_types/form-types";
 
-export const FormInputTel = ({
+const FormInputTel = ({
   id,
   name,
   placeholder,
@@ -30,3 +30,4 @@ export const FormInputTel = ({
     </div>
   );
 };
+export default FormInputTel;

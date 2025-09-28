@@ -10,6 +10,7 @@ const ButtonType = ({
   disabled = false,
   ariaLabel,
   title,
+  small,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
 
@@ -18,7 +19,7 @@ const ButtonType = ({
       type={type}
       onClick={onClick}
       aria-label={ariaLabel}
-      className={buttonStyles(cssClasses, disabled, pending)}
+      className={buttonStyles(cssClasses, disabled, pending, small)}
       disabled={disabled || pending}
       title={title}
     >
