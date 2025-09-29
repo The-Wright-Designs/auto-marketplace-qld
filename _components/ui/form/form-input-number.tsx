@@ -12,6 +12,8 @@ const FormInputNumber = ({
   min,
   max,
   disabled = false,
+  value,
+  onChange,
 }: FormInputNumberProps) => {
   return (
     <div>
@@ -29,6 +31,8 @@ const FormInputNumber = ({
         min={min}
         max={max}
         disabled={disabled}
+        value={value}
+        onChange={onChange}
         className={formInputStyles(className, disabled)}
       />
     </div>

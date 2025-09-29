@@ -10,6 +10,8 @@ const FormInputEmail = ({
   label,
   labelClassName,
   disabled = false,
+  value,
+  onChange,
 }: FormInputEmailProps) => {
   return (
     <div>
@@ -25,6 +27,8 @@ const FormInputEmail = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
+        value={value}
+        onChange={onChange}
         className={formInputStyles(className, disabled)}
       />
     </div>

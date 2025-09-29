@@ -10,6 +10,8 @@ const FormInputTel = ({
   label,
   labelClassName,
   disabled = false,
+  value,
+  onChange,
 }: FormInputTelProps) => {
   return (
     <div>
@@ -25,6 +27,8 @@ const FormInputTel = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
+        value={value}
+        onChange={onChange}
         className={formInputStyles(className, disabled)}
       />
     </div>

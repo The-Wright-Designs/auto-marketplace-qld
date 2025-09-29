@@ -9,8 +9,8 @@ export class RateLimiter {
 
   // Configuration
   private static readonly WINDOW_MS = 60 * 60 * 1000; // 1 hour
-  private static readonly MAX_REQUESTS = 5; // 5 submissions per hour (increased for progressive uploads)
-  private static readonly MAX_PROGRESSIVE_REQUESTS = 30; // 15 progressive image uploads per hour
+  private static readonly MAX_REQUESTS = 3; // 3 submissions per hour (increased for progressive uploads)
+  private static readonly MAX_PROGRESSIVE_REQUESTS = 30; // 30 progressive image uploads per hour
   private static readonly BLOCK_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
   static async checkRateLimit(
@@ -89,7 +89,8 @@ export class RateLimiter {
         allowed: false,
         remaining: 0,
         resetTime: entry.resetTime,
-        error: "Rate limit exceeded. Account temporarily blocked.",
+        error:
+          "Too many submission attempts. Please contact our support team for assistance.",
       };
     }
 

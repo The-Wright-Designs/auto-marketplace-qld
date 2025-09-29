@@ -70,12 +70,12 @@ const UploadControls = ({
       </div>
 
       {showRequirements && (
-        <div className="mt-3 p-4 bg-gray-50 rounded-md border border-gray-200">
-          <ul className="list-disc list-inside space-y-1 text-[14px]">
+        <div className="p-4 w-full rounded-md border border-grey tablet:mt-3">
+          <ul className="list-disc desktop:grid grid-cols-2 list-inside space-y-1 text-[14px]">
             <li>Accepted formats: JPEG, PNG, WebP, GIF</li>
-            <li>Maximum file size: 20MB per file</li>
+            <li>Maximum file size: 20MB per image</li>
             <li>At least 2 images required</li>
-            {maxFiles && <li>Maximum {maxFiles} files allowed</li>}
+            {maxFiles && <li>Maximum {maxFiles} images allowed</li>}
           </ul>
         </div>
       )}

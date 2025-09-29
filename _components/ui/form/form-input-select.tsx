@@ -12,6 +12,8 @@ const FormInputSelect = ({
   labelClassName,
   placeholder = "Select an option",
   disabled = false,
+  value,
+  onChange,
 }: FormInputSelectProps) => {
   return (
     <div>
@@ -26,6 +28,8 @@ const FormInputSelect = ({
           name={name}
           required={required}
           disabled={disabled}
+          value={value}
+          onChange={onChange}
           className={formSelectStyles(className, disabled)}
         >
           <option value="">{placeholder}</option>

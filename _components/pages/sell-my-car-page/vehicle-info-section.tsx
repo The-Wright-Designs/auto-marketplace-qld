@@ -5,15 +5,29 @@ import FormInputSelect from "@/_components/ui/form/form-input-select";
 import FormInputFileAccumulator from "@/_components/ui/form/form-input-file-accumulator";
 
 interface VehicleInfoSectionProps {
+  formData: {
+    vehicleMake: string;
+    vehicleModel: string;
+    vehicleYear: string;
+    fuelType: string;
+    transmission: string;
+  };
+  onInputChange: (name: string, value: string) => void;
   onImageCountChange: (count: number) => void;
+  onImageDataChange?: (imageData: any[]) => void;
 }
 
-const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => {
+const VehicleInfoSection = ({ formData, onInputChange, onImageCountChange, onImageDataChange }: VehicleInfoSectionProps) => {
   const [imageCount, setImageCount] = useState(0);
 
   const handleImageCountChange = (count: number) => {
     setImageCount(count);
     onImageCountChange(count);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    onInputChange(name, value);
   };
 
   return (
@@ -29,6 +43,8 @@ const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => 
           required
           label="Vehicle Make"
           labelClassName="visually-hidden"
+          value={formData.vehicleMake}
+          onChange={handleInputChange}
         />
 
         <FormInputText
@@ -38,6 +54,8 @@ const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => 
           required
           label="Vehicle Model"
           labelClassName="visually-hidden"
+          value={formData.vehicleModel}
+          onChange={handleInputChange}
         />
 
         <FormInputNumber
@@ -48,6 +66,8 @@ const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => 
           labelClassName="visually-hidden"
           min={1900}
           max={new Date().getFullYear() + 1}
+          value={formData.vehicleYear}
+          onChange={handleInputChange}
         />
 
         <FormInputSelect
@@ -61,6 +81,8 @@ const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => 
           placeholder="Select Fuel Type"
           label="Fuel Type"
           labelClassName="visually-hidden"
+          value={formData.fuelType}
+          onChange={handleInputChange}
         />
 
         <FormInputSelect
@@ -74,6 +96,8 @@ const VehicleInfoSection = ({ onImageCountChange }: VehicleInfoSectionProps) => 
           placeholder="Select Transmission"
           label="Transmission"
           labelClassName="visually-hidden"
+          value={formData.transmission}
+          onChange={handleInputChange}
         />
       </div>
       <FormInputFileAccumulator

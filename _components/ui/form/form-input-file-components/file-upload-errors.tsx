@@ -45,18 +45,6 @@ const FileUploadErrors = ({
               Failed uploads:
               <span className="ml-2 text-sm text-gray-600"></span>
             </p>
-            {failedFiles.length > 1 && (
-              <button
-                type="button"
-                onClick={() => {
-                  // This would be handled by parent component
-                }}
-                disabled={disabled || isValidating}
-                className="text-[16px] p-2 -m-2 font-normal text-red desktop-small:hover:opacity-80 desktop-small:p-0 desktop-small:m-0"
-              >
-                Clear All Failed
-              </button>
-            )}
           </div>
           <div className="space-y-3">
             {failedFiles.map((failedFile, index) => (

@@ -2,18 +2,35 @@ import FormInputText from "@/_components/ui/form/form-input-text";
 import FormInputEmail from "@/_components/ui/form/form-input-email";
 import FormInputTel from "@/_components/ui/form/form-input-tel";
 import ButtonType from "@/_components/ui/buttons/button-type";
+import classNames from "classnames";
 
 interface PersonalInfoSectionProps {
+  formData: {
+    firstName: string;
+    lastName: string;
+    contactNumber: string;
+    email: string;
+  };
+  onInputChange: (name: string, value: string) => void;
   imageCount: number;
   error: string | null;
+  isSubmitting?: boolean;
 }
 
 const PersonalInfoSection = ({
+  formData,
+  onInputChange,
   imageCount,
   error,
+  isSubmitting,
 }: PersonalInfoSectionProps) => {
   return (
-    <div className="flex flex-col justify-between">
+    <div
+      className={classNames("flex flex-col", {
+        "gap-[42px]": imageCount < 2,
+        "gap-18": imageCount > 2,
+      })}
+    >
       <div className="space-y-5">
         <h3 className="text-blue font-bold text-paragraph-desktop">Personal</h3>
         <div className="space-y-5 desktop-small:space-y-3">
@@ -24,6 +41,8 @@ const PersonalInfoSection = ({
             required
             label="First Name"
             labelClassName="visually-hidden"
+            value={formData.firstName}
+            onChange={(e) => onInputChange("firstName", e.target.value)}
           />
 
           <FormInputText
@@ -33,6 +52,8 @@ const PersonalInfoSection = ({
             required
             label="Last Name"
             labelClassName="visually-hidden"
+            value={formData.lastName}
+            onChange={(e) => onInputChange("lastName", e.target.value)}
           />
 
           <FormInputTel
@@ -42,6 +63,8 @@ const PersonalInfoSection = ({
             required
             label="Contact Number"
             labelClassName="visually-hidden"
+            value={formData.contactNumber}
+            onChange={(e) => onInputChange("contactNumber", e.target.value)}
           />
 
           <FormInputEmail
@@ -51,6 +74,8 @@ const PersonalInfoSection = ({
             required
             label="Email Address"
             labelClassName="visually-hidden"
+            value={formData.email}
+            onChange={(e) => onInputChange("email", e.target.value)}
           />
         </div>
       </div>
@@ -63,10 +88,10 @@ const PersonalInfoSection = ({
           )}
           <ButtonType
             type="submit"
-            disabled={imageCount < 2}
+            disabled={imageCount < 2 || isSubmitting}
             title={imageCount < 2 ? "Please upload at least 2 images" : ""}
           >
-            Submit Vehicle
+            {isSubmitting ? "Submitting..." : "Submit Vehicle"}
           </ButtonType>
         </div>
         {error && (
