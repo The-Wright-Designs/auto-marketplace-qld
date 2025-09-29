@@ -81,65 +81,100 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
       };
     }
 
-    // 5. Validate uploaded files
-    const images = formData.getAll("images") as File[];
-
-    if (images.length < 2) {
-      return {
-        success: false,
-        error: "At least 2 vehicle images are required",
-      };
-    }
-
-    // Validate total file collection
-    const fileValidation = FileValidator.validateMultipleFiles(images);
-    if (fileValidation.errors.length > 0) {
-      return {
-        success: false,
-        error: `File validation failed: ${fileValidation.errors.join(", ")}`,
-      };
-    }
-
-    // Validate each file individually
-    const validatedFiles: File[] = [];
-    for (const file of images) {
-      const individualValidation = await FileValidator.validateFile(file);
-      if (!individualValidation.isValid) {
-        return {
-          success: false,
-          error: `File validation failed: ${individualValidation.error}`,
-        };
-      }
-      if (individualValidation.sanitizedFile) {
-        validatedFiles.push(individualValidation.sanitizedFile);
-      }
-    }
-
-    // 6. Process images (now with validated files)
+    // 5. Handle uploaded files (both progressive and traditional)
     let attachments: Array<{
       filename: string;
       content: Buffer;
       contentType: string;
     }> = [];
 
-    try {
-      const resizedImages = await resizeMultipleImages(
-        validatedFiles,
-        1920,
-        1920,
-        200
-      );
-      attachments = resizedImages.map((image) => ({
-        filename: image.filename,
-        content: image.buffer,
-        contentType: image.contentType,
-      }));
-    } catch (error) {
-      console.error("Error resizing images:", error);
-      return {
-        success: false,
-        error: "Failed to process images. Please try again.",
-      };
+    // Check for progressive upload (pre-processed images)
+    const processedCount = formData.get("images_processed_count");
+    if (processedCount) {
+      // Progressive upload mode - use pre-processed images
+      const imageCount = parseInt(processedCount as string);
+
+      if (imageCount < 2) {
+        return {
+          success: false,
+          error: "At least 2 vehicle images are required",
+        };
+      }
+
+      try {
+        for (let i = 0; i < imageCount; i++) {
+          const imageData = formData.get(`images_processed_${i}`);
+          if (imageData) {
+            const parsedImage = JSON.parse(imageData as string);
+            attachments.push({
+              filename: parsedImage.filename,
+              content: Buffer.from(parsedImage.contentBase64, 'base64'),
+              contentType: parsedImage.contentType,
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error processing pre-processed images:", error);
+        return {
+          success: false,
+          error: "Failed to process uploaded images. Please try again.",
+        };
+      }
+    } else {
+      // Traditional upload mode - process files normally
+      const images = formData.getAll("images") as File[];
+
+      if (images.length < 2) {
+        return {
+          success: false,
+          error: "At least 2 vehicle images are required",
+        };
+      }
+
+      // Validate total file collection
+      const fileValidation = FileValidator.validateMultipleFiles(images);
+      if (fileValidation.errors.length > 0) {
+        return {
+          success: false,
+          error: `File validation failed: ${fileValidation.errors.join(", ")}`,
+        };
+      }
+
+      // Validate each file individually
+      const validatedFiles: File[] = [];
+      for (const file of images) {
+        const individualValidation = await FileValidator.validateFile(file);
+        if (!individualValidation.isValid) {
+          return {
+            success: false,
+            error: `File validation failed: ${individualValidation.error}`,
+          };
+        }
+        if (individualValidation.sanitizedFile) {
+          validatedFiles.push(individualValidation.sanitizedFile);
+        }
+      }
+
+      // Process images (now with validated files)
+      try {
+        const resizedImages = await resizeMultipleImages(
+          validatedFiles,
+          1920,
+          1920,
+          200
+        );
+        attachments = resizedImages.map((image) => ({
+          filename: image.filename,
+          content: image.buffer,
+          contentType: image.contentType,
+        }));
+      } catch (error) {
+        console.error("Error resizing images:", error);
+        return {
+          success: false,
+          error: "Failed to process images. Please try again.",
+        };
+      }
     }
 
     // 7. Sanitize data for email template
@@ -149,7 +184,7 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
       contactNumber: validatedData.contactNumber,
       vehicleMake: validatedData.vehicleMake,
       vehicleModel: validatedData.vehicleModel,
-      vehicleYear: validatedData.vehicleYear.toString(),
+      vehicleYear: validatedData.vehicleYear?.toString() || "Not specified",
       fuelType: validatedData.fuelType,
       transmission: validatedData.transmission,
     });

@@ -9,10 +9,11 @@ export class RateLimiter {
 
   // Configuration
   private static readonly WINDOW_MS = 60 * 60 * 1000; // 1 hour
-  private static readonly MAX_REQUESTS = 3; // 3 submissions per hour
+  private static readonly MAX_REQUESTS = 5; // 5 submissions per hour (increased for progressive uploads)
+  private static readonly MAX_PROGRESSIVE_REQUESTS = 15; // 15 progressive image uploads per hour
   private static readonly BLOCK_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
-  static async checkRateLimit(identifier: string): Promise<{
+  static async checkRateLimit(identifier: string, isProgressiveUpload = false): Promise<{
     allowed: boolean;
     remaining: number;
     resetTime: number;
@@ -32,9 +33,10 @@ export class RateLimiter {
         blocked: false,
       });
 
+      const maxRequests = isProgressiveUpload ? this.MAX_PROGRESSIVE_REQUESTS : this.MAX_REQUESTS;
       return {
         allowed: true,
-        remaining: this.MAX_REQUESTS - 1,
+        remaining: maxRequests - 1,
         resetTime: now + this.WINDOW_MS,
       };
     }
@@ -55,9 +57,10 @@ export class RateLimiter {
       entry.resetTime = now + this.WINDOW_MS;
       entry.blocked = false;
 
+      const maxRequests = isProgressiveUpload ? this.MAX_PROGRESSIVE_REQUESTS : this.MAX_REQUESTS;
       return {
         allowed: true,
-        remaining: this.MAX_REQUESTS - 1,
+        remaining: maxRequests - 1,
         resetTime: entry.resetTime,
       };
     }
@@ -65,8 +68,11 @@ export class RateLimiter {
     // Increment count
     entry.count++;
 
+    // Use appropriate limit based on request type
+    const maxRequests = isProgressiveUpload ? this.MAX_PROGRESSIVE_REQUESTS : this.MAX_REQUESTS;
+
     // Check if limit exceeded
-    if (entry.count > this.MAX_REQUESTS) {
+    if (entry.count > maxRequests) {
       entry.blocked = true;
       entry.resetTime = now + this.BLOCK_DURATION_MS; // Block for 24 hours
 
@@ -80,7 +86,7 @@ export class RateLimiter {
 
     return {
       allowed: true,
-      remaining: this.MAX_REQUESTS - entry.count,
+      remaining: maxRequests - entry.count,
       resetTime: entry.resetTime,
     };
   }
@@ -137,7 +143,7 @@ export class RateLimiter {
   }
 
   // Get current status without incrementing
-  static getRateLimitStatus(identifier: string): {
+  static getRateLimitStatus(identifier: string, isProgressiveUpload = false): {
     count: number;
     remaining: number;
     resetTime: number;
@@ -147,17 +153,19 @@ export class RateLimiter {
     const now = Date.now();
 
     if (!entry || now >= entry.resetTime) {
+      const maxRequests = isProgressiveUpload ? this.MAX_PROGRESSIVE_REQUESTS : this.MAX_REQUESTS;
       return {
         count: 0,
-        remaining: this.MAX_REQUESTS,
+        remaining: maxRequests,
         resetTime: now + this.WINDOW_MS,
         blocked: false,
       };
     }
 
+    const maxRequests = isProgressiveUpload ? this.MAX_PROGRESSIVE_REQUESTS : this.MAX_REQUESTS;
     return {
       count: entry.count,
-      remaining: Math.max(0, this.MAX_REQUESTS - entry.count),
+      remaining: Math.max(0, maxRequests - entry.count),
       resetTime: entry.resetTime,
       blocked: entry.blocked,
     };

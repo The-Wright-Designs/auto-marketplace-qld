@@ -11,27 +11,16 @@ import FormInputTel from "@/_components/ui/form/form-input-tel";
 import FormInputSelect from "@/_components/ui/form/form-input-select";
 import FormInputFileAccumulator from "@/_components/ui/form/form-input-file-accumulator";
 import { sellMyCarEmail } from "@/_actions/sell-my-car-email-actions";
-import { useFormValidation } from "@/_hooks/useFormValidation";
-import { RateLimiter } from "@/_lib/utils/rate-limiter";
 
 const SellMyCarForm = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [showFormSubmitted, setShowFormSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-
-  const { validateSingleField, getFieldValidation } = useFormValidation();
-  const [rateLimitInfo, setRateLimitInfo] = useState<{
-    remaining: number;
-    resetTime: number;
-  } | null>(null);
+  const [imageCount, setImageCount] = useState(0);
 
   useEffect(() => {
     if (showFormSubmitted) {
-      const element = document.getElementById("sell-my-car");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [showFormSubmitted]);
 
@@ -43,9 +32,15 @@ const SellMyCarForm = () => {
         </h2>
 
         {showFormSubmitted ? (
-          <p className="text-[20px] font-bold text-black pb-5">
-            Your vehicle details have been submitted, we will be in touch soon.
-          </p>
+          <div className="flex flex-col gap-5 justify-center items-center min-h-[50vh]">
+            <p className="text-[20px] font-bold text-black pb-5">
+              Your vehicle details have been submitted, we will be in touch
+              soon.
+            </p>
+            <ButtonType onClick={() => setShowFormSubmitted(false)}>
+              Back
+            </ButtonType>
+          </div>
         ) : (
           <>
             <p className="text-[16px]">
@@ -58,7 +53,6 @@ const SellMyCarForm = () => {
               action={async (formData) => {
                 try {
                   setError(null);
-                  setFieldErrors({});
 
                   if (!executeRecaptcha) {
                     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -79,29 +73,10 @@ const SellMyCarForm = () => {
 
                   if (result.success) {
                     setShowFormSubmitted(true);
-                    if (result.rateLimitInfo) {
-                      setRateLimitInfo(result.rateLimitInfo);
-                    }
                   } else {
-                    if (result.fieldErrors) {
-                      setFieldErrors(result.fieldErrors);
-                      setError(
-                        "Please correct the errors below and try again."
-                      );
-                    } else if (result.rateLimitInfo) {
-                      setRateLimitInfo(result.rateLimitInfo);
-                      const timeRemaining = RateLimiter.formatTimeRemaining(
-                        result.rateLimitInfo.resetTime
-                      );
-                      setError(
-                        `${result.error} Please try again in ${timeRemaining}.`
-                      );
-                    } else {
-                      setError(
-                        result.error ||
-                          "Failed to submit form. Please try again."
-                      );
-                    }
+                    setError(
+                      result.error || "Failed to submit form. Please try again."
+                    );
                   }
                 } catch (err) {
                   setError("An unexpected error occurred. Please try again.");
@@ -159,11 +134,32 @@ const SellMyCarForm = () => {
                       labelClassName="visually-hidden"
                     />
                   </div>
-                  <div className="hidden desktop-small:block">
-                    <ButtonType type="submit" cssClasses="w-full">
+                  <div className="hidden tablet:flex flex-col gap-1">
+                    <ButtonType
+                      type="submit"
+                      cssClasses="w-full -mt-2"
+                      disabled={imageCount < 2}
+                      title={
+                        imageCount < 2 ? "Please upload at least 2 images" : ""
+                      }
+                    >
                       Submit Vehicle
                     </ButtonType>
+                    {imageCount < 2 && (
+                      <p className="text-[14px] text-red italic">
+                        Please upload at least 2 images
+                      </p>
+                    )}
                   </div>
+                  {/* General error message desktop */}
+                  {error && (
+                    <div className="hidden bg-red/50 rounded-md p-3 tablet:block">
+                      <h4 className="text-paragraph font-semibold">
+                        Submission error:
+                      </h4>
+                      <p className="text-[16px]">{error}</p>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-5">
                   <h3 className="text-blue font-bold text-paragraph-desktop">
@@ -191,8 +187,7 @@ const SellMyCarForm = () => {
                     <FormInputNumber
                       id="vehicleYear"
                       name="vehicleYear"
-                      placeholder="Vehicle Year"
-                      required
+                      placeholder="Vehicle Year (optional)"
                       label="Vehicle Year"
                       labelClassName="visually-hidden"
                       min={1900}
@@ -231,56 +226,40 @@ const SellMyCarForm = () => {
                     required
                     label="Vehicle Images"
                     labelClassName="visually-hidden"
-                    description="Upload vehicle images"
+                    description="Images"
                     accept="image/*"
                     maxFiles={10}
+                    onImageCountChange={setImageCount}
                   />
                 </div>
               </div>
-              {/* General error message */}
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/50 rounded-md p-3">
-                  <p className="text-[14px] text-red-600">{error}</p>
-                </div>
-              )}
 
-              {/* Field-specific errors */}
-              {Object.keys(fieldErrors).length > 0 && (
-                <div className="bg-red-500/10 border border-red-500/50 rounded-md p-3">
-                  <h4 className="text-red-600 font-semibold mb-2">
-                    Please correct the following errors:
-                  </h4>
-                  <ul className="text-sm text-red-600 list-disc list-inside space-y-1">
-                    {Object.entries(fieldErrors).map(([field, error]) => (
-                      <li key={field}>
-                        <strong>
-                          {field.charAt(0).toUpperCase() + field.slice(1)}:
-                        </strong>{" "}
-                        {error}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Rate limit info */}
-              {rateLimitInfo && (
-                <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-md p-3">
-                  <p className="text-[14px] text-yellow-700">
-                    <strong>Rate Limit:</strong> {rateLimitInfo.remaining}{" "}
-                    submissions remaining. Limit resets in{" "}
-                    {RateLimiter.formatTimeRemaining(rateLimitInfo.resetTime)}.
-                  </p>
-                </div>
-              )}
-              <div className="flex justify-center mt-15 min-[600px]:justify-start desktop-small:hidden">
+              <div className="flex flex-col justify-center gap-2 mt-15 min-[600px]:justify-start tablet:hidden">
                 <ButtonType
                   type="submit"
                   cssClasses="w-full min-[600px]:w-auto desktop-small:px-10"
+                  disabled={imageCount < 2}
+                  title={
+                    imageCount < 2 ? "Please upload at least 2 images" : ""
+                  }
                 >
                   Submit Vehicle
                 </ButtonType>
+                {imageCount < 2 && (
+                  <p className="text-[14px] text-red italic">
+                    Please upload at least 2 images
+                  </p>
+                )}
               </div>
+              {/* General error message mobile */}
+              {error && (
+                <div className="bg-red/50 rounded-md p-3 tablet:hidden">
+                  <h4 className="text-paragraph font-semibold">
+                    Submission error:
+                  </h4>
+                  <p className="text-[16px]">{error}</p>
+                </div>
+              )}
             </form>
           </>
         )}

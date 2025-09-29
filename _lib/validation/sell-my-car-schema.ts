@@ -38,9 +38,11 @@ export const sellMyCarSchema = z.object({
 
   vehicleYear: z
     .number()
-    .int("Vehicle year must be a whole number")
-    .min(1900, "Vehicle year too old")
-    .max(new Date().getFullYear() + 1, "Vehicle year cannot be in the future"),
+    .optional()
+    .refine(
+      (val) => !val || (Number.isInteger(val) && val >= 1900 && val <= new Date().getFullYear() + 1),
+      "Vehicle year must be between 1900 and next year if provided"
+    ),
 
   fuelType: z.enum(["diesel", "petrol"], {
     message: "Invalid fuel type selected",
@@ -85,7 +87,9 @@ export function validateSellMyCarForm(formData: FormData): {
       contactNumber: formData.get("contactNumber")?.toString() || "",
       vehicleMake: formData.get("vehicleMake")?.toString() || "",
       vehicleModel: formData.get("vehicleModel")?.toString() || "",
-      vehicleYear: parseInt(formData.get("vehicleYear")?.toString() || "0"),
+      vehicleYear: formData.get("vehicleYear")?.toString()
+        ? parseInt(formData.get("vehicleYear")?.toString() || "0")
+        : undefined,
       fuelType: formData.get("fuelType")?.toString() || "",
       transmission: formData.get("transmission")?.toString() || "",
       recaptchaToken: formData.get("recaptchaToken")?.toString() || "",

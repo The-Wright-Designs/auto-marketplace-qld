@@ -12,8 +12,8 @@ export class FileValidator {
     "image/gif",
   ];
 
-  private static readonly MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
-  private static readonly MAX_TOTAL_SIZE = 20 * 1024 * 1024; // 20MB
+  private static readonly MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+  private static readonly MAX_TOTAL_SIZE = 200 * 1024 * 1024; // 200MB (for multiple progressive uploads)
 
   // Magic number validation for file signatures
   private static readonly FILE_SIGNATURES = {

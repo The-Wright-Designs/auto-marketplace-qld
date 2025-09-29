@@ -11,6 +11,8 @@ export interface FormInputBaseProps {
   label?: string;
   labelClassName?: string;
   disabled?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
 export interface FormInputTextProps extends FormInputBaseProps {
@@ -41,4 +43,5 @@ export interface FormInputFileProps extends FormInputBaseProps {
   multiple?: boolean;
   accept?: string;
   maxFiles?: number;
+  progressiveUpload?: boolean;
 }
