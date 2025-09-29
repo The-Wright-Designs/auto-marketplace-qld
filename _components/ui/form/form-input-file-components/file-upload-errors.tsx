@@ -1,0 +1,107 @@
+import { X, AlertCircle } from "lucide-react";
+
+interface FileUploadErrorsProps {
+  validationErrors: string[];
+  failedFiles: Array<{
+    file: File;
+    error: string;
+  }>;
+  isValidating: boolean;
+  onRetryFile: (index: number) => void;
+  onRemoveFailedFile: (index: number) => void;
+  disabled?: boolean;
+}
+
+const FileUploadErrors = ({
+  validationErrors,
+  failedFiles,
+  isValidating,
+  onRetryFile,
+  onRemoveFailedFile,
+  disabled = false,
+}: FileUploadErrorsProps) => {
+  return (
+    <>
+      {validationErrors.length > 0 && (
+        <div className="bg-red/50 rounded-md p-3">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertCircle className="w-4 h-4 text-red-600" />
+            <h4 className="text-paragraph font-semibold">
+              Image upload errors:
+            </h4>
+          </div>
+          <ul className="text-sm text-red-600 list-disc list-inside space-y-1">
+            {validationErrors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {failedFiles.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="text-[16px] font-medium text-red-600">
+              Failed uploads:
+              <span className="ml-2 text-sm text-gray-600"></span>
+            </p>
+            {failedFiles.length > 1 && (
+              <button
+                type="button"
+                onClick={() => {
+                  // This would be handled by parent component
+                }}
+                disabled={disabled || isValidating}
+                className="text-[16px] p-2 -m-2 font-normal text-red desktop-small:hover:opacity-80 desktop-small:p-0 desktop-small:m-0"
+              >
+                Clear All Failed
+              </button>
+            )}
+          </div>
+          <div className="space-y-3">
+            {failedFiles.map((failedFile, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between rounded-md bg-red/20 p-3"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-5 h-5 rounded flex items-center justify-center">
+                    <AlertCircle className="w-5 h-5" color="red" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[12px] font-medium truncate max-w-[90px] phone:max-w-[200px] min-[600px]:max-w-full">
+                      {failedFile.file.name}
+                    </span>
+                    <span className="text-[10px] text-red-600 truncate max-w-[90px] phone:max-w-[200px] min-[600px]:max-w-full">
+                      {failedFile.error}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-5">
+                  <button
+                    type="button"
+                    onClick={() => onRetryFile(index)}
+                    disabled={disabled || isValidating}
+                    className="bg-blue px-2 font-normal text-[14px] text-white rounded-md"
+                  >
+                    Retry
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onRemoveFailedFile(index)}
+                    disabled={disabled || isValidating}
+                    className="p-2 -m-2 text-red-600 hover:text-red-800 desktop-small:p-0 desktop-small:m-0"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default FileUploadErrors;

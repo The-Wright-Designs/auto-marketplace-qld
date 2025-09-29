@@ -12,7 +12,9 @@ export interface FormInputBaseProps {
   labelClassName?: string;
   disabled?: boolean;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
 export interface FormInputTextProps extends FormInputBaseProps {
