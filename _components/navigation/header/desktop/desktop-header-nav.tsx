@@ -101,7 +101,8 @@ const DesktopHeaderNav = () => {
                       "opacity-100 visible translate-y-4": activeId === id,
                       "-translate-x-[34px] min-w-[150px] full-hd:-translate-x-12 full-hd:min-w-[180px]":
                         item.title === "About",
-                      "translate-x-3.5": item.title === "Dealership Portal",
+                      "-translate-x-1.5 min-w-[150px]":
+                        item.title === "For Dealers",
                       "opacity-0 invisible translate-y-2": activeId !== id,
                     }
                   )}

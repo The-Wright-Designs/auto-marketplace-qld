@@ -54,7 +54,7 @@ export function DesktopFooter() {
                 );
               })}
               <li className="text-paragraph text-white desktop:text-subheading">
-                ABN - xxxxx
+                ABN - 97 653 564 982
               </li>
             </ul>
             <SocialIcons iconCssClasses="w-[30px] h-auto desktop:w-[49px]" />

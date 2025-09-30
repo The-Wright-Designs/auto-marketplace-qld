@@ -67,7 +67,10 @@ export function MobileHeader() {
       >
         <div className="h-[90px] grid align-middle">
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setOpenSubmenu(null);
+            }}
             aria-label="Close menu"
             className="-ml-2.5"
           >
@@ -106,14 +109,17 @@ export function MobileHeader() {
                         />
                       </button>
                       {isSubmenuOpen && (
-                        <ul className="ml-6 mt-2 grid gap-3">
+                        <ul className="ml-6 mt-3 grid gap-5">
                           {submenu.map((subItem, subId) => (
                             <li key={subId}>
                               {subItem.url && (
                                 <Link
                                   href={subItem.url}
-                                  onClick={() => setIsOpen(false)}
-                                  className="text-paragraph text-blue font-normal p-2 -m-2 block"
+                                  onClick={() => {
+                                    setIsOpen(false);
+                                    setOpenSubmenu(null);
+                                  }}
+                                  className="text-paragraph text-blue font-thin place-self-start p-2 -m-2"
                                 >
                                   {subItem.title}
                                 </Link>
@@ -128,7 +134,10 @@ export function MobileHeader() {
                       {url && (
                         <Link
                           href={url}
-                          onClick={() => setIsOpen(false)}
+                          onClick={() => {
+                            setIsOpen(false);
+                            setOpenSubmenu(null);
+                          }}
                           className="text-paragraph text-blue font-normal p-3 -m-3"
                         >
                           {title}

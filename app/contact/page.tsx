@@ -29,10 +29,10 @@ const ContactPage = () => {
                 <p className="font-bold">Email:</p>
                 <ShowEmailAddress />
               </div>
-              <div className={contactStyles}>
+              {/* <div className={contactStyles}>
                 <p className="font-bold">Phone:</p>
                 <ShowPhoneNumber />
-              </div>
+              </div> */}
             </div>
             <hr className="border-black/25" />
             <ContactForm />

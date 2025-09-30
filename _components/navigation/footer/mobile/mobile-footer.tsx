@@ -38,7 +38,7 @@ export function MobileFooter() {
               </li>
             );
           })}
-          <li className="text-paragraph text-white">ABN - xxxxx</li>
+          <li className="text-paragraph text-white">ABN - 97 653 564 982</li>
         </ul>
       </div>
       <SocialIcons />
