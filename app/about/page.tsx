@@ -4,40 +4,38 @@ import OurStoryComponent from "@/_components/pages/about-page/our-story-componen
 import FaqComponent from "@/_components/pages/about-page/faq-component";
 import FeesComponent from "@/_lib/fees-component";
 import generalData from "@/_data/general-data.json";
-import Image from "next/image";
+import HowItWorksComponent from "@/_components/pages/about-page/how-it-works-component";
 
 const AboutPage = () => {
   return (
     <PageWrapper>
       <div className="grid gap-10">
-        <div className="grid gap-7">
+        <section className="grid gap-7">
           <h2 className="text-subheading full-hd:text-subheading-desktop">
             About
           </h2>
           <AboutPageComponent />
-        </div>
+        </section>
         <div id="our-story" className="-translate-y-28" />
-        <div className="grid gap-7">
+        <main className="grid gap-7">
           <h3>Our Story</h3>
           <OurStoryComponent />
-        </div>
+        </main>
+        <div id="how-it-works" className="-translate-y-28" />
+        <section className="grid gap-7">
+          <h3>How It Works</h3>
+          <HowItWorksComponent />
+        </section>
         <div id="seller-fees" className="-translate-y-28" />
-        <div className="grid gap-7 desktop-small:grid-cols-2 desktop-small:gap-x-10">
-          <h3 className="desktop-small:col-span-2">Seller Fees</h3>
+        <section className="grid gap-7">
+          <h3>Seller Fees</h3>
           <FeesComponent fees={generalData.aboutPage.fees.sellerFees} />
-          <Image
-            src="/images/placeholders/BLOG-FEATURED-IMAGE-7.png"
-            alt="Auto Marketplace Queensland"
-            width={1000}
-            height={800}
-            className="w-full h-full object-cover aspect-video desktop-small:aspect-auto"
-          />
           <div id="faqs" className="-translate-y-28" />
-        </div>
-        <div className="grid gap-7">
+        </section>
+        <section className="grid gap-7">
           <h3>Frequently Asked Questions</h3>
           <FaqComponent />
-        </div>
+        </section>
       </div>
     </PageWrapper>
   );

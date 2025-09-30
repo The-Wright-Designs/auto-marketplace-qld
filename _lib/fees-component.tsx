@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 interface FeeRange {
   saleValue: {
     from: number;
@@ -23,36 +25,48 @@ const FeesComponent = ({ fees }: FeesComponentProps) => {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="w-full border-collapse min-w-[600px]">
-        <thead>
-          <tr className="border-b-2 border-blue">
-            <th className="text-left py-4 text-paragraph font-bold whitespace-nowrap">
-              Sale Value
-            </th>
-            <th className="text-left py-4 text-paragraph font-bold">Fee</th>
-            <th className="text-left py-4 text-paragraph font-bold"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {fees.map((feeItem, index) => (
-            <tr
-              key={index}
-              className={`
+    <div className="grid gap-7 desktop-small:grid-cols-2 gap-x-10">
+      <div className="w-full overflow-x-auto">
+        <table className="w-full border-collapse min-w-[600px]">
+          <thead>
+            <tr className="border-b-2 border-blue">
+              <th className="text-left py-4 text-paragraph font-bold whitespace-nowrap">
+                Sale Value
+              </th>
+              <th className="text-left py-4 text-paragraph font-bold">Fee</th>
+              <th className="text-left py-4 text-paragraph font-bold"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {fees.map((feeItem, index) => (
+              <tr
+                key={index}
+                className={`
                 border-b border-blue
                 ${index % 2 === 0 ? "bg-white" : "bg-blue/5"}
                 desktop-small:hover:bg-blue/10 transition-colors duration-200
               `}
-            >
-              <td className="py-4 text-paragraph whitespace-nowrap">
-                {formatSaleValue(feeItem.saleValue.from, feeItem.saleValue.to)}
-              </td>
-              <td className="py-4 text-paragraph">${feeItem.fee}</td>
-              <td className="py-4 text-paragraph">{feeItem.gst}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              >
+                <td className="py-4 text-paragraph whitespace-nowrap">
+                  {formatSaleValue(
+                    feeItem.saleValue.from,
+                    feeItem.saleValue.to
+                  )}
+                </td>
+                <td className="py-4 text-paragraph">${feeItem.fee}</td>
+                <td className="py-4 text-paragraph">{feeItem.gst}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Image
+        src="/images/placeholders/BLOG-FEATURED-IMAGE-7.png"
+        alt="Auto Marketplace Queensland"
+        width={1000}
+        height={800}
+        className="w-full h-full object-cover aspect-video desktop-small:aspect-auto"
+      />
     </div>
   );
 };

@@ -9,7 +9,7 @@ const {
 
 const OurStoryComponent = () => {
   return (
-    <main className="grid gap-7 desktop-small:grid-cols-2">
+    <div className="grid gap-7 desktop-small:grid-cols-2">
       <div className="grid gap-5">
         {ourStorySection.paragraphs.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
@@ -22,7 +22,7 @@ const OurStoryComponent = () => {
         height={800}
         className="h-full w-full object-cover aspect-video desktop-small:aspect-auto"
       />
-    </main>
+    </div>
   );
 };
 

@@ -118,6 +118,37 @@
         "alt": "Auto Marketplace QLD"
       }
     },
+    "howItWorksSection": {
+      "title": "How It Works",
+      "description": "Selling your car with Auto Marketplace QLD is simple, stress-free, and transparent. We do the hard work for you—connecting you with trusted buyers and making sure you get a fair deal fast.",
+      "intro": "Here's how the process works:",
+      "steps": [
+        {
+          "title": "Share your car details",
+          "description": "Tell us about your car and upload photos (if you have them). The more details you provide, the better—we've even got tips to help you snap the perfect shots.",
+          "icon": "FileText"
+        },
+        {
+          "title": "We prepare your listing",
+          "description": "Our team is here to support you every step of the way. A friendly staff member will be in touch to confirm details before your car goes live.",
+          "icon": "Users"
+        },
+        {
+          "title": "Get your best offer",
+          "description": "Your listing reaches a network of over 1,000 trusted dealers who compete to buy your car. We'll present you with the highest offer so you can make the decision.",
+          "icon": "TrendingUp"
+        },
+        {
+          "title": "Sell & get paid fast",
+          "description": "Happy with the offer? Great! Once you accept, pay the success fee, arrange free pick-up, and receive your money quickly—it's that easy.",
+          "icon": "CreditCard"
+        }
+      ],
+      "image": {
+        "src": "/images/placeholders/how-it-works.jpg",
+        "alt": "How It Works"
+      }
+    },
     "faqs": [
       {
         "question": "Who takes care of transferring the registration into the buyer's name?",
