@@ -53,16 +53,16 @@
       "url": "/"
     },
     {
-      "title": "How It Works",
-      "url": "/about#how-it-works"
+      "title": "About",
+      "url": "/about"
     },
     {
-      "title": "Our Story",
-      "url": "/about#our-story"
+      "title": "Dealer Login",
+      "url": "/login"
     },
     {
-      "title": "Dealership Portal",
-      "url": "/dealership-portal"
+      "title": "Dealer Register",
+      "url": "/register"
     },
     {
       "title": "Contact",
