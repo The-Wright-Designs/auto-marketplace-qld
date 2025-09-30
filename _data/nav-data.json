@@ -6,15 +6,18 @@
     },
     {
       "title": "About",
-      "url": "/about",
       "submenu": [
         {
-          "title": "How It Works",
-          "url": "/about#how-it-works"
+          "title": "About Us",
+          "url": "/about"
         },
         {
           "title": "Our Story",
           "url": "/about#our-story"
+        },
+        {
+          "title": "How It Works",
+          "url": "/about#how-it-works"
         },
         {
           "title": "Seller Fees",
@@ -28,11 +31,14 @@
     },
     {
       "title": "Dealership Portal",
-      "url": "/dealership-portal",
       "submenu": [
         {
           "title": "Register Now",
           "url": "/register"
+        },
+        {
+          "title": "Login",
+          "url": "/login"
         }
       ]
     },

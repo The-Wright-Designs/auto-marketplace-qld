@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { X, AlignJustify } from "lucide-react";
+import { X, AlignJustify, ChevronDown } from "lucide-react";
 import classNames from "classnames";
 
 import navData from "@/_data/nav-data.json";
@@ -13,6 +13,7 @@ const { header: headerNavData } = navData;
 
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -79,16 +80,62 @@ export function MobileHeader() {
         </div>
         <nav>
           <ul className="grid gap-5 mt-5">
-            {headerNavData.map(({ title, url }, id) => {
+            {headerNavData.map(({ title, url, submenu }, id) => {
+              const hasSubmenu = submenu && submenu.length > 0;
+              const isSubmenuOpen = openSubmenu === title;
+
               return (
                 <li key={id}>
-                  <Link
-                    href={url}
-                    onClick={() => setIsOpen(false)}
-                    className="text-paragraph text-black font-normal p-3 -m-3"
-                  >
-                    {title}
-                  </Link>
+                  {hasSubmenu ? (
+                    <>
+                      <button
+                        onClick={() =>
+                          setOpenSubmenu(isSubmenuOpen ? null : title)
+                        }
+                        className="text-paragraph font-normal p-3 -m-3 flex items-center justify-between w-full"
+                      >
+                        <span className="text-blue">{title}</span>
+                        <ChevronDown
+                          className={classNames(
+                            "h-8 w-8 transition-transform duration-200",
+                            {
+                              "rotate-180": isSubmenuOpen,
+                            }
+                          )}
+                          color="#13103F"
+                        />
+                      </button>
+                      {isSubmenuOpen && (
+                        <ul className="ml-6 mt-2 grid gap-3">
+                          {submenu.map((subItem, subId) => (
+                            <li key={subId}>
+                              {subItem.url && (
+                                <Link
+                                  href={subItem.url}
+                                  onClick={() => setIsOpen(false)}
+                                  className="text-paragraph text-blue font-normal p-2 -m-2 block"
+                                >
+                                  {subItem.title}
+                                </Link>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {url && (
+                        <Link
+                          href={url}
+                          onClick={() => setIsOpen(false)}
+                          className="text-paragraph text-blue font-normal p-3 -m-3"
+                        >
+                          {title}
+                        </Link>
+                      )}
+                    </>
+                  )}
                 </li>
               );
             })}
