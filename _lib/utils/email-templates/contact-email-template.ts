@@ -13,7 +13,6 @@ export const contactEmailTemplate = ({
   phone,
   message,
 }: EmailTemplateProps) => {
-  // Sanitize all inputs for email safety
   const sanitizedData = {
     name: HTMLSanitizer.sanitizeForEmail(name),
     email: HTMLSanitizer.sanitizeEmail(email),
