@@ -14,10 +14,13 @@ interface VehicleInfoSectionProps {
   };
   onInputChange: (name: string, value: string) => void;
   onImageCountChange: (count: number) => void;
-  onImageDataChange?: (imageData: any[]) => void;
 }
 
-const VehicleInfoSection = ({ formData, onInputChange, onImageCountChange, onImageDataChange }: VehicleInfoSectionProps) => {
+const VehicleInfoSection = ({
+  formData,
+  onInputChange,
+  onImageCountChange,
+}: VehicleInfoSectionProps) => {
   const [imageCount, setImageCount] = useState(0);
 
   const handleImageCountChange = (count: number) => {
@@ -25,7 +28,9 @@ const VehicleInfoSection = ({ formData, onInputChange, onImageCountChange, onIma
     onImageCountChange(count);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     onInputChange(name, value);
   };

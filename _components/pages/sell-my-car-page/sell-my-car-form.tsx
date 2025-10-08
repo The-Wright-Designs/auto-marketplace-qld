@@ -146,7 +146,6 @@ const SellMyCarForm = () => {
               Please fill out your personal & vehicle details below, and our
               team reach out to you ASAP.
             </p>
-
             <form ref={formRef} className="space-y-5" onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -229,10 +228,11 @@ const SellMyCarForm = () => {
                     "Submit Vehicle"
                   )}
                 </ButtonType>
-
-                <p className="text-[14px] text-red italic">
-                  {imageCount < 2 && "Please upload at least 2 images "}
-                </p>
+                {imageCount < 2 && (
+                  <p className="text-[14px] text-red italic">
+                    Please upload at least 2 images
+                  </p>
+                )}
               </div>
               {/* General error message mobile */}
               {error && (

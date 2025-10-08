@@ -33,8 +33,8 @@ const PersonalInfoSection = ({
   return (
     <div
       className={classNames("flex flex-col", {
-        "gap-[42px]": imageCount < 2,
-        "gap-18": imageCount > 2,
+        "gap-[38px]": imageCount < 2,
+        "gap-18": imageCount >= 2,
       })}
     >
       <div className="space-y-5">
@@ -97,7 +97,55 @@ const PersonalInfoSection = ({
             disabled={imageCount < 2 || isSubmitting}
             title={imageCount < 2 ? "Please upload at least 2 images" : ""}
           >
-            {isSubmitting ? "Submitting..." : "Submit Vehicle"}
+            {isSubmitting ? (
+              <span>
+                Submitting
+                <span className="inline-flex">
+                  <span
+                    className="inline-block transition-all duration-300"
+                    style={{
+                      animation: "growShrink 1.4s infinite",
+                      animationDelay: "0s",
+                    }}
+                  >
+                    .
+                  </span>
+                  <span
+                    className="inline-block transition-all duration-300"
+                    style={{
+                      animation: "growShrink 1.4s infinite",
+                      animationDelay: "0.2s",
+                    }}
+                  >
+                    .
+                  </span>
+                  <span
+                    className="inline-block transition-all duration-300"
+                    style={{
+                      animation: "growShrink 1.4s infinite",
+                      animationDelay: "0.4s",
+                    }}
+                  >
+                    .
+                  </span>
+                </span>
+                <style jsx>{`
+                  @keyframes growShrink {
+                    0%,
+                    100% {
+                      transform: scale(0.8);
+                      opacity: 0.3;
+                    }
+                    50% {
+                      transform: scale(1.2);
+                      opacity: 1;
+                    }
+                  }
+                `}</style>
+              </span>
+            ) : (
+              "Submit Vehicle"
+            )}
           </ButtonType>
         </div>
         {error && (
@@ -111,7 +159,8 @@ const PersonalInfoSection = ({
         {rateLimitStatus && rateLimitStatus.blocked && (
           <div className="hidden bg-blue/10 rounded-md p-3 tablet:block">
             <p className="text-[14px] text-blue">
-              Rate limit active. Please try again in {rateLimitStatus.timeRemaining}.
+              Rate limit active. Please try again in{" "}
+              {rateLimitStatus.timeRemaining}.
             </p>
           </div>
         )}
