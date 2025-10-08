@@ -5,6 +5,7 @@ import FaqComponent from "@/_components/pages/about-page/faq-component";
 import FeesComponent from "@/_lib/fees-component";
 import generalData from "@/_data/general-data.json";
 import HowItWorksComponent from "@/_components/pages/about-page/how-it-works-component";
+import Image from "next/image";
 
 const AboutPage = () => {
   return (
@@ -29,9 +30,18 @@ const AboutPage = () => {
         <div id="seller-fees" className="-translate-y-28" />
         <section className="grid gap-7">
           <h3>Seller Fees</h3>
-          <FeesComponent fees={generalData.aboutPage.fees.sellerFees} />
-          <div id="faqs" className="-translate-y-28" />
+          <div className="grid gap-7 desktop-small:grid-cols-2 gap-x-10">
+            <FeesComponent fees={generalData.aboutPage.fees.sellerFees} />
+            <Image
+              src="/images/placeholders/BLOG-FEATURED-IMAGE-7.png"
+              alt="Auto Marketplace Queensland"
+              width={1000}
+              height={800}
+              className="w-full h-auto object-cover aspect-video desktop-small:aspect-auto"
+            />
+          </div>
         </section>
+        <div id="faqs" className="-translate-y-28" />
         <section className="grid gap-7">
           <h3>Frequently Asked Questions</h3>
           <FaqComponent />

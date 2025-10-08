@@ -15,6 +15,11 @@ interface PersonalInfoSectionProps {
   imageCount: number;
   error: string | null;
   isSubmitting?: boolean;
+  rateLimitStatus?: {
+    remaining: number;
+    blocked: boolean;
+    timeRemaining: string | null;
+  } | null;
 }
 
 const PersonalInfoSection = ({
@@ -23,6 +28,7 @@ const PersonalInfoSection = ({
   imageCount,
   error,
   isSubmitting,
+  rateLimitStatus,
 }: PersonalInfoSectionProps) => {
   return (
     <div
@@ -98,6 +104,15 @@ const PersonalInfoSection = ({
           <div className="hidden bg-red/50 rounded-md p-3 tablet:block">
             <h4 className="text-paragraph font-semibold">Submission error:</h4>
             <p className="text-[16px]">{error}</p>
+          </div>
+        )}
+
+        {/* Rate limit status for desktop - only show when blocked */}
+        {rateLimitStatus && rateLimitStatus.blocked && (
+          <div className="hidden bg-blue/10 rounded-md p-3 tablet:block">
+            <p className="text-[14px] text-blue">
+              Rate limit active. Please try again in {rateLimitStatus.timeRemaining}.
+            </p>
           </div>
         )}
       </div>

@@ -25,7 +25,7 @@ const CtaComponent = () => {
         </div>
       </div>
       <Link
-        href="sell-my-car"
+        href="/sell-my-car"
         aria-label="Sell My Car"
         className={classNames(
           "bg-yellow py-4 min-[400px]:py-10 px-5 flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:absolute desktop-small:top-0 desktop-small:right-[100px] desktop-small:w-[300px] desktop-small:h-[400px] desktop-small:border-8 border-yellow desktop:h-[620px] desktop:right-[50px] desktop:w-[450px] desktop-large:w-[526px]",

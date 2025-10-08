@@ -8,7 +8,7 @@ const Cta2Component = () => {
         Sell your car with
         <span className="text-yellow">Auto Marketplace QLD</span>
         <Link
-          href="#"
+          href="/sell-my-car"
           aria-label="Sell My Car"
           className="flex justify-center gap-2 p-2 -m-2 mx-auto text-white desktop-small:justify-start desktop-small:p-0 desktop-small:m-0 desktop-small:gap-2 desktop-small:mr-auto desktop-small:hover:text-yellow ease-in-out duration-300"
         >

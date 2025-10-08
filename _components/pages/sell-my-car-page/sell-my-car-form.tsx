@@ -96,6 +96,12 @@ const SellMyCarForm = () => {
         resetForm();
         setShowFormSubmitted(true);
       } else {
+        // Handle specific error messages
+        if (result.error) {
+          setError(result.error);
+        } else {
+          setError("An unexpected error occurred. Please try again.");
+        }
         // Log detailed error for debugging
         console.log("Form submission failed:", result);
         if (result.fieldErrors) {
@@ -173,13 +179,60 @@ const SellMyCarForm = () => {
                     imageCount < 2 ? "Please upload at least 2 images" : ""
                   }
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Vehicle"}
+                  {isSubmitting ? (
+                    <span>
+                      Submitting
+                      <span className="inline-flex">
+                        <span
+                          className="inline-block transition-all duration-300"
+                          style={{
+                            animation: "growShrink 1.4s infinite",
+                            animationDelay: "0s",
+                          }}
+                        >
+                          .
+                        </span>
+                        <span
+                          className="inline-block transition-all duration-300"
+                          style={{
+                            animation: "growShrink 1.4s infinite",
+                            animationDelay: "0.2s",
+                          }}
+                        >
+                          .
+                        </span>
+                        <span
+                          className="inline-block transition-all duration-300"
+                          style={{
+                            animation: "growShrink 1.4s infinite",
+                            animationDelay: "0.4s",
+                          }}
+                        >
+                          .
+                        </span>
+                      </span>
+                      <style jsx>{`
+                        @keyframes growShrink {
+                          0%,
+                          100% {
+                            transform: scale(0.8);
+                            opacity: 0.3;
+                          }
+                          50% {
+                            transform: scale(1.2);
+                            opacity: 1;
+                          }
+                        }
+                      `}</style>
+                    </span>
+                  ) : (
+                    "Submit Vehicle"
+                  )}
                 </ButtonType>
-                {imageCount < 2 && (
-                  <p className="text-[14px] text-red italic">
-                    Please upload at least 2 images
-                  </p>
-                )}
+
+                <p className="text-[14px] text-red italic">
+                  {imageCount < 2 && "Please upload at least 2 images "}
+                </p>
               </div>
               {/* General error message mobile */}
               {error && (

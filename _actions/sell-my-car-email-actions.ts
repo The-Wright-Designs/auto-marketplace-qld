@@ -38,7 +38,7 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
     const headersList = await headers();
     const clientId = RateLimiter.getClientIdentifier(headersList);
 
-    const rateLimitResult = await RateLimiter.checkRateLimit(clientId);
+    const rateLimitResult = await RateLimiter.checkRateLimit(clientId, false);
 
     if (!rateLimitResult.allowed) {
       return {
@@ -108,7 +108,7 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
             const parsedImage = JSON.parse(imageData as string);
             attachments.push({
               filename: parsedImage.filename,
-              content: Buffer.from(parsedImage.contentBase64, 'base64'),
+              content: Buffer.from(parsedImage.contentBase64, "base64"),
               contentType: parsedImage.contentType,
             });
           }

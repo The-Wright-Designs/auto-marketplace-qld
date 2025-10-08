@@ -20,7 +20,7 @@ const OurStoryComponent = () => {
         alt={ourStorySection.image.alt}
         width={1000}
         height={800}
-        className="h-full w-full object-cover aspect-video desktop-small:aspect-auto"
+        className="h-auto w-full object-cover aspect-video desktop-small:aspect-auto"
       />
     </div>
   );
