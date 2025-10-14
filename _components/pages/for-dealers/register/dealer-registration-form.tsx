@@ -24,23 +24,13 @@ export const DealerRegistrationForm = () => {
     <div className="space-y-7">
       {showEmailSubmitted ? (
         <div
-          className="grid place-items-center min-h-[400px] p-10 border-4 rounded-lg border-blue scroll-mt-56"
+          className="grid place-items-center min-h-[400px] p-10 bg-blue rounded-lg scroll-mt-56"
           id="submitted"
         >
           <div className="space-y-6">
-            <p className="text-center">
+            <p className="text-center text-white">
               Your application has been sent, our team will be in touch soon.
             </p>
-            <ButtonType
-              type="button"
-              onClick={() => {
-                setShowEmailSubmitted(false);
-                setError(null);
-              }}
-              cssClasses="w-full min-[600px]:w-auto min-[600px]:mx-auto"
-            >
-              Back
-            </ButtonType>
           </div>
         </div>
       ) : (
