@@ -1,15 +1,17 @@
 "use server";
 
 import nodemailer from "nodemailer";
-import { contactEmailTemplate } from "@/_lib/utils/email-templates/contact-email-template";
+import { dealerRegistrationEmailTemplate } from "@/_lib/utils/email-templates/dealer-registration-email-template";
 import DOMPurify from "isomorphic-dompurify";
 import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
-interface EmailTemplateData {
-  name: string;
+interface DealerRegistrationData {
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
-  message: string;
+  licensedDealer: string;
+  interestedIn: string;
 }
 
 interface MailOptions {
@@ -39,23 +41,40 @@ export async function sendEmail(
           error: recaptchaResult.error || "reCAPTCHA verification failed",
         };
       }
-      const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
+      const firstName = DOMPurify.sanitize(
+        formData.get("firstName")?.toString() || ""
+      );
+      const lastName = DOMPurify.sanitize(
+        formData.get("lastName")?.toString() || ""
+      );
       const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
       const phone = DOMPurify.sanitize(formData.get("phone")?.toString() || "");
-      const message = DOMPurify.sanitize(
-        formData.get("message")?.toString() || ""
+      const licensedDealer = DOMPurify.sanitize(
+        formData.get("licensedDealer")?.toString() || ""
+      );
+      const interestedIn = DOMPurify.sanitize(
+        formData.get("interestedIn")?.toString() || ""
       );
 
-      if (!name.trim() || !email.trim() || !message.trim()) {
+      if (
+        !firstName.trim() ||
+        !lastName.trim() ||
+        !email.trim() ||
+        !phone.trim() ||
+        !licensedDealer.trim() ||
+        !interestedIn.trim()
+      ) {
         return { success: false, error: "All required fields must be filled" };
       }
 
-      const emailHtmlContent = contactEmailTemplate({
-        name,
+      const emailHtmlContent = dealerRegistrationEmailTemplate({
+        firstName,
+        lastName,
         email,
         phone,
-        message,
-      } as EmailTemplateData);
+        licensedDealer,
+        interestedIn,
+      } as DealerRegistrationData);
 
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST as string,
@@ -68,9 +87,9 @@ export async function sendEmail(
       });
 
       const mailOptions: MailOptions = {
-        from: process.env.SMTP_USER as string,
+        from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
         to: process.env.SMTP_SEND_TO as string,
-        subject: "Website form submission - AMQ",
+        subject: "Dealer Registration Application - AMQ",
         replyTo: email,
         html: emailHtmlContent,
       };

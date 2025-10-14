@@ -76,13 +76,10 @@ const SellMyCarForm = () => {
 
       const recaptchaToken = await executeRecaptcha("sell_my_car_form");
 
-      // Create FormData from the actual form element to capture hidden inputs
       const formDataToSubmit = new FormData(formRef.current!);
 
-      // Update with controlled form values (to override any default/empty values)
       Object.entries(formData).forEach(([key, value]) => {
         if (key === "vehicleYear" && value === "") {
-          // Skip empty vehicleYear since it's optional
           return;
         }
         formDataToSubmit.set(key, String(value));
@@ -96,7 +93,6 @@ const SellMyCarForm = () => {
         resetForm();
         setShowFormSubmitted(true);
       } else {
-        // Handle specific error messages
         if (result.error) {
           setError(result.error);
         } else {

@@ -3,7 +3,6 @@
 import { ContactForm } from "@/_components/pages/contact-page/contact-form";
 /* import ShowPhoneNumber from "@/_components/ui/contact/show-phone-number"; */
 import ShowEmailAddress from "@/_components/ui/contact/show-email-address";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import Image from "next/image";
 
@@ -20,24 +19,20 @@ const ContactPage = () => {
         <h2 className="text-subheading tablet:col-span-2 full-hd:text-subheading-desktop">
           Contact
         </h2>
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-        >
-          <div className="space-y-7">
-            <div className="space-y-5 desktop-small:space-y-2">
-              <div className={contactStyles}>
-                <p className="font-bold">Email:</p>
-                <ShowEmailAddress />
-              </div>
-              {/* <div className={contactStyles}>
+        <div className="space-y-7">
+          <div className="space-y-5 desktop-small:space-y-2">
+            <div className={contactStyles}>
+              <p className="font-bold">Email:</p>
+              <ShowEmailAddress />
+            </div>
+            {/* <div className={contactStyles}>
                 <p className="font-bold">Phone:</p>
                 <ShowPhoneNumber />
               </div> */}
-            </div>
-            <hr className="border-black/25" />
-            <ContactForm />
           </div>
-        </GoogleReCaptchaProvider>
+          <hr className="border-black/25" />
+          <ContactForm />
+        </div>
       </div>
       <Image
         src="/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif"

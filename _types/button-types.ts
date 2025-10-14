@@ -8,4 +8,6 @@ export interface ButtonProps {
   type?: "submit" | "reset" | "button";
   title?: string;
   small?: boolean;
+  whiteButton?: boolean;
+  traditionalButton?: boolean;
 }

@@ -29,7 +29,11 @@ const DesktopHeaderNav = () => {
 
   return (
     <nav
-      className={classNames({ "self-end": currentRoute !== "/sell-my-car" })}
+      className={classNames({
+        "self-end":
+          currentRoute !== "/sell-my-car" &&
+          currentRoute !== "/for-dealers/login",
+      })}
     >
       <ul className="flex gap-5 items-center full-hd:gap-7">
         {(headerNavData as NavItem[]).map((item, id) => {
@@ -67,13 +71,12 @@ const DesktopHeaderNav = () => {
                 </Link>
               ) : (
                 <span
-                  className={classNames(
-                    "text-paragraph flex items-center cursor-pointer",
-                    {
-                      "text-white": activeId !== id,
-                      "text-yellow": activeId === id,
-                    }
-                  )}
+                  className={classNames("text-paragraph flex items-center", {
+                    "text-white": activeId !== id,
+                    "text-yellow": activeId === id,
+                    "cursor-pointer": item.url,
+                    "cursor-default": !item.url,
+                  })}
                 >
                   {item.title}
                   {hasSubmenu && (
@@ -128,51 +131,63 @@ const DesktopHeaderNav = () => {
             </li>
           );
         })}
-        {currentRoute !== "/sell-my-car" && (
-          <li>
-            <Link
-              href="sell-my-car"
-              aria-label="Sell My Car"
-              className={classNames(
-                "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-2 ease-in-out duration-300",
-                {
-                  "bg-yellow": !ctaHover,
-                  "bg-blue": ctaHover,
+        {currentRoute !== "/sell-my-car" &&
+          currentRoute !== "/for-dealers/login" && (
+            <li>
+              <Link
+                href={
+                  !currentRoute.startsWith("/for-dealers")
+                    ? "sell-my-car"
+                    : "/for-dealers/login"
                 }
-              )}
-              onMouseEnter={() => setCtaHover(true)}
-              onMouseLeave={() => setCtaHover(false)}
-            >
-              <h3
+                aria-label={
+                  !currentRoute.startsWith("/for-dealers")
+                    ? "Sell My Car"
+                    : "Dealer Login"
+                }
                 className={classNames(
-                  "text-subheading uppercase ease-in-out duration-300",
+                  "px-10 full-hd:px-[75px] border-8 border-yellow h-[120px] flex items-center justify-center gap-2 ease-in-out duration-300",
                   {
-                    "text-yellow": ctaHover,
+                    "bg-yellow": !ctaHover,
+                    "bg-blue": ctaHover,
                   }
                 )}
+                onMouseEnter={() => setCtaHover(true)}
+                onMouseLeave={() => setCtaHover(false)}
               >
-                Sell My Car
-              </h3>
-              {ctaHover ? (
-                <Image
-                  src="/icons/click-yellow.svg"
-                  alt="Sell My Car"
-                  width={62}
-                  height={50}
-                  className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
-                />
-              ) : (
-                <Image
-                  src="/icons/click-blue.svg"
-                  alt="Sell My Car"
-                  width={62}
-                  height={50}
-                  className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
-                />
-              )}
-            </Link>
-          </li>
-        )}
+                <h3
+                  className={classNames(
+                    "text-subheading uppercase ease-in-out duration-300",
+                    {
+                      "text-yellow": ctaHover,
+                    }
+                  )}
+                >
+                  {currentRoute.startsWith("/for-dealers")
+                    ? "Dealer Login"
+                    : "Sell My Car"}
+                </h3>
+                {!currentRoute.startsWith("/for-dealers") &&
+                  (ctaHover ? (
+                    <Image
+                      src="/icons/click-yellow.svg"
+                      alt="Sell My Car"
+                      width={62}
+                      height={50}
+                      className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
+                    />
+                  ) : (
+                    <Image
+                      src="/icons/click-blue.svg"
+                      alt="Sell My Car"
+                      width={62}
+                      height={50}
+                      className="h-auto w-12 full-hd:w-[62px] ease-in-out duration-300"
+                    />
+                  ))}
+              </Link>
+            </li>
+          )}
       </ul>
     </nav>
   );

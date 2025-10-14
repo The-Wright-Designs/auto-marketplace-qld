@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { AlertCircle } from "lucide-react";
+import { useRef } from "react";
 import { formLabelStyles } from "@/_styles/form-input-styles";
 import { FormInputFileProps } from "@/_types/form-types";
 import { useFileUpload } from "./form-input-file-components/use-file-upload";

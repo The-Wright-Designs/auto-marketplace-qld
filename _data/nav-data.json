@@ -31,16 +31,7 @@
     },
     {
       "title": "For Dealers",
-      "submenu": [
-        {
-          "title": "Register Now",
-          "url": "/register"
-        },
-        {
-          "title": "Login",
-          "url": "/login"
-        }
-      ]
+      "url": "/for-dealers"
     },
     {
       "title": "Contact",

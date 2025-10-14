@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Poppins } from "next/font/google";
 import "@/_styles/globals.css";
 import { Header } from "@/_components/navigation/header/header";
 import { Footer } from "@/_components/navigation/footer/footer";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const poppinsFont = Poppins({
   variable: "--font-poppins",
@@ -11,7 +13,7 @@ const poppinsFont = Poppins({
   weight: ["500", "600", "700"],
 });
 
-export const metadata: Metadata = {
+/* export const metadata: Metadata = {
   metadataBase: new URL("https://automarketplaceqld.com.au"),
   title: "Auto Marketplace QLD - Australia",
   description:
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-};
+}; */
 
 export default function RootLayout({
   children,
@@ -40,9 +42,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <GoogleReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+        >
+          <Header />
+          {children}
+          <Footer />
+        </GoogleReCaptchaProvider>
       </body>
     </html>
   );
