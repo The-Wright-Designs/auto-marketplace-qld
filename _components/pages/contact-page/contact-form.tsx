@@ -34,7 +34,7 @@ export const ContactForm = () => {
           </p>
 
           {error && (
-            <div className="bg-red/10 border border-red text-red p-4 rounded">
+            <div className="bg-red/10 border border-red text-red p-4 rounded-md">
               {error}
             </div>
           )}

@@ -41,10 +41,8 @@ const FileListDisplay = ({
       </div>
       <div className="space-y-3">
         {processedImages.map((item, index) => {
-          const processedImage = (item as ProcessedImageResult)
-            .processedImage;
-          const fileName =
-            processedImage?.filename || `Image ${index + 1}`;
+          const processedImage = (item as ProcessedImageResult).processedImage;
+          const fileName = processedImage?.filename || `Image ${index + 1}`;
 
           return (
             <div
@@ -58,7 +56,7 @@ const FileListDisplay = ({
                     alt={`Preview of ${fileName}`}
                     width={50}
                     height={50}
-                    className="w-[50px] h-[50px] object-cover rounded"
+                    className="w-[50px] h-[50px] object-cover rounded-md"
                   />
                 )}
                 <div className="flex flex-col">

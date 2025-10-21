@@ -206,7 +206,7 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
     });
 
     const mailOptions: MailOptions = {
-      from: process.env.SMTP_USER as string,
+      from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_SEND_TO as string,
       subject: "Vehicle Sell Request - AMQ",
       replyTo: sanitizedData.email,

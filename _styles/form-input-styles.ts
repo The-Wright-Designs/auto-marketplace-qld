@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 export const formInputStyles = (cssClasses?: string, disabled?: boolean) =>
   classNames(
-    "border-2 border-grey/75 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue hover:cursor-text placeholder:text-black/50",
+    "border-2 border-grey/75 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue hover:cursor-text placeholder:text-black/50",
     cssClasses,
     {
       "opacity-50 cursor-not-allowed": disabled,
@@ -12,7 +12,7 @@ export const formInputStyles = (cssClasses?: string, disabled?: boolean) =>
 
 export const formSelectStyles = (cssClasses?: string, disabled?: boolean) =>
   classNames(
-    "border-2 border-grey/75 text-[16px] rounded px-3 py-1.5 w-full focus:outline-none focus:ring-2 focus:ring-blue text-paragraph appearance-none pr-10",
+    "border-2 border-grey/75 text-[16px] rounded-md px-3 py-1.5 w-full focus:outline-none focus:ring-2 focus:ring-blue text-paragraph appearance-none pr-10",
     cssClasses,
     {
       "opacity-50 cursor-not-allowed": disabled,

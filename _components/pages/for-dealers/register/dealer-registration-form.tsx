@@ -24,7 +24,7 @@ export const DealerRegistrationForm = () => {
     <div className="space-y-7">
       {showEmailSubmitted ? (
         <div
-          className="grid place-items-center min-h-[400px] p-10 bg-blue rounded-lg scroll-mt-56"
+          className="grid place-items-center min-h-[400px] p-10 bg-blue rounded-md scroll-mt-56"
           id="submitted"
         >
           <div className="space-y-6">
@@ -41,7 +41,7 @@ export const DealerRegistrationForm = () => {
           </p>
 
           {error && (
-            <div className="bg-red/10 border border-red text-red p-4 rounded">
+            <div className="bg-red/10 border border-red text-red p-4 rounded-md">
               {error}
             </div>
           )}
@@ -207,7 +207,7 @@ export const DealerRegistrationForm = () => {
                 name="legalAcceptance"
                 required
                 onChange={() => setIsTermsAccepted(!isTermsAccepted)}
-                className="mt-2 size-4 border-2 border-grey/50 rounded focus:outline-none focus:ring focus:ring-blue"
+                className="mt-2 size-4 border-2 border-grey/50 rounded-md focus:outline-none focus:ring focus:ring-blue"
               />
               <Label
                 htmlFor="legal-acceptance"

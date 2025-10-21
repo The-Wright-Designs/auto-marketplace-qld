@@ -53,7 +53,7 @@ const FileUploadErrors = ({
                 className="flex items-center justify-between rounded-md bg-red/20 p-3"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-5 h-5 rounded flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center">
                     <AlertCircle className="w-5 h-5" color="red" />
                   </div>
                   <div className="flex flex-col">

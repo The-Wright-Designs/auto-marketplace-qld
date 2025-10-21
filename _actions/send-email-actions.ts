@@ -68,7 +68,7 @@ export async function sendEmail(
       });
 
       const mailOptions: MailOptions = {
-        from: process.env.SMTP_USER as string,
+        from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
         to: process.env.SMTP_SEND_TO as string,
         subject: "Website form submission - AMQ",
         replyTo: email,

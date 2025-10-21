@@ -1,7 +1,6 @@
 "use client";
 
 import { ContactForm } from "@/_components/pages/contact-page/contact-form";
-/* import ShowPhoneNumber from "@/_components/ui/contact/show-phone-number"; */
 import ShowEmailAddress from "@/_components/ui/contact/show-email-address";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import Image from "next/image";

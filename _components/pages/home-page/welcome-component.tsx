@@ -12,7 +12,7 @@ const WelcomeComponent = () => {
           className="pr-5 pl-1 desktop-small:max-w-[920px] desktop-small:h-auto full-hd:max-w-[1100px]"
           sizes="(max-width: 1280px) 100vw, 50vw"
         />
-        <div className="absolute -z-10 top-[15%] left-5 phone:left-8 rounded-l-full bg-blue h-[45vw] w-full desktop-small:h-[440px] desktop-small:left-10 full-hd:h-[540px] full-hd:w-screen" />
+        <div className="absolute -z-10 top-[15%] left-5 phone:left-8 rounded-md-full bg-blue h-[45vw] w-full desktop-small:h-[440px] desktop-small:left-10 full-hd:h-[540px] full-hd:w-screen" />
       </div>
       <div className="flex flex-col gap-8 desktop-small:gap-50px desktop:place-self-center">
         <h2 className="text-subheading full-hd:text-subheading-desktop">
