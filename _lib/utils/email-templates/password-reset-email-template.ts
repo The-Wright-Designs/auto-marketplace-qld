@@ -21,6 +21,13 @@ export function passwordResetEmailTemplate({
             <td align="center">
               <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; padding: 40px; max-width: 600px;">
                 <tr>
+                  <td align="center" style="padding-bottom: 30px;">
+                    <a href="https://automarketqld.com.au" target="_blank" style="display: inline-block;">
+                      <img src="https://auto-marketplace-qld-git-dev-chads-projects-d6133df6.vercel.app/logo/amq-logo.png" alt="Auto Market QLD" width="200" height="200" style="display: block; max-width: 100%; height: auto;" border="0">
+                    </a>
+                  </td>
+                </tr>
+                <tr>
                   <td>
                     <h1 style="color: #1f2937; font-size: 32px; font-weight: bold; margin: 0 0 30px; text-align: center;">
                       Reset Your Password
@@ -31,8 +38,7 @@ export function passwordResetEmailTemplate({
                     </p>
                     
                     <p style="color: #4b5563; font-size: 16px; line-height: 26px; margin: 16px 0;">
-                      We received a request to reset your password for your Auto Market QLD dealer account.
-                      Click the button below to create a new password.
+                      To activate your Auto Market QLD dealer account, click the button below to create a new password.
                     </p>
 
                     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">

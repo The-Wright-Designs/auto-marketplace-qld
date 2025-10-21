@@ -43,6 +43,8 @@ export async function resetPasswordAction(
     const oobCode = formData.get("oobCode") as string;
     const newPassword = formData.get("newPassword") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
+    const email = formData.get("email") as string;
+    const verified = formData.get("verified") as string;
 
     // Validate form inputs
     if (!oobCode || !newPassword || !confirmPassword) {
@@ -69,15 +71,6 @@ export async function resetPasswordAction(
       };
     }
 
-    // Verify the reset code using email from oobCode
-    // For Firebase Admin SDK, we need to extract the email from the oobCode
-    // This is a limitation - server-side password reset requires client-side verification
-    // We'll need to handle this differently by passing the email directly
-
-    // Hybrid approach: require client-side verification to have occurred
-    const verified = formData.get("verified") as string;
-    const email = formData.get("email") as string;
-
     if (!email) {
       return {
         success: false,
@@ -100,8 +93,13 @@ export async function resetPasswordAction(
       await adminAuth.updateUser(user.uid, {
         password: newPassword,
       });
+
+      return {
+        success: true,
+        message: "Password has been successfully reset",
+      };
     } catch (error: any) {
-      console.error("Password reset confirmation error:", error);
+      console.error("Password reset confirmation error:", error.code || error.message);
 
       if (error.code === "auth/user-not-found") {
         return {
@@ -122,11 +120,6 @@ export async function resetPasswordAction(
         message: "Failed to reset password. Please try again",
       };
     }
-
-    return {
-      success: true,
-      message: "Password has been successfully reset",
-    };
   } catch (error: any) {
     console.error("Password reset action error:", error);
     return {
