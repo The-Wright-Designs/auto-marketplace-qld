@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { resendResetLinkAction } from "@/_actions/password-reset-email-actions";
 
@@ -14,7 +14,7 @@ export default function CodeExpiredState({
   email,
 }: CodeExpiredStateProps) {
   const [inputEmail, setInputEmail] = useState(email);
-  const [state, formAction] = useFormState(resendResetLinkAction, null);
+  const [state, formAction] = useActionState(resendResetLinkAction, null);
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-grey/10">
       <div className="bg-white p-5 rounded-md shadow-md max-w-md w-full space-y-5">
