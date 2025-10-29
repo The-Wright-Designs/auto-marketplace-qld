@@ -3,6 +3,7 @@
 import { adminAuth } from "@/_lib/firebase/firebase-admin";
 import nodemailer from "nodemailer";
 import { passwordResetEmailTemplate } from "@/_lib/utils/email-templates/password-reset-email-template";
+import { welcomeEmailTemplate } from "@/_lib/utils/email-templates/welcome-email-template";
 
 interface ResetResult {
   success: boolean;
@@ -153,5 +154,47 @@ export async function sendPasswordResetEmail(
   } catch (error: any) {
     console.error("Email send error:", error);
     return { success: false, error: "Failed to send email" };
+  }
+}
+
+export async function sendWelcomeAfterResetEmail(
+  email: string,
+  userName?: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const emailHtmlContent = welcomeEmailTemplate({
+      loginLink: "https://auto-marketplace-qld.netlify.app/login",
+      userName,
+    });
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST as string,
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER as string,
+        pass: process.env.SMTP_PASS as string,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    // Verify transporter configuration
+    await transporter.verify();
+
+    const mailOptions: MailOptions = {
+      from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Welcome to the Auto Marketplace QLD Dealership Portal",
+      html: emailHtmlContent,
+    };
+
+    await sendEmailWithRetry(transporter, mailOptions);
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Welcome email send error:", error);
+    return { success: false, error: "Failed to send welcome email" };
   }
 }

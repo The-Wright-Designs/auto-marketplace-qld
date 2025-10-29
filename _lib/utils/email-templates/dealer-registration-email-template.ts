@@ -33,9 +33,8 @@ export const dealerRegistrationEmailTemplate = ({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto Marketplace QLD - Dealer Registration Application</title>
+    <title>Dealer Registration Application - Auto Marketplace QLD</title>
     <style>
-      /* Inline CSS for better email client support */
       .container { max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; }
       .header { background-color: #13103F; color: white; padding: 1rem; }
       .content { padding: 1rem; }
@@ -73,12 +72,17 @@ export const dealerRegistrationEmailTemplate = ({
 
         <div class="field">
           <span class="label">Licensed Dealer:</span>
-          <span class="status-badge">${sanitizedData.licensedDealer === "yes" ? "Yes" : "No"}</span>
+          <span class="status-badge">${
+            sanitizedData.licensedDealer === "yes" ? "Yes" : "No"
+          }</span>
         </div>
 
         <div class="field">
           <span class="label">Interested In:</span>
-          <span class="status-badge">${sanitizedData.interestedIn.charAt(0).toUpperCase() + sanitizedData.interestedIn.slice(1)}</span>
+          <span class="status-badge">${
+            sanitizedData.interestedIn.charAt(0).toUpperCase() +
+            sanitizedData.interestedIn.slice(1)
+          }</span>
         </div>
 
         <div class="section-title">Application Details</div>

@@ -1,6 +1,7 @@
 "use server";
 
 import { adminAuth } from "@/_lib/firebase/firebase-admin";
+import { sendWelcomeAfterResetEmail } from "./password-reset-email-actions";
 
 export interface PasswordResetResult {
   success: boolean;
@@ -94,12 +95,26 @@ export async function resetPasswordAction(
         password: newPassword,
       });
 
+      // Send welcome email after successful password reset
+      try {
+        await sendWelcomeAfterResetEmail(email, user.displayName || undefined);
+      } catch (emailError: any) {
+        console.error(
+          "Failed to send welcome email after password reset:",
+          emailError
+        );
+        // Don't fail the password reset if welcome email fails
+      }
+
       return {
         success: true,
         message: "Password has been successfully reset",
       };
     } catch (error: any) {
-      console.error("Password reset confirmation error:", error.code || error.message);
+      console.error(
+        "Password reset confirmation error:",
+        error.code || error.message
+      );
 
       if (error.code === "auth/user-not-found") {
         return {
