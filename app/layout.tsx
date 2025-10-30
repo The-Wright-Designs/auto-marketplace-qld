@@ -1,10 +1,10 @@
-"use client";
-
 import { Poppins } from "next/font/google";
 import "@/_styles/globals.css";
-import { Header } from "@/_components/navigation/header/header";
-import { Footer } from "@/_components/navigation/footer/footer";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { ConditionalHeader } from "@/_components/navigation/conditional-header";
+import { ConditionalFooter } from "@/_components/navigation/conditional-footer";
+import { AuthProvider } from "@/_lib/auth/auth-context";
+import { getCurrentUser } from "@/_lib/auth/get-current-user";
+import { ReCaptchaProvider } from "@/_components/providers/recaptcha-provider";
 
 const poppinsFont = Poppins({
   variable: "--font-poppins",
@@ -17,12 +17,12 @@ const poppinsFont = Poppins({
   metadataBase: new URL("https://automarketplaceqld.com.au"),
   title: "Auto Marketplace QLD - Australia",
   description:
-    "Auto Marketplace QLD is your trusted online portal for selling vehicles across Queensland. Whether you’re upgrading, downsizing, or simply ready to move on, we’re here to make it easy, fast, and secure to sell your car with confidence. Sell smarter and faster every time.",
+    "Auto Marketplace QLD is your trusted online portal for selling vehicles across Queensland. Whether you're upgrading, downsizing, or simply ready to move on, we're here to make it easy, fast, and secure to sell your car with confidence. Sell smarter and faster every time.",
   keywords:
     "auto marketplace, sell car, Queensland, vehicle sales, online car selling, fast car sales, secure car selling, trusted car marketplace, Queensland vehicles, sell your car QLD",
   openGraph: {
     description:
-      "Auto Marketplace QLD is your trusted online portal for selling vehicles across Queensland. Whether you’re upgrading, downsizing, or simply ready to move on, we’re here to make it easy, fast, and secure to sell your car with confidence. Sell smarter and faster every time.",
+      "Auto Marketplace QLD is your trusted online portal for selling vehicles across Queensland. Whether you're upgrading, downsizing, or simply ready to move on, we're here to make it easy, fast, and secure to sell your car with confidence. Sell smarter and faster every time.",
     type: "website",
     locale: "en_AU",
     siteName: "Auto Marketplace QLD - Australia",
@@ -34,21 +34,23 @@ const poppinsFont = Poppins({
   },
 }; */
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-        >
-          <Header />
-          {children}
-          <Footer />
-        </GoogleReCaptchaProvider>
+        <ReCaptchaProvider>
+          <AuthProvider initialUser={initialUser}>
+            <ConditionalHeader />
+            {children}
+            <ConditionalFooter />
+          </AuthProvider>
+        </ReCaptchaProvider>
       </body>
     </html>
   );

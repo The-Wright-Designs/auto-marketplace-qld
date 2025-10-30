@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import navData from "@/_data/nav-data.json";
+import userNavData from "@/_data/user-nav-data.json";
 import classNames from "classnames";
 import SocialIcons from "@/_lib/utils/social-icons";
 
-const { footer: footerNavData } = navData;
+const { footer: footerNavData } = userNavData;
 
-export function MobileFooter() {
+export function MobileUserFooter() {
   return (
     <div className="flex flex-col gap-2 items-center desktop-small:hidden">
       <div className="grid gap-5">

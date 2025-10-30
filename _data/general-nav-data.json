@@ -1,0 +1,71 @@
+{
+  "header": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "About",
+      "submenu": [
+        {
+          "title": "About Us",
+          "url": "/about"
+        },
+        {
+          "title": "Our Story",
+          "url": "/about#our-story"
+        },
+        {
+          "title": "How It Works",
+          "url": "/about#how-it-works"
+        },
+        {
+          "title": "Seller Fees",
+          "url": "/about#seller-fees"
+        },
+        {
+          "title": "FAQs",
+          "url": "/about#faqs"
+        }
+      ]
+    },
+    {
+      "title": "For Dealers",
+      "url": "/for-dealers"
+    },
+    {
+      "title": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "About",
+      "url": "/about"
+    },
+    {
+      "title": "Dealer Login",
+      "url": "/for-dealers/login"
+    },
+    {
+      "title": "Dealer Register",
+      "url": "/register"
+    },
+    {
+      "title": "Contact",
+      "url": "/contact"
+    },
+    {
+      "title": "Terms & Conditions",
+      "url": "/terms-and-conditions"
+    },
+    {
+      "title": "Privacy Policy",
+      "url": "/privacy-policy"
+    }
+  ]
+}

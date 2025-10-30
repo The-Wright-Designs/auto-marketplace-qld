@@ -7,13 +7,16 @@ import Image from "next/image";
 import { X, AlignJustify, ChevronDown } from "lucide-react";
 import classNames from "classnames";
 
-import navData from "@/_data/nav-data.json";
+import userNavData from "@/_data/user-nav-data.json";
+import { useAuth } from "@/_lib/auth/auth-context";
+import ButtonType from "@/_components/ui/buttons/button-type";
 
-const { header: headerNavData } = navData;
+const { header: headerNavData } = userNavData;
 
-export function MobileHeader() {
+export function MobileUserHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const { logout } = useAuth();
 
   useEffect(() => {
     if (isOpen) {
@@ -148,6 +151,9 @@ export function MobileHeader() {
                 </li>
               );
             })}
+            <li>
+              <ButtonType onClick={logout}>Logout</ButtonType>
+            </li>
           </ul>
         </nav>
       </div>

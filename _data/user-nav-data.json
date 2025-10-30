@@ -30,8 +30,8 @@
       ]
     },
     {
-      "title": "For Dealers",
-      "url": "/for-dealers"
+      "title": "Dashboard",
+      "url": "/dealer-portal/dashboard"
     },
     {
       "title": "Contact",
@@ -48,12 +48,8 @@
       "url": "/about"
     },
     {
-      "title": "Dealer Login",
-      "url": "/login"
-    },
-    {
-      "title": "Dealer Register",
-      "url": "/register"
+      "title": "Dashboard",
+      "url": "/dealer-portal/dashboard"
     },
     {
       "title": "Contact",

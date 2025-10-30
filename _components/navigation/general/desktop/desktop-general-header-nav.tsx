@@ -7,8 +7,15 @@ import { usePathname } from "next/navigation";
 
 import { ChevronDown } from "lucide-react";
 
-import navData from "@/_data/nav-data.json";
+import generalNavData from "@/_data/general-nav-data.json";
 import classNames from "classnames";
+import {
+  navLinkStyles,
+  navItemStyles,
+  chevronIconStyles,
+  navContainerStyles,
+  headerNavStyles,
+} from "@/_styles/navigation-styles";
 
 interface NavItem {
   title: string;
@@ -19,77 +26,56 @@ interface NavItem {
   }[];
 }
 
-const { header: headerNavData } = navData;
+const { header: headerNavData } = generalNavData;
 
-const DesktopHeaderNav = () => {
+const DesktopGeneralHeaderNav = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [ctaHover, setCtaHover] = useState(false);
-
   const currentRoute = usePathname();
 
+  const shouldSelfEnd =
+    currentRoute !== "/sell-my-car" &&
+    currentRoute !== "/for-dealers/login" &&
+    currentRoute.startsWith("/for-dealers");
+
   return (
-    <nav
-      className={classNames({
-        "self-end":
-          currentRoute !== "/sell-my-car" &&
-          currentRoute !== "/for-dealers/login",
-      })}
-    >
-      <ul className="flex gap-5 items-center full-hd:gap-7">
+    <nav className={headerNavStyles(shouldSelfEnd)}>
+      <ul className={navContainerStyles()}>
         {(headerNavData as NavItem[]).map((item, id) => {
           const hasSubmenu = item.submenu && item.submenu.length > 0;
+          const isActive = activeId === id || currentRoute === item.url;
 
           return (
             <li
               key={id}
-              className="relative"
+              className={navItemStyles()}
               onMouseEnter={() => setActiveId(id)}
               onMouseLeave={() => setActiveId(null)}
             >
               {item.url ? (
                 <Link
                   href={item.url}
-                  className={classNames("text-paragraph flex items-center", {
-                    "text-white": activeId !== id,
-                    "text-yellow": activeId === id || currentRoute === item.url,
-                  })}
+                  className={navLinkStyles(isActive, activeId === id, true)}
                 >
                   {item.title}
                   {hasSubmenu && (
                     <ChevronDown
                       size={30}
                       strokeWidth={1.5}
-                      color={activeId === id ? "#FFFD01" : "#FFFFFF"}
-                      className={classNames(
-                        "transition-transform duration-300",
-                        {
-                          "rotate-180": activeId === id,
-                        }
-                      )}
+                      color={isActive ? "#FFFD01" : "#FFFFFF"}
+                      className={chevronIconStyles(false, activeId === id)}
                     />
                   )}
                 </Link>
               ) : (
-                <span
-                  className={classNames("text-paragraph flex items-center", {
-                    "text-white": activeId !== id,
-                    "text-yellow": activeId === id,
-                    "cursor-pointer": item.url,
-                    "cursor-default": !item.url,
-                  })}
-                >
+                <span className={navLinkStyles(isActive, activeId === id, false)}>
                   {item.title}
                   {hasSubmenu && (
                     <ChevronDown
                       size={30}
                       strokeWidth={1.5}
-                      color={activeId === id ? "#FFFD01" : "#FFFFFF"}
-                      className={classNames(
-                        "transition-transform duration-300",
-                        {
-                          "rotate-180": activeId === id,
-                        }
-                      )}
+                      color={isActive ? "#FFFD01" : "#FFFFFF"}
+                      className={chevronIconStyles(false, activeId === id)}
                     />
                   )}
                 </span>
@@ -137,7 +123,7 @@ const DesktopHeaderNav = () => {
               <Link
                 href={
                   !currentRoute.startsWith("/for-dealers")
-                    ? "sell-my-car"
+                    ? "/sell-my-car"
                     : "/for-dealers/login"
                 }
                 aria-label={
@@ -193,4 +179,4 @@ const DesktopHeaderNav = () => {
   );
 };
 
-export default DesktopHeaderNav;
+export default DesktopGeneralHeaderNav;

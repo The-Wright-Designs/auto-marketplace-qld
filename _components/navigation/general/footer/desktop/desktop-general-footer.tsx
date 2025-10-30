@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-import navData from "@/_data/nav-data.json";
+import generalNavData from "@/_data/general-nav-data.json";
 import Image from "next/image";
 import SocialIcons from "@/_lib/utils/social-icons";
 
-const { footer: footerNavData } = navData;
+const { footer: footerNavData } = generalNavData;
 
-export function DesktopFooter() {
+export function DesktopGeneralFooter() {
   return (
     <div className="hidden desktop-small:block">
       <div className="grid grid-cols-[1fr_1.5fr]">

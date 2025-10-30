@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import Image from "next/image";
-import DesktopHeaderNav from "./desktop-header-nav";
+import DesktopUserHeaderNav from "./desktop-user-header-nav";
 
-export function DesktopHeader() {
+export function DesktopUserHeader() {
   return (
     <div className="hidden desktop-small:flex items-center justify-between h-[120px]">
       <Link
@@ -36,7 +36,7 @@ export function DesktopHeader() {
           </div>
         </div>
       </Link>
-      <DesktopHeaderNav />
+      <DesktopUserHeaderNav />
     </div>
   );
 }
