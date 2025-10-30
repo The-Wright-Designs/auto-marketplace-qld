@@ -57,7 +57,7 @@ const FormInputFileAccumulator = ({
         {isValidating && (
           <div className="rounded-md border-blue border-2 p-3">
             <div className="flex items-center gap-2">
-              <div className="animate-spin w-4 h-4 border-2 border-blue border-t-transparent rounded-full"></div>
+              <div className="spinner"></div>
               <span className="font-medium">Uploading image/s...</span>
             </div>
           </div>

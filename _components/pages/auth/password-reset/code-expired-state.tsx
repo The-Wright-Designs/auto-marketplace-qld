@@ -61,7 +61,7 @@ export default function CodeExpiredState({
 
         <div className="mt-6 text-center">
           <Link
-            href="/login"
+            href="/for-dealers/login"
             className="text-paragraph desktop-small:text-link-blue desktop-small:hover:opacity-80 ease-in-out duration-300"
           >
             Return to login

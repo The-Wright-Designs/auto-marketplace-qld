@@ -4,6 +4,7 @@ import { adminAuth } from "@/_lib/firebase/firebase-admin";
 import nodemailer from "nodemailer";
 import { passwordResetEmailTemplate } from "@/_lib/utils/email-templates/password-reset-email-template";
 import { welcomeEmailTemplate } from "@/_lib/utils/email-templates/welcome-email-template";
+import { verifyRecaptcha } from "@/_actions/recaptcha-actions";
 
 interface ResetResult {
   success: boolean;
@@ -11,7 +12,8 @@ interface ResetResult {
 }
 
 export async function resendPasswordResetEmail(
-  email: string
+  email: string,
+  recaptchaToken?: string
 ): Promise<ResetResult> {
   try {
     if (!email || typeof email !== "string") {
@@ -19,6 +21,17 @@ export async function resendPasswordResetEmail(
         success: false,
         message: "Invalid email address",
       };
+    }
+
+    // Verify reCAPTCHA token if provided
+    if (recaptchaToken) {
+      const recaptchaResult = await verifyRecaptcha(recaptchaToken);
+      if (!recaptchaResult.success) {
+        return {
+          success: false,
+          message: recaptchaResult.error || "Security verification failed",
+        };
+      }
     }
 
     try {
@@ -110,8 +123,9 @@ export async function resendResetLinkAction(
   formData: FormData
 ): Promise<ResetResult> {
   const email = formData.get("email") as string;
+  const recaptchaToken = formData.get("recaptchaToken") as string;
 
-  return await resendPasswordResetEmail(email);
+  return await resendPasswordResetEmail(email, recaptchaToken);
 }
 
 export async function sendPasswordResetEmail(
@@ -125,7 +139,7 @@ export async function sendPasswordResetEmail(
       userName,
     });
 
-    const transporter = nodemailer.createTransport({
+    /* const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST as string,
       port: 465,
       secure: true,
@@ -136,6 +150,17 @@ export async function sendPasswordResetEmail(
       tls: {
         rejectUnauthorized: false,
       },
+    }); */
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST as string,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER as string,
+        pass: process.env.SMTP_PASS as string,
+      },
+      requireTLS: true,
     });
 
     // Verify transporter configuration
@@ -163,13 +188,13 @@ export async function sendWelcomeAfterResetEmail(
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const emailHtmlContent = welcomeEmailTemplate({
-      loginLink: "https://auto-marketplace-qld.netlify.app/login",
+      loginLink: "https://auto-marketplace-qld.netlify.app/for-dealers/login",
       userName,
     });
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST as string,
-      port: 465,
+      port: parseInt(process.env.SMTP_PORT as string),
       secure: true,
       auth: {
         user: process.env.SMTP_USER as string,

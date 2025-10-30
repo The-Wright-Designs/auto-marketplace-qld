@@ -57,7 +57,7 @@ export async function sendEmail(
         message,
       } as EmailTemplateData);
 
-      const transporter = nodemailer.createTransport({
+      /* const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST as string,
         port: 465,
         secure: true,
@@ -68,6 +68,17 @@ export async function sendEmail(
         tls: {
           rejectUnauthorized: false,
         },
+      }); */
+
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST as string,
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER as string,
+          pass: process.env.SMTP_PASS as string,
+        },
+        requireTLS: true,
       });
 
       const mailOptions: MailOptions = {

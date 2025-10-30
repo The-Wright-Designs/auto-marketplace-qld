@@ -90,7 +90,10 @@ export default function PasswordResetForm({
         </form>
 
         <div className="text-center">
-          <Link href="/login" className="text-paragraph desktop:text-link-blue">
+          <Link
+            href="/for-dealers/login"
+            className="text-paragraph desktop:text-link-blue"
+          >
             Return to login
           </Link>
         </div>

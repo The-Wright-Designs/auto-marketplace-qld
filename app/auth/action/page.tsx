@@ -70,7 +70,7 @@ function PasswordResetContent() {
           "Password has been successfully reset. Redirecting to login..."
         );
         setTimeout(() => {
-          router.push("/login?reset=success");
+          router.push("/for-dealers/login");
         }, 3000);
       } else {
         if (
