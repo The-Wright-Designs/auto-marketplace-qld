@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useActionState, startTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/_lib/firebase/firebase";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import FormInputEmail from "@/_components/ui/form/form-input-email";
+import FormInputPassword from "@/_components/ui/form/form-input-password";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { hybridLoginAction } from "@/_actions/auth-actions";
@@ -129,86 +131,75 @@ const LoginPage = () => {
   return (
     <PageWrapper
       useMainElement
-      cssClasses="grid place-items-center min-h-screen py-12"
+      cssClasses="min-h-[500px] flex flex-col items-center"
     >
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-heading tablet:text-heading-tablet full-hd:text-heading-desktop">
-            Dealer Login
-          </h1>
-          <p className="mt-2 text-paragraph">
-            Sign in to access your dealer portal
-          </p>
-        </div>
+      <div className="space-y-10">
+        <h1 className="text-heading tablet:text-heading-tablet full-hd:text-heading-desktop">
+          Dealer Login
+        </h1>
+        <div className="space-y-5">
+          <p className="text-paragraph">Sign in to access your dealer portal</p>
 
-        {/* Display errors */}
-        {(error || (formResult && !formResult.success)) && (
-          <div className="bg-red/10 border border-red text-red p-4 rounded-md">
-            {error || formResult?.message}
-          </div>
-        )}
-
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Honeypot field for bot protection */}
-          <input
-            type="text"
-            name="_honey"
-            className="visually-hidden"
-            tabIndex={-1}
-            autoComplete="off"
-          />
-
-          <FormInputEmail
-            id="email"
-            name="email"
-            placeholder="Email address"
-            required
-            label="Email"
-            disabled={isFormDisabled}
-          />
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-grey mb-2"
-            >
-              Password
-            </label>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Honeypot field for bot protection */}
             <input
-              type="password"
+              type="text"
+              name="_honey"
+              className="visually-hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
+            <FormInputEmail
+              id="email"
+              name="email"
+              placeholder="Email address"
+              required
+              label="Email"
+              disabled={isFormDisabled}
+            />
+
+            <FormInputPassword
               id="password"
               name="password"
               placeholder="Password"
               required
+              label="Password"
               disabled={isFormDisabled}
               autoComplete="current-password"
-              className="w-full px-3 py-2 border border-grey/50 rounded-md focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue disabled:opacity-50"
             />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
+            {/* Display errors */}
+            {(error || (formResult && !formResult.success)) && (
+              <div className="bg-red/10 border border-red text-red p-4 rounded-md">
+                {error || formResult?.message}
+              </div>
+            )}
+            <ButtonType
+              type="submit"
+              cssClasses="w-full"
+              disabled={isFormDisabled}
+              isLoading={isSubmitting}
+            >
+              Sign in
+            </ButtonType>
+            <div className="flex justify-between items-center">
+              <Link
+                href="/for-dealers/register"
+                className="text-blue hover:text-blue/80 text-[16px] font-light"
+              >
+                Register
+              </Link>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
                 disabled={isFormDisabled}
-                className="text-blue hover:text-blue/80 underline disabled:opacity-50"
+                className="text-blue text-[16px] font-light hover:text-blue/80 disabled:opacity-50"
               >
-                Forgot your password?
+                Forgot password?
               </button>
             </div>
-          </div>
-
-          <ButtonType
-            type="submit"
-            cssClasses="w-full"
-            disabled={isFormDisabled}
-            isLoading={isSubmitting}
-          >
-            Sign in
-          </ButtonType>
-        </form>
-
+          </form>
+        </div>
         <PasswordResetModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

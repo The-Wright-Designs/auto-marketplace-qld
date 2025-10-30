@@ -167,9 +167,9 @@ export async function sendPasswordResetEmail(
     await transporter.verify();
 
     const mailOptions: MailOptions = {
-      from: `Auto Market QLD <${process.env.SMTP_USER}>`,
+      from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
       to: email,
-      subject: "Reset Your Password - Auto Market QLD",
+      subject: "Reset Your Password - Auto Marketplace QLD",
       html: emailHtmlContent,
     };
 

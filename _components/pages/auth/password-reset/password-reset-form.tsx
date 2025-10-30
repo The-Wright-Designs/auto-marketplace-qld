@@ -3,8 +3,8 @@ import {
   PasswordResetResult,
   resetPasswordAction,
 } from "@/_actions/password-reset-actions";
+import FormInputPassword from "@/_components/ui/form/form-input-password";
 import ButtonType from "@/_components/ui/buttons/button-type";
-import { formInputStyles, formLabelStyles } from "@/_styles/form-input-styles";
 
 interface PasswordResetFormProps {
   oobCode: string;
@@ -42,35 +42,24 @@ export default function PasswordResetForm({
           <input type="hidden" name="email" value={email} />
           <input type="hidden" name="verified" value="true" />
 
-          <div>
-            <label htmlFor="newPassword" className={formLabelStyles()}>
-              New Password
-            </label>
-            <input
-              type="password"
-              id="newPassword"
-              name="newPassword"
-              className={formInputStyles()}
-              required
-            />
-            <div className="text-paragraph text-black/60 text-[14px] mt-2">
-              Password must contain at least 8 characters with uppercase,
-              lowercase, and numbers.
-            </div>
-          </div>
+          <FormInputPassword
+            id="newPassword"
+            name="newPassword"
+            placeholder="New Password"
+            label="New Password"
+            required
+            autoComplete="new-password"
+            description="Password must contain at least 8 characters with uppercase, lowercase, and numbers."
+          />
 
-          <div>
-            <label htmlFor="confirmPassword" className={formLabelStyles()}>
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className={formInputStyles()}
-              required
-            />
-          </div>
+          <FormInputPassword
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            label="Confirm Password"
+            required
+            autoComplete="new-password"
+          />
 
           {error && (
             <div className="bg-red/10 border border-red text-red p-3 rounded-md text-[16px]">

@@ -68,7 +68,9 @@ const DesktopGeneralHeaderNav = () => {
                   )}
                 </Link>
               ) : (
-                <span className={navLinkStyles(isActive, activeId === id, false)}>
+                <span
+                  className={navLinkStyles(isActive, activeId === id, false)}
+                >
                   {item.title}
                   {hasSubmenu && (
                     <ChevronDown

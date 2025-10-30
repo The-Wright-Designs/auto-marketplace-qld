@@ -35,9 +35,25 @@ export interface FormInputTelProps extends FormInputBaseProps {
   placeholder: string;
 }
 
+export interface FormInputTextareaProps extends FormInputBaseProps {
+  placeholder: string;
+  rows?: number;
+}
+
+export interface FormInputPasswordProps extends FormInputBaseProps {
+  placeholder: string;
+  autoComplete?: string;
+  description?: string;
+}
+
 export interface FormInputSelectProps extends FormInputBaseProps {
   options: SelectOption[];
   placeholder?: string;
+}
+
+export interface FormInputCheckboxProps extends Omit<FormInputBaseProps, 'placeholder'> {
+  checked?: boolean;
+  children?: React.ReactNode;
 }
 
 export interface FormInputFileProps extends FormInputBaseProps {

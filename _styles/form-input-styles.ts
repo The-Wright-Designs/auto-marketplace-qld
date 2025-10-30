@@ -32,3 +32,13 @@ export const formFileStyles = (cssClasses?: string, disabled?: boolean) =>
       "cursor-pointer": !disabled,
     }
   );
+
+export const formCheckboxStyles = (cssClasses?: string, disabled?: boolean) =>
+  classNames(
+    "size-4 border-2 border-grey/50 rounded-md focus:outline-none focus:ring-2 focus:ring-blue",
+    cssClasses,
+    {
+      "opacity-50 cursor-not-allowed": disabled,
+      "cursor-pointer": !disabled,
+    }
+  );

@@ -22,8 +22,8 @@ export function passwordResetEmailTemplate({
               <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; padding: 40px; max-width: 600px;">
                 <tr>
                   <td align="center" style="padding-bottom: 30px;">
-                    <a href="https://automarketqld.com.au" target="_blank" style="display: inline-block;">
-                      <img src="https://auto-marketplace-qld.netlify.app//logo/amq-logo.png" alt="Auto Market QLD" width="200" height="200" style="display: block; max-width: 100%; height: auto;" border="0">
+                    <a href="https://automarketplaceqld.com.au" target="_blank" style="display: inline-block;">
+                      <img src="https://auto-marketplace-qld.netlify.app//logo/amq-logo.png" alt="Auto Marketplace QLD" width="200" height="200" style="display: block; max-width: 100%; height: auto;" border="0">
                     </a>
                   </td>
                 </tr>
@@ -38,7 +38,7 @@ export function passwordResetEmailTemplate({
                     </p>
                     
                     <p style="color: #4b5563; font-size: 16px; line-height: 26px; margin: 16px 0;">
-                      To activate your Auto Market QLD dealer account, click the button below to create a new password.
+                      To activate your Auto Marketplace QLD dealer account, click the button below to create a new password.
                     </p>
 
                     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
@@ -71,9 +71,9 @@ export function passwordResetEmailTemplate({
                     <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 40px 0;">
 
                     <p style="color: #6b7280; font-size: 14px; line-height: 24px; margin: 0; text-align: center;">
-                      Auto Market QLD<br>
-                      <a href="https://automarketqld.com.au" style="color: #2563eb; text-decoration: underline;">
-                        automarketqld.com.au
+                      Auto Marketplace QLD<br>
+                      <a href="https://automarketplaceqld.com.au" style="color: #2563eb; text-decoration: underline;">
+                        automarketplaceqld.com.au
                       </a>
                     </p>
                   </td>

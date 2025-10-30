@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Input } from "@/_components/ui/contact/forms/input";
-import { Textarea } from "@/_components/ui/contact/forms/textarea";
-import { Label } from "@/_components/ui/contact/forms/label";
+import FormInputText from "@/_components/ui/form/form-input-text";
+import FormInputEmail from "@/_components/ui/form/form-input-email";
+import FormInputTel from "@/_components/ui/form/form-input-tel";
+import FormInputTextarea from "@/_components/ui/form/form-input-textarea";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { sendEmail } from "@/_actions/send-email-actions";
@@ -81,51 +82,33 @@ export const ContactForm = () => {
               tabIndex={-1}
               autoComplete="off"
             />
-            <div>
-              <Label htmlFor="name" className="visually-hidden">
-                Name:
-              </Label>
-              <Input
-                type="text"
-                placeholder="Name"
-                name="name"
-                id="name"
-                required
-              />
-            </div>
+            <FormInputText
+              id="name"
+              name="name"
+              placeholder="Name"
+              required
+            />
 
-            <div>
-              <Label htmlFor="email" className="visually-hidden">
-                Email:
-              </Label>
-              <Input
-                type="email"
-                placeholder="Email"
-                name="email"
-                id="email"
-                required
-              />
-            </div>
+            <FormInputEmail
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
 
-            <div>
-              <Label htmlFor="phone" className="visually-hidden">
-                Phone:
-              </Label>
-              <Input type="tel" placeholder="Phone" name="phone" id="phone" />
-            </div>
+            <FormInputTel
+              id="phone"
+              name="phone"
+              placeholder="Phone"
+            />
 
-            <div>
-              <Label htmlFor="message" className="visually-hidden">
-                Message:
-              </Label>
-              <Textarea
-                placeholder="Message"
-                name="message"
-                rows={4}
-                id="message"
-                required
-              />
-            </div>
+            <FormInputTextarea
+              id="message"
+              name="message"
+              placeholder="Message"
+              rows={4}
+              required
+            />
 
             <ButtonType type="submit" cssClasses="w-full min-[600px]:w-auto">
               Submit

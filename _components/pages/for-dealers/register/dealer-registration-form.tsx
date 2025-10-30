@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Input } from "@/_components/ui/contact/forms/input";
-import { Label } from "@/_components/ui/contact/forms/label";
+import FormInputText from "@/_components/ui/form/form-input-text";
+import FormInputEmail from "@/_components/ui/form/form-input-email";
+import FormInputTel from "@/_components/ui/form/form-input-tel";
+import FormInputCheckbox from "@/_components/ui/form/form-input-checkbox";
+import { FormLabel } from "@/_components/ui/form/form-label";
 import {
   RadioGroup,
   RadioGroupItem,
@@ -89,143 +92,112 @@ export const DealerRegistrationForm = () => {
               autoComplete="off"
             />
             <div className="grid gap-7 tablet:grid-cols-2">
-              <div>
-                <Label htmlFor="firstName" className="visually-hidden">
-                  First Name:
-                </Label>
-                <Input
-                  type="text"
-                  placeholder="First Name"
-                  name="firstName"
-                  id="firstName"
-                  required
-                />
-              </div>
+              <FormInputText
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+                required
+              />
 
-              <div>
-                <Label htmlFor="lastName" className="visually-hidden">
-                  Last Name:
-                </Label>
-                <Input
-                  type="text"
-                  placeholder="Last Name"
-                  name="lastName"
-                  id="lastName"
-                  required
-                />
-              </div>
+              <FormInputText
+                id="lastName"
+                name="lastName"
+                placeholder="Last Name"
+                required
+              />
 
-              <div>
-                <Label htmlFor="email" className="visually-hidden">
-                  Email:
-                </Label>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  id="email"
-                  required
-                />
-              </div>
+              <FormInputEmail
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
 
-              <div>
-                <Label htmlFor="phone" className="visually-hidden">
-                  Phone:
-                </Label>
-                <Input
-                  type="tel"
-                  placeholder="Phone"
-                  name="phone"
-                  id="phone"
-                  required
-                />
-              </div>
+              <FormInputTel
+                id="phone"
+                name="phone"
+                placeholder="Phone"
+                required
+              />
             </div>
             <div>
-              <Label className="text-16px font-medium text-black mb-2 block">
+              <FormLabel className="text-16px font-medium text-black mb-2 block">
                 Are you a licensed dealer?
-              </Label>
+              </FormLabel>
               <RadioGroup name="licensedDealer" required>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="yes" id="licensed-yes" />
-                  <Label
+                  <FormLabel
                     htmlFor="licensed-yes"
                     className="text-16px font-normal translate-y-1"
                   >
                     Yes
-                  </Label>
+                  </FormLabel>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="no" id="licensed-no" />
-                  <Label
+                  <FormLabel
                     htmlFor="licensed-no"
                     className="text-16px font-normal translate-y-1"
                   >
                     No
-                  </Label>
+                  </FormLabel>
                 </div>
               </RadioGroup>
             </div>
             <div>
-              <Label className="text-16px font-medium text-black mb-2 block">
+              <FormLabel className="text-16px font-medium text-black mb-2 block">
                 Interested in:
-              </Label>
+              </FormLabel>
               <RadioGroup name="interestedIn" required>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="buying" id="interested-buying" />
-                  <Label
+                  <FormLabel
                     htmlFor="interested-buying"
                     className="text-16px font-normal translate-y-1"
                   >
                     Buying
-                  </Label>
+                  </FormLabel>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="selling" id="interested-selling" />
-                  <Label
+                  <FormLabel
                     htmlFor="interested-selling"
                     className="text-16px font-normal translate-y-1"
                   >
                     Selling
-                  </Label>
+                  </FormLabel>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="both" id="interested-both" />
-                  <Label
+                  <FormLabel
                     htmlFor="interested-both"
                     className="text-16px font-normal translate-y-1"
                   >
                     Both
-                  </Label>
+                  </FormLabel>
                 </div>
               </RadioGroup>
             </div>
-            <div className="flex items-start space-x-2">
-              <input
-                type="checkbox"
-                id="legal-acceptance"
-                name="legalAcceptance"
-                required
-                onChange={() => setIsTermsAccepted(!isTermsAccepted)}
-                className="mt-2 size-4 border-2 border-grey/50 rounded-md focus:outline-none focus:ring focus:ring-blue"
-              />
-              <Label
-                htmlFor="legal-acceptance"
-                className="text-16px font-normal translate-y-1"
+            <FormInputCheckbox
+              id="legal-acceptance"
+              name="legalAcceptance"
+              required
+              checked={isTermsAccepted}
+              onChange={() => setIsTermsAccepted(!isTermsAccepted)}
+            >
+              I accept the{" "}
+              <Link href="/terms" className="text-link-blue underline">
+                Terms & Conditions
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy-policy"
+                className="text-link-blue underline"
               >
-                I accept the{" "}
-                <Link href="/terms" className="text-link-blue underline">
-                  Terms & Conditions
-                </Link>{" "}
-                and{" "}
-                <Link
-                  href="/privacy-policy"
-                  className="text-link-blue underline"
-                >
-                  Privacy Policy
-                </Link>
-              </Label>
-            </div>
+                Privacy Policy
+              </Link>
+            </FormInputCheckbox>
             <ButtonType
               type="submit"
               cssClasses="w-full min-[600px]:w-auto"
