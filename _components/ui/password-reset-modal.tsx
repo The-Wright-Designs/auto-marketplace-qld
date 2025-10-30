@@ -11,11 +11,7 @@ interface PasswordResetModalProps {
   onClose: () => void;
 }
 
-function PasswordResetModalContent({
-  onClose,
-}: {
-  onClose: () => void;
-}) {
+function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -120,12 +116,16 @@ function PasswordResetModalContent({
           )}
 
           {formResult && formResult.success && (
-            <div className="bg-red/10 border border-black p-4 rounded-md">
+            <div className="border border-black p-4 rounded-md">
               {formResult.message}
             </div>
           )}
 
-          <ButtonType type="submit" cssClasses="w-full" isLoading={isSubmitting}>
+          <ButtonType
+            type="submit"
+            cssClasses="w-full"
+            isLoading={isSubmitting}
+          >
             Send Reset Link
           </ButtonType>
         </form>

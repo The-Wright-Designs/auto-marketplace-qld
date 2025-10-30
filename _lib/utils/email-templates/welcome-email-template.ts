@@ -52,7 +52,7 @@ export function welcomeEmailTemplate({
                     </table>
 
                     <p style="color: #4b5563; font-size: 16px; line-height: 26px; margin: 16px 0;">
-                      If you need any support or have questions, please reach out to us at admin@automarketplaceqld.com.au.
+                      If you need any support or have questions, please reach out to us at admin@automarketplaceqld.com.au
                     </p>
 
                     <p style="color: #4b5563; font-size: 16px; line-height: 26px; margin: 16px 0;">

@@ -3,6 +3,8 @@ import Link from "next/link";
 import privacyData from "@/_data/privacy-policy.json";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 
+export const dynamic = "force-static";
+
 interface ContentItem {
   type: "paragraph" | "list";
   text?: string;

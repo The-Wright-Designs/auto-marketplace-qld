@@ -3,7 +3,6 @@ import "@/_styles/globals.css";
 import { ConditionalHeader } from "@/_components/navigation/conditional-header";
 import { ConditionalFooter } from "@/_components/navigation/conditional-footer";
 import { AuthProvider } from "@/_lib/auth/auth-context";
-import { getCurrentUser } from "@/_lib/auth/get-current-user";
 import { ReCaptchaProvider } from "@/_components/providers/recaptcha-provider";
 
 const poppinsFont = Poppins({
@@ -34,18 +33,16 @@ const poppinsFont = Poppins({
   },
 }; */
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialUser = await getCurrentUser();
-
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
         <ReCaptchaProvider>
-          <AuthProvider initialUser={initialUser}>
+          <AuthProvider initialUser={null}>
             <ConditionalHeader />
             {children}
             <ConditionalFooter />

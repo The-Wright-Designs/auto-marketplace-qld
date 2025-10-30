@@ -2,6 +2,8 @@ import React from "react";
 import termsData from "@/_data/terms-and-conditions.json";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 
+export const dynamic = "force-static";
+
 interface ContentItem {
   type: "paragraph" | "list";
   text?: string;

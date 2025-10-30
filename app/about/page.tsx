@@ -7,6 +7,8 @@ import generalData from "@/_data/general-data.json";
 import HowItWorksComponent from "@/_components/pages/about-page/how-it-works-component";
 import Image from "next/image";
 
+export const dynamic = "force-static";
+
 const AboutPage = () => {
   return (
     <PageWrapper>

@@ -91,19 +91,23 @@ export async function resetPasswordAction(
     // Update the user's password directly using Admin SDK
     try {
       const user = await adminAuth.getUserByEmail(email);
+      const isFirstPasswordReset = !user.emailVerified;
+
       await adminAuth.updateUser(user.uid, {
         password: newPassword,
+        emailVerified: true,
       });
 
-      // Send welcome email after successful password reset
-      try {
-        await sendWelcomeAfterResetEmail(email, user.displayName || undefined);
-      } catch (emailError: any) {
-        console.error(
-          "Failed to send welcome email after password reset:",
-          emailError
-        );
-        // Don't fail the password reset if welcome email fails
+      // Send welcome email only on first password reset
+      if (isFirstPasswordReset) {
+        try {
+          await sendWelcomeAfterResetEmail(email, user.displayName || undefined);
+        } catch (emailError: any) {
+          console.error(
+            "Failed to send welcome email after password reset:",
+            emailError
+          );
+        }
       }
 
       return {

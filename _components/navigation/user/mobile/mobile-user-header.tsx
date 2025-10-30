@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { X, AlignJustify, ChevronDown } from "lucide-react";
 import classNames from "classnames";
@@ -16,7 +17,13 @@ const { header: headerNavData } = userNavData;
 export function MobileUserHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const router = useRouter();
   const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/");
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -152,7 +159,7 @@ export function MobileUserHeader() {
               );
             })}
             <li>
-              <ButtonType onClick={logout}>Logout</ButtonType>
+              <ButtonType onClick={handleLogout}>Logout</ButtonType>
             </li>
           </ul>
         </nav>

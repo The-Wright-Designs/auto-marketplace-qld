@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useActionState, startTransition } from "react";
+import { useState, useEffect, useActionState, startTransition, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -14,7 +14,7 @@ import { hybridLoginAction } from "@/_actions/auth-actions";
 import PasswordResetModal from "@/_components/ui/password-reset-modal";
 import { useAuth } from "@/_lib/auth/auth-context";
 
-const LoginPage = () => {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -88,18 +88,13 @@ const LoginPage = () => {
 
       const error = err as { code?: string; message?: string };
 
-      if (error.code === "auth/user-not-found") {
-        errorMessage = "No account found with this email address";
-      } else if (error.code === "auth/wrong-password") {
-        errorMessage = "Incorrect password";
+      // Handle the 3 most common error scenarios
+      if (error.code === "auth/invalid-credential") {
+        errorMessage = "Invalid email or password";
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Invalid email address";
-      } else if (error.code === "auth/user-disabled") {
-        errorMessage = "This account has been disabled";
+        errorMessage = "Invalid email address format";
       } else if (error.code === "auth/too-many-requests") {
-        errorMessage = "Too many failed login attempts. Please try again later";
-      } else if (error.code === "auth/network-request-failed") {
-        errorMessage = "Network error. Please check your connection";
+        errorMessage = "Too many failed attempts. Please try again later";
       }
 
       setError(errorMessage);
@@ -207,6 +202,18 @@ const LoginPage = () => {
       </div>
     </PageWrapper>
   );
-};
+}
 
-export default LoginPage;
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[500px] flex items-center justify-center">
+          <div className="spinner" />
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
+  );
+}
