@@ -4,15 +4,15 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) Welcome to www.automarketplaceqld.com.au (the Website). The Website sets out the services and products we may provide (the Services)."
+        "text": "(a) Welcome to http://www.automarketplaceqld.com.au (the Website). The Website outlines the services or products that we may provide (the Services)."
       },
       {
         "type": "paragraph",
-        "text": "(b) The Website is operated by Auto Marketplace QLD ABN [insert ABN] (Auto Marketplace QLD). Access to and use of the Website, or any associated products or Services, is provided by Auto Marketplace QLD. Please read these terms and conditions (the Terms) carefully. By using, browsing or submitting information through the Website, you acknowledge that you have read, understood and agree to be bound by the Terms. If you do not agree, you must immediately stop using the Website and Services."
+        "text": "(b) The Website is operated by LA EXCEL PTY LIMITED (trading as Auto Marketplace Qld) ABN 97 653 564 982 (Auto Marketplace Qld). Access to and use of the Website, or any associated Products or Services, is provided by Auto Marketplace Qld. Please read these terms and conditions (the Terms) carefully. By using, browsing and/or reading the Website, or by providing information through the Website, you signify that you have read, understood and agree to be bound by the Terms. If you do not agree, you must cease using the Website and Services immediately."
       },
       {
         "type": "paragraph",
-        "text": "(c) Auto Marketplace QLD reserves the right to review and update the Terms at its discretion. Any changes will take effect from the date they are published on the Website. Where possible, Auto Marketplace QLD will make reasonable efforts to notify you of significant changes. We recommend you keep a copy of these Terms for your records."
+        "text": "(c) Auto Marketplace Qld reserves the right to review and amend these Terms at any time at its sole discretion by updating this page. Any changes take effect immediately upon publication. It is your responsibility to check this page regularly. We recommend you keep a copy of these Terms for your records."
       }
     ]
   },
@@ -21,7 +21,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "You accept the Terms by continuing to use the Website. You may also accept the Terms by clicking an acceptance option where this is made available to you on the Website."
+        "text": "You accept the Terms by remaining on the Website or by clicking to accept or agree where this option is made available by Auto Marketplace Qld."
       }
     ]
   },
@@ -30,25 +30,25 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) To access certain Services, you may be required to register an account (Account)."
+        "text": "(a) To access certain Services, you may need to register and create an account (Account)."
       },
       {
         "type": "paragraph",
-        "text": "(b) As part of registration, or as part of ongoing use of the Services, you may be asked to provide personal information."
+        "text": "(b) During registration or continued use, you may be required to provide personal information about yourself."
       },
       {
         "type": "paragraph",
-        "text": "(c) You warrant that any information provided to Auto Marketplace QLD is accurate, current and complete."
+        "text": "(c) You warrant that all information you provide to Auto Marketplace Qld is accurate, correct and up to date."
       },
       {
         "type": "paragraph",
-        "text": "(d) You may not use the Website or Services if:"
+        "text": "(d) You may not use the Website or Services and may not accept these Terms if:"
       },
       {
         "type": "list",
         "items": [
-          "(i) you are not legally able to enter into a binding contract; or",
-          "(ii) you are prohibited from accessing the Services under Australian law or the laws of the country in which you reside."
+          "(i) you are not of legal age to form a binding contract; or",
+          "(ii) you are barred from receiving Services under Australian or other applicable laws."
         ]
       }
     ]
@@ -57,16 +57,20 @@
     "title": "4. Your Obligations as a User",
     "content": [
       {
+        "type": "paragraph",
+        "text": "You agree to:"
+      },
+      {
         "type": "list",
         "items": [
           "(i) use the Services only for lawful purposes and in accordance with these Terms;",
-          "(ii) maintain the confidentiality of your password and login details, and acknowledge that use by any other person may result in cancellation of the Services;",
-          "(iii) immediately notify Auto Marketplace QLD of any unauthorised use of your account or security breach;",
-          "(iv) understand that access is non-transferable and solely for your personal use in connection with Auto Marketplace QLD's Services;",
-          "(v) not use the Website for commercial purposes unless authorised by Auto Marketplace QLD;",
-          "(vi) not engage in unlawful or unauthorised use of the Website, including spamming, harvesting emails, or framing/linking without consent;",
-          "(vii) accept that any unauthorised content such as commercial advertising may be removed without notice; and",
-          "(viii) not use automated tools to interact with the Website or Services."
+          "(ii) maintain confidentiality of your login credentials and notify Auto Marketplace Qld of any unauthorized use;",
+          "(iii) not share your Account with others or use another person's Account;",
+          "(iv) use the Website solely for personal or authorized business use related to Auto Marketplace Qld Services;",
+          "(v) not use the Website or Services for unauthorized commercial purposes;",
+          "(vi) not engage in illegal or unauthorized activities, including spamming, data scraping, or unauthorized linking;",
+          "(vii) accept that Auto Marketplace Qld may remove unauthorized content or advertisements without notice; and",
+          "(viii) not use automated systems to interact with the Website."
         ]
       }
     ]
@@ -76,19 +80,19 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) Payments for Services (Service Fees) may be made via bank transfer or through third-party payment platforms nominated by Auto Marketplace QLD."
+        "text": "(a) Payments for Services (Service Fees) may be made via electronic funds transfer or approved payment platforms."
       },
       {
         "type": "paragraph",
-        "text": "(b) By making payment, you agree to comply with the terms and conditions of the nominated payment platform."
+        "text": "(b) By using any payment platform, you agree to be bound by that platform's terms and conditions."
       },
       {
         "type": "paragraph",
-        "text": "(c) If a payment is declined, reversed or unpaid for any reason, you are responsible for all resulting fees, including banking charges."
+        "text": "(c) You acknowledge that you are liable for any banking fees or costs associated with unsuccessful payments."
       },
       {
         "type": "paragraph",
-        "text": "(d) Service Fees may be varied at any time by Auto Marketplace QLD."
+        "text": "(d) Auto Marketplace Qld may vary its Service Fees at any time."
       }
     ]
   },
@@ -97,7 +101,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Refunds will only be issued if Auto Marketplace QLD is unable to continue providing the Services, or if management determines, at its absolute discretion, that a refund is reasonable under the circumstances."
+        "text": "Refunds will only be provided where Auto Marketplace Qld is unable to continue providing the Services, or at the discretion of Auto Marketplace Qld's management where deemed reasonable under the circumstances."
       }
     ]
   },
@@ -106,27 +110,31 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) The Website, Services and related materials are protected by copyright laws in Australia and internationally. All rights are reserved by Auto Marketplace QLD or its contributors."
+        "text": "(a) All content on the Website and within the Services is protected by copyright under the Copyright Act 1968 (Cth) and international treaties. Unless otherwise indicated, all rights are owned or controlled by Auto Marketplace Qld."
       },
       {
         "type": "paragraph",
-        "text": "(b) Auto Marketplace QLD grants you a limited, revocable, non-exclusive licence to:"
+        "text": "(b) Auto Marketplace Qld grants you a limited, revocable, non-exclusive license to:"
       },
       {
         "type": "list",
         "items": [
-          "(i) use the Website in accordance with these Terms;",
-          "(ii) cache Website content on your device;",
-          "(iii) print Website content for personal, non-commercial use."
+          "(i) use the Website pursuant to these Terms;",
+          "(ii) store and print Website material for personal, non-commercial use;",
+          "(iii) copy content temporarily in your device's cache."
         ]
       },
       {
         "type": "paragraph",
-        "text": "(c) All other rights are reserved. You may not copy, reproduce, distribute or exploit Website content or Services without written consent from Auto Marketplace QLD."
+        "text": "No other rights are granted."
       },
       {
         "type": "paragraph",
-        "text": "(d) Data, valuations and price guidance on the Website are for personal use only. You must not modify, republish, distribute, sell or otherwise use this content for commercial purposes without written consent."
+        "text": "(c) Auto Marketplace Qld retains ownership of all intellectual property associated with the Website."
+      },
+      {
+        "type": "paragraph",
+        "text": "(d) You may not reproduce, distribute, modify, frame, scrape, or exploit Website data or valuations without prior written consent from Auto Marketplace Qld and relevant rights holders."
       }
     ]
   },
@@ -135,32 +143,45 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Your privacy is important to us. Any personal information provided through the Website or Services is handled in accordance with Auto Marketplace QLD's Privacy Policy, available on the Website."
+        "text": "Your privacy is important to us. Any personal information provided is handled in accordance with Auto Marketplace Qld's Privacy Policy, available on the Website and compliant with the Privacy Act 1988 (Cth) and the Information Privacy Act 2009 (QLD)."
       }
     ]
   },
   {
-    "title": "9. Disclaimer and Acknowledgement",
+    "title": "9. General Disclaimer",
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) Nothing in these Terms excludes rights under the Australian Consumer Law or other non-excludable laws."
+        "text": "(a) Nothing in these Terms excludes rights or remedies available under the Australian Consumer Law (ACL)."
       },
       {
         "type": "paragraph",
-        "text": "(b) To the maximum extent permitted by law, Auto Marketplace QLD excludes all implied warranties and will not be liable for indirect, consequential or special loss, loss of profit, goodwill or business reputation."
+        "text": "(b) Except as required by law, Auto Marketplace Qld disclaims all warranties and is not liable for indirect or consequential loss."
       },
       {
         "type": "paragraph",
-        "text": "(c) Use of the Website and Services is at your own risk. Everything is provided \"as is\" and \"as available.\" Auto Marketplace QLD makes no guarantee as to accuracy, suitability or reliability of content or third-party material."
+        "text": "(c) Use of the Website is at your own risk. Content and Services are provided \"as is\" and \"as available.\""
       },
       {
         "type": "paragraph",
-        "text": "(d) Auto Marketplace QLD may display advertising on the Website. We may receive commissions from advertisers."
+        "text": "(d) Auto Marketplace Qld and its affiliates are not responsible for:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "service interruptions or data loss;",
+          "accuracy or completeness of Website content;",
+          "costs incurred from your use of the Website;",
+          "third-party links or advertisements."
+        ]
       },
       {
         "type": "paragraph",
-        "text": "(e) Auto Marketplace QLD may use data from third-party providers (such as Automotive Data Services Pty Ltd, RedBook) for valuations and other information. While care is taken, Auto Marketplace QLD and its data providers make no guarantees about accuracy. You should make your own independent assessment before relying on such data."
+        "text": "(e) Auto Marketplace Qld may receive a commission from advertisers."
+      },
+      {
+        "type": "paragraph",
+        "text": "(f) Auto Marketplace Qld uses data from Automotive Data Services Pty Ltd (RedBook). While care is taken, neither Auto Marketplace Qld nor RedBook guarantee accuracy. You should independently verify valuations and data."
       }
     ]
   },
@@ -169,11 +190,11 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) Auto Marketplace QLD's liability is limited to the resupply of Services."
+        "text": "(a) Auto Marketplace Qld's total liability is limited to re-supplying the Services."
       },
       {
         "type": "paragraph",
-        "text": "(b) Auto Marketplace QLD and its affiliates will not be liable for direct or indirect losses, including but not limited to loss of profits, goodwill or business reputation."
+        "text": "(b) To the extent permitted by law, Auto Marketplace Qld and its affiliates are not liable for indirect, incidental, or consequential damages, including loss of profits or goodwill."
       }
     ]
   },
@@ -182,24 +203,28 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "(a) These Terms remain in effect until terminated by either party."
+        "text": "(a) These Terms continue until terminated by either party."
       },
       {
         "type": "paragraph",
-        "text": "(b) You may terminate by closing your Account and paying any outstanding amounts."
+        "text": "(b) You may terminate by closing your account and paying outstanding fees."
       },
       {
         "type": "paragraph",
-        "text": "(c) Auto Marketplace QLD may terminate or suspend your access if:"
+        "text": "(c) Auto Marketplace Qld may terminate or suspend access if:"
       },
       {
         "type": "list",
         "items": [
           "(i) you breach these Terms;",
           "(ii) required by law;",
-          "(iii) the Services are no longer commercially viable; or",
-          "(iv) at Auto Marketplace QLD's discretion."
+          "(iii) Services become commercially unviable; or",
+          "(iv) at Auto Marketplace Qld's discretion."
         ]
+      },
+      {
+        "type": "paragraph",
+        "text": "(d) Auto Marketplace Qld may suspend or deny access without notice if your conduct affects Auto Marketplace Qld's reputation or breaches law."
       }
     ]
   },
@@ -208,7 +233,15 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "You agree to indemnify Auto Marketplace QLD, its employees and affiliates against any claims, losses or damages arising from your use of the Website, your breach of these Terms, or your uploaded content."
+        "text": "You agree to indemnify and hold harmless Auto Marketplace Qld, its officers, employees, and licensors from all claims, losses, liabilities, or expenses (including legal fees) arising from:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "your content or submissions;",
+          "your use of or access to the Website; and",
+          "any breach of these Terms."
+        ]
       }
     ]
   },
@@ -217,7 +250,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Any dispute relating to the Website will be subject to the exclusive jurisdiction of the courts of Queensland, Australia."
+        "text": "In the event of any dispute arising out of or relating to the Website or Services, you agree that the exclusive venue for resolution shall be the courts and tribunals of Queensland, Australia."
       }
     ]
   },
@@ -226,7 +259,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "These Terms are governed by the laws of Queensland, Australia."
+        "text": "These Terms are governed by and construed in accordance with the laws of Queensland, Australia. Each party submits to the exclusive jurisdiction of the courts of Queensland and the Federal Court of Australia (Brisbane Registry)."
       }
     ]
   },
@@ -235,7 +268,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Both parties agree these Terms are fair and reasonable and acknowledge the opportunity to obtain independent legal advice."
+        "text": "Both parties confirm they have had the opportunity to seek independent legal advice and agree these Terms are fair, reasonable, and not contrary to public policy."
       }
     ]
   },
@@ -244,7 +277,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "If any provision of these Terms is found unenforceable, the remainder will continue in effect."
+        "text": "If any provision of these Terms is held invalid or unenforceable by a court, that provision shall be severed, and the remainder shall continue in full force and effect."
       }
     ]
   }
