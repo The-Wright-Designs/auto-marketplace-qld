@@ -130,7 +130,7 @@ export async function middleware(request: NextRequest) {
           if (user) {
             // User is already authenticated, redirect to dashboard
             const dashboardUrl = new URL(
-              "/dealer-portal/dashboard",
+              "/dealer-portal",
               request.url
             );
             return NextResponse.redirect(dashboardUrl);

@@ -34,16 +34,16 @@ export function AuthProvider({
 }: AuthProviderProps) {
   const [authState, setAuthState] = useState<AuthState>({
     user: initialUser || null,
-    isLoading: false,
+    isLoading: !initialUser,
     error: null,
   });
 
-  // Refresh session when component mounts (only if we have initial user)
   useEffect(() => {
     if (!initialUser) {
-      // If no initial user was provided, verify on mount
       const initializeAuth = async () => {
         try {
+          setAuthState((prev) => ({ ...prev, isLoading: true }));
+
           const user = await getCurrentUserAction();
 
           setAuthState({

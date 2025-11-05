@@ -1,9 +1,12 @@
+"use client";
+
 import { Poppins } from "next/font/google";
 import "@/_styles/globals.css";
-import { ConditionalHeader } from "@/_components/navigation/conditional-header";
-import { ConditionalFooter } from "@/_components/navigation/conditional-footer";
+import { GeneralHeader } from "@/_components/navigation/general/general-header";
+import { GeneralFooter } from "@/_components/navigation/general/footer/general-footer";
 import { AuthProvider } from "@/_lib/auth/auth-context";
 import { ReCaptchaProvider } from "@/_components/providers/recaptcha-provider";
+import { usePathname } from "next/navigation";
 
 const poppinsFont = Poppins({
   variable: "--font-poppins",
@@ -33,22 +36,33 @@ const poppinsFont = Poppins({
   },
 }; */
 
-export default function RootLayout({
+function RootLayoutContent({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith("/dealer-portal");
+
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
         <ReCaptchaProvider>
           <AuthProvider initialUser={null}>
-            <ConditionalHeader />
+            {!isDashboard && <GeneralHeader />}
             {children}
-            <ConditionalFooter />
+            {!isDashboard && <GeneralFooter />}
           </AuthProvider>
         </ReCaptchaProvider>
       </body>
     </html>
   );
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <RootLayoutContent>{children}</RootLayoutContent>;
 }

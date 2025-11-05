@@ -1,67 +1,20 @@
 {
   "header": [
     {
-      "title": "Home",
-      "url": "/"
-    },
-    {
-      "title": "About",
-      "submenu": [
-        {
-          "title": "About Us",
-          "url": "/about"
-        },
-        {
-          "title": "Our Story",
-          "url": "/about#our-story"
-        },
-        {
-          "title": "How It Works",
-          "url": "/about#how-it-works"
-        },
-        {
-          "title": "Seller Fees",
-          "url": "/about#seller-fees"
-        },
-        {
-          "title": "FAQs",
-          "url": "/about#faqs"
-        }
-      ]
-    },
-    {
       "title": "Dashboard",
-      "url": "/dealer-portal/dashboard"
+      "url": "/dealer-portal"
     },
     {
-      "title": "Contact",
-      "url": "/contact"
-    }
-  ],
-  "footer": [
-    {
-      "title": "Home",
-      "url": "/"
+      "title": "Tenders",
+      "url": "/dealer-portal/tenders"
     },
     {
-      "title": "About",
-      "url": "/about"
+      "title": "Buy Now",
+      "url": "/dealer-portal/buy-now"
     },
     {
-      "title": "Dashboard",
-      "url": "/dealer-portal/dashboard"
-    },
-    {
-      "title": "Contact",
-      "url": "/contact"
-    },
-    {
-      "title": "Terms & Conditions",
-      "url": "/terms-and-conditions"
-    },
-    {
-      "title": "Privacy Policy",
-      "url": "/privacy-policy"
+      "title": "My Bids",
+      "url": "/dealer-portal/my-bids"
     }
   ]
 }
