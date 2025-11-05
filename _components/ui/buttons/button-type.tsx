@@ -14,6 +14,7 @@ const ButtonType = ({
   whiteButton,
   traditionalButton,
   blueStroke,
+  yellowStroke,
   isLoading,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
@@ -31,7 +32,8 @@ const ButtonType = ({
         small,
         whiteButton,
         traditionalButton,
-        blueStroke
+        blueStroke,
+        yellowStroke
       )}
       disabled={disabled || isButtonPending}
       title={title}

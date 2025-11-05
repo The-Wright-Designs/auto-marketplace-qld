@@ -108,7 +108,7 @@ function LoginContent() {
       setUser(formResult.user);
 
       const redirect =
-        searchParams.get("redirect") || "/dealer-portal/dashboard";
+        searchParams.get("redirect") || "/dealer-portal";
       router.push(redirect);
     }
   }, [formResult, router, searchParams, setUser]);

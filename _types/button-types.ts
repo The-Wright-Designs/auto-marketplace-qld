@@ -11,5 +11,6 @@ export interface ButtonProps {
   whiteButton?: boolean;
   traditionalButton?: boolean;
   blueStroke?: boolean;
+  yellowStroke?: boolean;
   isLoading?: boolean;
 }

@@ -187,13 +187,18 @@ export const DealerRegistrationForm = () => {
               onChange={() => setIsTermsAccepted(!isTermsAccepted)}
             >
               I accept the{" "}
-              <Link href="/terms" className="text-link-blue underline">
+              <Link
+                href="/terms-and-conditions"
+                className="text-link-blue underline"
+                target="_blank"
+              >
                 Terms & Conditions
               </Link>{" "}
               and{" "}
               <Link
                 href="/privacy-policy"
                 className="text-link-blue underline"
+                target="_blank"
               >
                 Privacy Policy
               </Link>
