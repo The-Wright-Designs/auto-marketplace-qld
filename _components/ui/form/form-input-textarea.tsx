@@ -13,6 +13,7 @@ const FormInputTextarea = ({
   value,
   onChange,
   rows = 4,
+  maxLength,
 }: FormInputTextareaProps) => {
   return (
     <div>
@@ -30,6 +31,7 @@ const FormInputTextarea = ({
         value={value}
         onChange={onChange as any}
         rows={rows}
+        maxLength={maxLength}
         className={formInputStyles(className, disabled)}
       />
     </div>

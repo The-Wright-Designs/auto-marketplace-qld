@@ -11,6 +11,7 @@ const FormInputNumber = ({
   labelClassName,
   min,
   max,
+  step,
   disabled = false,
   value,
   onChange,
@@ -30,6 +31,7 @@ const FormInputNumber = ({
         required={required}
         min={min}
         max={max}
+        step={step}
         disabled={disabled}
         value={value}
         onChange={onChange}

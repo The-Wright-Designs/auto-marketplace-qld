@@ -12,6 +12,7 @@ const FormInputText = ({
   disabled = false,
   value,
   onChange,
+  type = "text",
 }: FormInputTextProps) => {
   return (
     <div>
@@ -21,7 +22,7 @@ const FormInputText = ({
         </label>
       )}
       <input
-        type="text"
+        type={type}
         id={id}
         name={name}
         placeholder={placeholder}

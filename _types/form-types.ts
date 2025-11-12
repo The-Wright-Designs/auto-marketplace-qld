@@ -11,7 +11,7 @@ export interface FormInputBaseProps {
   label?: string;
   labelClassName?: string;
   disabled?: boolean;
-  value?: string;
+  value?: string | number;
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
@@ -19,6 +19,7 @@ export interface FormInputBaseProps {
 
 export interface FormInputTextProps extends FormInputBaseProps {
   placeholder: string;
+  type?: string;
 }
 
 export interface FormInputEmailProps extends FormInputBaseProps {
@@ -29,6 +30,7 @@ export interface FormInputNumberProps extends FormInputBaseProps {
   placeholder: string;
   min?: number;
   max?: number;
+  step?: number;
 }
 
 export interface FormInputTelProps extends FormInputBaseProps {
@@ -38,6 +40,7 @@ export interface FormInputTelProps extends FormInputBaseProps {
 export interface FormInputTextareaProps extends FormInputBaseProps {
   placeholder: string;
   rows?: number;
+  maxLength?: number;
 }
 
 export interface FormInputPasswordProps extends FormInputBaseProps {
