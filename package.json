@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "set-admin-claims": "tsx --env-file=.env.local scripts/set-admin-claims.ts",
+    "init-vehicles": "tsx --env-file=.env.local scripts/init-vehicles.ts"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -42,6 +44,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5"
   }

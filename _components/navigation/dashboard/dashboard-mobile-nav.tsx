@@ -10,6 +10,7 @@ import classNames from "classnames";
 import dashboardNavData from "@/_data/user-nav-data.json";
 import { useAuth } from "@/_lib/auth/auth-context";
 import ButtonType from "@/_components/ui/buttons/button-type";
+import { NavItem } from "@/_types/general-types";
 
 const { header: headerNavData } = dashboardNavData;
 
@@ -20,12 +21,21 @@ interface DashboardMobileNavProps {
 export function DashboardMobileNav({ disabled = false }: DashboardMobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = async () => {
     await logout();
     router.push("/for-dealers");
   };
+
+  const isAdmin = user?.customClaims?.admin === true;
+
+  const filteredNavData = headerNavData.filter((item: NavItem) => {
+    if (item.adminOnly) {
+      return isAdmin;
+    }
+    return true;
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -100,7 +110,7 @@ export function DashboardMobileNav({ disabled = false }: DashboardMobileNavProps
         </div>
         <nav>
           <ul className="grid gap-5 mt-5">
-            {headerNavData.map(({ title, url }, id) => (
+            {filteredNavData.map(({ title, url }, id) => (
               <li key={id}>
                 {url && (
                   <Link

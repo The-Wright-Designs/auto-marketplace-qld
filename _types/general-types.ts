@@ -7,6 +7,12 @@ export interface showContactProps {
   linkClasses?: string;
 }
 
+export interface NavItem {
+  title: string;
+  url: string;
+  adminOnly?: boolean;
+}
+
 export interface StrainProps {
   title: string;
   images: string[];

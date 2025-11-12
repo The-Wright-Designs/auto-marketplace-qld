@@ -15,6 +15,11 @@
     {
       "title": "My Bids",
       "url": "/dealer-portal/my-bids"
+    },
+    {
+      "title": "Vehicles",
+      "url": "/dealer-portal/vehicles",
+      "adminOnly": true
     }
   ]
 }

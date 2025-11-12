@@ -8,6 +8,7 @@ import classNames from "classnames";
 import dashboardNavData from "@/_data/user-nav-data.json";
 import { useAuth } from "@/_lib/auth/auth-context";
 import ButtonType from "@/_components/ui/buttons/button-type";
+import { NavItem } from "@/_types/general-types";
 
 const { header: headerNavData } = dashboardNavData;
 
@@ -24,6 +25,15 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
     await logout();
     router.push("/for-dealers");
   };
+
+  const isAdmin = user?.customClaims?.admin === true;
+
+  const filteredNavData = headerNavData.filter((item: NavItem) => {
+    if (item.adminOnly) {
+      return isAdmin;
+    }
+    return true;
+  });
 
   return (
     <aside
@@ -51,7 +61,7 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
 
       <nav className="flex-1 overflow-y-auto py-50px px-50px">
         <ul className="space-y-5">
-          {headerNavData.map(({ title, url }, id) => {
+          {filteredNavData.map(({ title, url }, id) => {
             const isActive = pathname === url;
 
             return (
