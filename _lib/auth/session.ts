@@ -15,8 +15,8 @@ const SESSION_COOKIE_NAME = "session";
  */
 export async function createSessionCookie(idToken: string): Promise<string> {
   try {
-    // Create session cookie that expires in 7 days
-    const expiresIn = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+    // Create session cookie that expires in 14 days (Firebase maximum)
+    const expiresIn = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
 
     const sessionCookie = await adminAuth.createSessionCookie(idToken, {
       expiresIn,
@@ -97,37 +97,6 @@ export async function deleteSessionCookie(): Promise<void> {
   cookieStore.delete(SESSION_COOKIE_NAME);
 }
 
-/**
- * Refresh session cookie
- */
-export async function refreshSession(): Promise<UserSession | null> {
-  try {
-    const currentUser = await verifySessionCookie();
-
-    if (!currentUser) {
-      return null;
-    }
-
-    // Get a fresh custom token for the user
-    const customToken = await adminAuth.createCustomToken(currentUser.uid, {
-      email: currentUser.email,
-      emailVerified: currentUser.emailVerified,
-    });
-
-    // Create new session cookie directly using adminAuth
-    const newSessionCookie = await adminAuth.createSessionCookie(customToken, {
-      expiresIn: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
-
-    // Set new session cookie
-    await setSessionCookie(newSessionCookie);
-
-    return currentUser;
-  } catch (error) {
-    console.error("Error refreshing session:", error);
-    return null;
-  }
-}
 
 /**
  * Revoke all session tokens for a user

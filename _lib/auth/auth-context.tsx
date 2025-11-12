@@ -17,7 +17,6 @@ import {
 import {
   getCurrentUserAction,
   logoutAction,
-  refreshSessionAction,
 } from "@/_actions/auth-actions";
 import ButtonLink from "@/_components/ui/buttons/button-link";
 
@@ -64,42 +63,6 @@ export function AuthProvider({
       initializeAuth();
     }
   }, [initialUser]);
-
-  // Refresh session periodically
-  useEffect(() => {
-    if (!authState.user) return;
-
-    const refreshInterval = setInterval(async () => {
-      try {
-        const result = await refreshSessionAction();
-
-        if (result.success && result.user) {
-          setAuthState((prev) => ({
-            ...prev,
-            user: result.user || null,
-            error: null,
-          }));
-        } else {
-          // Session refresh failed, log out user
-          setAuthState({
-            user: null,
-            isLoading: false,
-            error: result.message,
-          });
-        }
-      } catch (error) {
-        console.error("Session refresh error:", error);
-        // On refresh error, log out user
-        setAuthState({
-          user: null,
-          isLoading: false,
-          error: "Session expired",
-        });
-      }
-    }, 15 * 60 * 1000); // Refresh every 15 minutes
-
-    return () => clearInterval(refreshInterval);
-  }, [authState.user]);
 
   const login = async (credentials: {
     email: string;
@@ -165,39 +128,6 @@ export function AuthProvider({
     }
   };
 
-  const refreshSession = async (): Promise<void> => {
-    try {
-      setAuthState((prev) => ({ ...prev, isLoading: true }));
-
-      const result = await refreshSessionAction();
-
-      if (result.success && result.user) {
-        setAuthState((prev) => ({
-          ...prev,
-          user: result.user || null,
-          isLoading: false,
-          error: null,
-        }));
-      } else {
-        setAuthState((prev) => ({
-          ...prev,
-          user: null,
-          isLoading: false,
-          error: result.message,
-        }));
-      }
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Session refresh failed";
-
-      setAuthState((prev) => ({
-        ...prev,
-        user: null,
-        isLoading: false,
-        error: errorMessage,
-      }));
-    }
-  };
 
   const clearError = (): void => {
     setAuthState((prev) => ({ ...prev, error: null }));
@@ -219,7 +149,6 @@ export function AuthProvider({
     error: authState.error,
     login,
     logout,
-    refreshSession,
     clearError,
     setUser,
   };

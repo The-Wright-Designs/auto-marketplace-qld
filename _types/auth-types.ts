@@ -55,7 +55,6 @@ export interface AuthContextType {
   error: string | null;
   login: (credentials: LoginCredentials) => Promise<AuthResult>;
   logout: () => Promise<void>;
-  refreshSession: () => Promise<void>;
   clearError: () => void;
   setUser: (user: UserSession | null) => void;
 }
@@ -95,7 +94,7 @@ export const SESSION_COOKIE_CONFIG: SessionCookieOptions = {
   secure: typeof window !== "undefined", // Client-side: use secure in production
   sameSite: "lax",
   path: "/",
-  maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+  maxAge: 14 * 24 * 60 * 60, // 14 days in seconds
 };
 
 // Rate limiting configuration
