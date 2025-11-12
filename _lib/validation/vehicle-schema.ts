@@ -36,9 +36,14 @@ export const vehicleMediaSchema = z.object({
   primaryImage: z.string().min(1),
 });
 
+export const vehicleStatusSchema = z.object({
+  status: z.enum(['draft', 'active', 'sold', 'delisted']),
+});
+
 export const createVehicleSchema = vehicleBasicInfoSchema
   .merge(vehicleListingSchema)
-  .merge(vehicleMediaSchema);
+  .merge(vehicleMediaSchema)
+  .merge(vehicleStatusSchema);
 
 export const updateVehicleSchema = createVehicleSchema.partial();
 

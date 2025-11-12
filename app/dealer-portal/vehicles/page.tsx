@@ -6,18 +6,19 @@ import { listVehicles, deleteVehicle } from "@/_actions/vehicle-actions";
 import { Vehicle, VehicleStatus } from "@/_types/vehicle-types";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import ButtonLink from "@/_components/ui/buttons/button-link";
-import classNames from "classnames";
-
-const STATUS_COLORS: Record<VehicleStatus, string> = {
-  draft: "bg-grey text-white",
-  active: "bg-blue text-white",
-  sold: "bg-yellow text-black",
-  delisted: "bg-red text-white",
-};
+import VehicleStatusToggle from "@/_components/pages/dashboard/vehicles/vehicle-status-toggle";
 
 const LISTING_TYPE_LABELS: Record<string, string> = {
   tender: "Tender",
   "buy-now": "Buy Now",
+};
+
+const formatDate = (isoString: string): string => {
+  const date = new Date(isoString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 };
 
 interface VehicleFilters {
@@ -26,6 +27,9 @@ interface VehicleFilters {
   listingType?: "tender" | "buy-now";
   status?: VehicleStatus;
 }
+
+type SortField = "dateAdded" | "year" | "make" | "model" | "price";
+type SortDirection = "asc" | "desc";
 
 export default function VehiclesPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -38,6 +42,8 @@ export default function VehiclesPage() {
   const [hasMore, setHasMore] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [sortField, setSortField] = useState<SortField>("dateAdded");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
   const limit = 20;
 
@@ -102,14 +108,83 @@ export default function VehiclesPage() {
     }
   };
 
-  const filteredVehicles = vehicles.filter((vehicle) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      vehicle.make.toLowerCase().includes(query) ||
-      vehicle.model.toLowerCase().includes(query) ||
-      vehicle.vin.toLowerCase().includes(query)
-    );
-  });
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      const descByDefault = ["dateAdded", "year", "price"];
+      setSortDirection(descByDefault.includes(field) ? "desc" : "asc");
+    }
+  };
+
+  const getSortedAndFilteredVehicles = () => {
+    const filtered = vehicles.filter((vehicle) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        vehicle.make.toLowerCase().includes(query) ||
+        vehicle.model.toLowerCase().includes(query) ||
+        vehicle.vin.toLowerCase().includes(query)
+      );
+    });
+
+    return filtered.sort((a, b) => {
+      let aValue: string | number;
+      let bValue: string | number;
+
+      switch (sortField) {
+        case "dateAdded":
+          aValue = new Date(a.metadata.createdAt).getTime();
+          bValue = new Date(b.metadata.createdAt).getTime();
+          break;
+        case "year":
+          aValue = a.year;
+          bValue = b.year;
+          break;
+        case "make":
+          aValue = a.make.toLowerCase();
+          bValue = b.make.toLowerCase();
+          break;
+        case "model":
+          aValue = a.model.toLowerCase();
+          bValue = b.model.toLowerCase();
+          break;
+        case "price":
+          aValue = a.price;
+          bValue = b.price;
+          break;
+        default:
+          return 0;
+      }
+
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortDirection === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+
+      return sortDirection === "asc"
+        ? (aValue as number) - (bValue as number)
+        : (bValue as number) - (aValue as number);
+    });
+  };
+
+  const filteredVehicles = getSortedAndFilteredVehicles();
+
+  const SortIndicator = ({ field }: { field: SortField }) => {
+    if (sortField !== field) return null;
+    return <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>;
+  };
+
+  const SortableHeader = ({ field, label }: { field: SortField; label: string }) => (
+    <th
+      className="text-left p-3 text-blue font-bold cursor-pointer hover:opacity-70"
+      onClick={() => handleSort(field)}
+    >
+      {label}
+      <SortIndicator field={field} />
+    </th>
+  );
 
   return (
     <div className="p-50px desktop:p-100px">
@@ -183,7 +258,6 @@ export default function VehiclesPage() {
                   <option value="draft">Draft</option>
                   <option value="active">Active</option>
                   <option value="sold">Sold</option>
-                  <option value="delisted">Delisted</option>
                 </select>
               </div>
             </div>
@@ -207,23 +281,16 @@ export default function VehiclesPage() {
                 <table className="w-full text-paragraph text-grey">
                   <thead>
                     <tr className="border-b-2 border-grey">
-                      <th className="text-left p-3 text-blue font-bold">
-                        Year
-                      </th>
-                      <th className="text-left p-3 text-blue font-bold">
-                        Make
-                      </th>
-                      <th className="text-left p-3 text-blue font-bold">
-                        Model
-                      </th>
+                      <SortableHeader field="dateAdded" label="Date Added" />
+                      <SortableHeader field="year" label="Year" />
+                      <SortableHeader field="make" label="Make" />
+                      <SortableHeader field="model" label="Model" />
+                      <SortableHeader field="price" label="Price" />
                       <th className="text-left p-3 text-blue font-bold">
                         Status
                       </th>
                       <th className="text-left p-3 text-blue font-bold">
                         Type
-                      </th>
-                      <th className="text-left p-3 text-blue font-bold">
-                        Price
                       </th>
                       <th className="text-left p-3 text-blue font-bold">
                         Actions
@@ -236,24 +303,32 @@ export default function VehiclesPage() {
                         key={vehicle.id}
                         className="border-b border-grey hover:bg-grey hover:bg-opacity-10"
                       >
+                        <td className="p-3">{formatDate(vehicle.metadata.createdAt)}</td>
                         <td className="p-3">{vehicle.year}</td>
                         <td className="p-3">{vehicle.make}</td>
                         <td className="p-3">{vehicle.model}</td>
                         <td className="p-3">
-                          <span
-                            className={classNames(
-                              "px-3 py-1 rounded text-paragraph font-bold",
-                              STATUS_COLORS[vehicle.status]
-                            )}
-                          >
-                            {vehicle.status.charAt(0).toUpperCase() +
-                              vehicle.status.slice(1)}
-                          </span>
+                          ${vehicle.price.toLocaleString()}
+                        </td>
+                        <td className="p-3">
+                          <VehicleStatusToggle
+                            vehicleId={vehicle.id}
+                            currentStatus={vehicle.status}
+                            vehicleTitle={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                            onStatusChange={(newStatus) => {
+                              setVehicles((prev) =>
+                                prev.map((v) =>
+                                  v.id === vehicle.id
+                                    ? { ...v, status: newStatus }
+                                    : v
+                                )
+                              );
+                            }}
+                          />
                         </td>
                         <td className="p-3">
                           {LISTING_TYPE_LABELS[vehicle.listingType]}
                         </td>
-                        <td className="p-3">${vehicle.price.toLocaleString()}</td>
                         <td className="p-3">
                           <div className="flex gap-3">
                             <Link
@@ -287,7 +362,8 @@ export default function VehiclesPage() {
                 </ButtonType>
 
                 <p className="text-paragraph text-grey">
-                  Showing {filteredVehicles.length} of {vehicles.length} vehicles
+                  Showing {filteredVehicles.length} of {vehicles.length}{" "}
+                  vehicles
                 </p>
 
                 <ButtonType
@@ -308,8 +384,8 @@ export default function VehiclesPage() {
           <div className="bg-white rounded border-2 border-blue p-50px max-w-md w-full">
             <h3 className="text-subheading text-blue mb-5">Delete Vehicle</h3>
             <p className="text-paragraph text-grey mb-10">
-              Are you sure you want to delete this vehicle? This action cannot be
-              undone.
+              Are you sure you want to delete this vehicle? This action cannot
+              be undone.
             </p>
 
             <div className="flex gap-5">
