@@ -17,12 +17,14 @@ interface ConditionHistorySectionProps {
     >
   ) => void;
   errors?: Record<string, string>;
+  disabled?: boolean;
 }
 
 export default function ConditionHistorySection({
   formData,
   onInputChange,
   errors,
+  disabled = false,
 }: ConditionHistorySectionProps) {
   return (
     <div className="space-y-5">
@@ -34,17 +36,15 @@ export default function ConditionHistorySection({
           id="condition"
           name="condition"
           options={[
-            { value: "", label: "Select Condition" },
             { value: "excellent", label: "Excellent" },
             { value: "good", label: "Good" },
             { value: "fair", label: "Fair" },
             { value: "poor", label: "Poor" },
           ]}
-          required
           label="Condition"
-          labelClassName="visually-hidden"
           value={formData.condition}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.condition && (
           <p className="text-red text-paragraph">{errors.condition}</p>
@@ -55,11 +55,11 @@ export default function ConditionHistorySection({
           name="serviceHistory"
           placeholder="Service History (max 500 characters)"
           label="Service History"
-          labelClassName="visually-hidden"
           maxLength={500}
           rows={4}
           value={formData.serviceHistory}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.serviceHistory && (
           <p className="text-red text-paragraph">{errors.serviceHistory}</p>
@@ -70,11 +70,11 @@ export default function ConditionHistorySection({
           name="accidentHistory"
           placeholder="Accident History (max 500 characters)"
           label="Accident History"
-          labelClassName="visually-hidden"
           maxLength={500}
           rows={4}
           value={formData.accidentHistory}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.accidentHistory && (
           <p className="text-red text-paragraph">{errors.accidentHistory}</p>
@@ -85,11 +85,11 @@ export default function ConditionHistorySection({
           name="modifications"
           placeholder="Modifications (max 500 characters)"
           label="Modifications"
-          labelClassName="visually-hidden"
           maxLength={500}
           rows={4}
           value={formData.modifications}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.modifications && (
           <p className="text-red text-paragraph">{errors.modifications}</p>
@@ -100,11 +100,11 @@ export default function ConditionHistorySection({
           name="notes"
           placeholder="Additional Notes (max 1000 characters)"
           label="Additional Notes"
-          labelClassName="visually-hidden"
           maxLength={1000}
           rows={4}
           value={formData.notes}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.notes && (
           <p className="text-red text-paragraph">{errors.notes}</p>

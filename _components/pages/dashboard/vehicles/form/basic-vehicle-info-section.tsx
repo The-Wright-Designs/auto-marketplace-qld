@@ -18,12 +18,14 @@ interface BasicVehicleInfoSectionProps {
     >
   ) => void;
   errors?: Record<string, string>;
+  disabled?: boolean;
 }
 
 export default function BasicVehicleInfoSection({
   formData,
   onInputChange,
   errors,
+  disabled = false,
 }: BasicVehicleInfoSectionProps) {
   return (
     <div className="space-y-5">
@@ -35,13 +37,12 @@ export default function BasicVehicleInfoSection({
           id="year"
           name="year"
           placeholder="Year"
-          required
           label="Year"
-          labelClassName="visually-hidden"
           min={1900}
           max={new Date().getFullYear() + 1}
           value={formData.year}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.year && (
           <p className="text-red text-paragraph">{errors.year}</p>
@@ -51,11 +52,11 @@ export default function BasicVehicleInfoSection({
           id="make"
           name="make"
           placeholder="Make"
-          required
           label="Make"
-          labelClassName="visually-hidden"
           value={formData.make}
           onChange={onInputChange}
+          error={errors?.make}
+          disabled={disabled}
         />
         {errors?.make && (
           <p className="text-red text-paragraph">{errors.make}</p>
@@ -65,11 +66,11 @@ export default function BasicVehicleInfoSection({
           id="model"
           name="model"
           placeholder="Model"
-          required
           label="Model"
-          labelClassName="visually-hidden"
           value={formData.model}
           onChange={onInputChange}
+          error={errors?.model}
+          disabled={disabled}
         />
         {errors?.model && (
           <p className="text-red text-paragraph">{errors.model}</p>
@@ -79,25 +80,21 @@ export default function BasicVehicleInfoSection({
           id="vin"
           name="vin"
           placeholder="VIN"
-          required
           label="VIN"
-          labelClassName="visually-hidden"
           value={formData.vin}
           onChange={onInputChange}
+          disabled={disabled}
         />
-        {errors?.vin && (
-          <p className="text-red text-paragraph">{errors.vin}</p>
-        )}
+        {errors?.vin && <p className="text-red text-paragraph">{errors.vin}</p>}
 
         <FormInputText
           id="colour"
           name="colour"
           placeholder="Colour"
-          required
           label="Colour"
-          labelClassName="visually-hidden"
           value={formData.colour}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.colour && (
           <p className="text-red text-paragraph">{errors.colour}</p>
@@ -107,11 +104,10 @@ export default function BasicVehicleInfoSection({
           id="bodyType"
           name="bodyType"
           placeholder="Body Type"
-          required
           label="Body Type"
-          labelClassName="visually-hidden"
           value={formData.bodyType}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.bodyType && (
           <p className="text-red text-paragraph">{errors.bodyType}</p>

@@ -13,12 +13,14 @@ interface RegistrationSectionProps {
     >
   ) => void;
   errors?: Record<string, string>;
+  disabled?: boolean;
 }
 
 export default function RegistrationSection({
   formData,
   onInputChange,
   errors,
+  disabled = false,
 }: RegistrationSectionProps) {
   return (
     <div className="space-y-5">
@@ -30,16 +32,13 @@ export default function RegistrationSection({
           id="registrationNumber"
           name="registrationNumber"
           placeholder="Registration Number"
-          required
           label="Registration Number"
-          labelClassName="visually-hidden"
           value={formData.registrationNumber}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.registrationNumber && (
-          <p className="text-red text-paragraph">
-            {errors.registrationNumber}
-          </p>
+          <p className="text-red text-paragraph">{errors.registrationNumber}</p>
         )}
 
         <FormInputText
@@ -47,16 +46,13 @@ export default function RegistrationSection({
           name="registrationExpiry"
           type="date"
           placeholder="Registration Expiry"
-          required
           label="Registration Expiry"
-          labelClassName="visually-hidden"
           value={formData.registrationExpiry}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.registrationExpiry && (
-          <p className="text-red text-paragraph">
-            {errors.registrationExpiry}
-          </p>
+          <p className="text-red text-paragraph">{errors.registrationExpiry}</p>
         )}
       </div>
     </div>

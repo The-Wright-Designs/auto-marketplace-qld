@@ -13,6 +13,7 @@ const FormInputText = ({
   value,
   onChange,
   type = "text",
+  error,
 }: FormInputTextProps) => {
   return (
     <div>
@@ -30,7 +31,7 @@ const FormInputText = ({
         disabled={disabled}
         value={value}
         onChange={onChange}
-        className={formInputStyles(className, disabled)}
+        className={formInputStyles(className, disabled, !!error)}
       />
     </div>
   );

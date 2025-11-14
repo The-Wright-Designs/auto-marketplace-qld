@@ -1,5 +1,5 @@
-export type ListingType = 'tender' | 'buy-now';
-export type VehicleStatus = 'draft' | 'active' | 'sold' | 'delisted';
+export type ListingType = "tender" | "buy-now";
+export type VehicleStatus = "draft" | "active" | "sold";
 
 export interface VehicleBasicInfo {
   year: number;
@@ -8,15 +8,15 @@ export interface VehicleBasicInfo {
   vin: string;
   colour: string;
   odometer: number;
-  odometerUnit: 'km' | 'mi';
-  transmission: 'manual' | 'automatic' | 'cvt';
-  fuelType: 'petrol' | 'diesel' | 'hybrid' | 'electric' | 'lpg';
+  odometerUnit: "km" | "mi";
+  transmission: "manual" | "automatic" | "cvt";
+  fuelType: "petrol" | "diesel" | "hybrid" | "electric" | "lpg";
   engineCapacity: number;
-  driveType: '2WD' | '4WD' | 'AWD';
+  driveType: "2WD" | "4WD" | "AWD";
   bodyType: string;
   seats: number;
   doors: number;
-  condition: 'excellent' | 'good' | 'fair' | 'poor';
+  condition: "excellent" | "good" | "fair" | "poor";
   serviceHistory: string;
   accidentHistory: string;
   modifications: string;

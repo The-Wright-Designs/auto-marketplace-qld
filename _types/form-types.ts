@@ -15,6 +15,7 @@ export interface FormInputBaseProps {
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  error?: string;
 }
 
 export interface FormInputTextProps extends FormInputBaseProps {

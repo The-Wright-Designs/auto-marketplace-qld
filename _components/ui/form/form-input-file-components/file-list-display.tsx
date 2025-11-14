@@ -57,6 +57,7 @@ const FileListDisplay = ({
                     width={50}
                     height={50}
                     className="w-[50px] h-[50px] object-cover rounded-md"
+                    unoptimized
                   />
                 )}
                 <div className="flex flex-col">

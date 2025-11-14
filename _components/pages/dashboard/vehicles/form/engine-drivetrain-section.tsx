@@ -20,12 +20,14 @@ interface EngineDrivetrainSectionProps {
     >
   ) => void;
   errors?: Record<string, string>;
+  disabled?: boolean;
 }
 
 export default function EngineDrivetrainSection({
   formData,
   onInputChange,
   errors,
+  disabled = false,
 }: EngineDrivetrainSectionProps) {
   return (
     <div className="space-y-5">
@@ -37,16 +39,14 @@ export default function EngineDrivetrainSection({
           id="transmission"
           name="transmission"
           options={[
-            { value: "", label: "Select Transmission" },
             { value: "manual", label: "Manual" },
             { value: "automatic", label: "Automatic" },
             { value: "cvt", label: "CVT" },
           ]}
-          required
           label="Transmission"
-          labelClassName="visually-hidden"
           value={formData.transmission}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.transmission && (
           <p className="text-red text-paragraph">{errors.transmission}</p>
@@ -56,18 +56,16 @@ export default function EngineDrivetrainSection({
           id="fuelType"
           name="fuelType"
           options={[
-            { value: "", label: "Select Fuel Type" },
             { value: "petrol", label: "Petrol" },
             { value: "diesel", label: "Diesel" },
             { value: "hybrid", label: "Hybrid" },
             { value: "electric", label: "Electric" },
             { value: "lpg", label: "LPG" },
           ]}
-          required
           label="Fuel Type"
-          labelClassName="visually-hidden"
           value={formData.fuelType}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.fuelType && (
           <p className="text-red text-paragraph">{errors.fuelType}</p>
@@ -77,13 +75,12 @@ export default function EngineDrivetrainSection({
           id="engineCapacity"
           name="engineCapacity"
           placeholder="Engine Capacity (L)"
-          required
           label="Engine Capacity"
-          labelClassName="visually-hidden"
           min={0}
           step={0.1}
           value={formData.engineCapacity}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.engineCapacity && (
           <p className="text-red text-paragraph">{errors.engineCapacity}</p>
@@ -93,16 +90,14 @@ export default function EngineDrivetrainSection({
           id="driveType"
           name="driveType"
           options={[
-            { value: "", label: "Select Drive Type" },
             { value: "2WD", label: "2WD" },
             { value: "4WD", label: "4WD" },
             { value: "AWD", label: "AWD" },
           ]}
-          required
           label="Drive Type"
-          labelClassName="visually-hidden"
           value={formData.driveType}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.driveType && (
           <p className="text-red text-paragraph">{errors.driveType}</p>
@@ -112,12 +107,11 @@ export default function EngineDrivetrainSection({
           id="odometer"
           name="odometer"
           placeholder="Odometer Reading"
-          required
           label="Odometer"
-          labelClassName="visually-hidden"
           min={0}
           value={formData.odometer}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.odometer && (
           <p className="text-red text-paragraph">{errors.odometer}</p>
@@ -130,11 +124,10 @@ export default function EngineDrivetrainSection({
             { value: "km", label: "Kilometers" },
             { value: "mi", label: "Miles" },
           ]}
-          required
           label="Odometer Unit"
-          labelClassName="visually-hidden"
           value={formData.odometerUnit}
           onChange={onInputChange}
+          disabled={disabled}
         />
         {errors?.odometerUnit && (
           <p className="text-red text-paragraph">{errors.odometerUnit}</p>
@@ -146,13 +139,12 @@ export default function EngineDrivetrainSection({
               id="seats"
               name="seats"
               placeholder="Seats"
-              required
               label="Seats"
-              labelClassName="visually-hidden"
               min={1}
               max={10}
               value={formData.seats}
               onChange={onInputChange}
+              disabled={disabled}
             />
             {errors?.seats && (
               <p className="text-red text-paragraph">{errors.seats}</p>
@@ -164,13 +156,12 @@ export default function EngineDrivetrainSection({
               id="doors"
               name="doors"
               placeholder="Doors"
-              required
               label="Doors"
-              labelClassName="visually-hidden"
               min={1}
               max={6}
               value={formData.doors}
               onChange={onInputChange}
+              disabled={disabled}
             />
             {errors?.doors && (
               <p className="text-red text-paragraph">{errors.doors}</p>

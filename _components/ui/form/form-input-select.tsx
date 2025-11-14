@@ -14,6 +14,7 @@ const FormInputSelect = ({
   disabled = false,
   value,
   onChange,
+  error,
 }: FormInputSelectProps) => {
   return (
     <div>
@@ -30,9 +31,9 @@ const FormInputSelect = ({
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className={formSelectStyles(className, disabled)}
+          className={formSelectStyles(className, disabled, !!error)}
         >
-          <option value="">{placeholder}</option>
+          {placeholder && <option value="">{placeholder}</option>}
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

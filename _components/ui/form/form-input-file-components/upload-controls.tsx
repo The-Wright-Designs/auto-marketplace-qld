@@ -10,6 +10,9 @@ interface UploadControlsProps {
   isValidating: boolean;
   disabled?: boolean;
   onSelectFiles: () => void;
+  onDeleteAll?: () => void;
+  isDeletingAll?: boolean;
+  deleteAllConfirm?: boolean;
 }
 
 const UploadControls = ({
@@ -18,6 +21,9 @@ const UploadControls = ({
   isValidating,
   disabled = false,
   onSelectFiles,
+  onDeleteAll,
+  isDeletingAll = false,
+  deleteAllConfirm = false,
 }: UploadControlsProps) => {
   const [showRequirements, setShowRequirements] = useState(false);
 
@@ -34,23 +40,42 @@ const UploadControls = ({
       )}
     >
       <div className="flex flex-wrap items-center w-full justify-between gap-3 min-[600px]:flex-row">
-        <ButtonType
-          type="button"
-          onClick={onSelectFiles}
-          disabled={
-            disabled ||
-            isValidating ||
-            (maxFiles !== undefined && processedImagesCount >= maxFiles)
-          }
-          cssClasses="w-full min-[600px]:w-auto"
-          small
-        >
-          {isValidating
-            ? "Uploading..."
-            : processedImagesCount === 0
-            ? "Choose images"
-            : "Add more images"}
-        </ButtonType>
+        <div className="flex flex-wrap gap-3 w-full min-[600px]:w-auto">
+          <ButtonType
+            type="button"
+            onClick={onSelectFiles}
+            disabled={
+              disabled ||
+              isValidating ||
+              isDeletingAll ||
+              (maxFiles !== undefined && processedImagesCount >= maxFiles)
+            }
+            cssClasses="w-full min-[600px]:w-auto"
+            small
+          >
+            {isValidating
+              ? "Uploading..."
+              : processedImagesCount === 0
+              ? "Choose images"
+              : "Add more images"}
+          </ButtonType>
+
+          {onDeleteAll && processedImagesCount > 0 && (
+            <ButtonType
+              type="button"
+              onClick={onDeleteAll}
+              disabled={disabled || isValidating || isDeletingAll}
+              cssClasses="w-full min-[600px]:w-auto bg-red/75"
+              small
+            >
+              {isDeletingAll
+                ? "Deleting all..."
+                : deleteAllConfirm
+                ? "Confirm"
+                : "Delete all"}
+            </ButtonType>
+          )}
+        </div>
 
         <button
           type="button"

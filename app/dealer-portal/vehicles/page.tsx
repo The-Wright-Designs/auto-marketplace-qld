@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import classNames from "classnames";
+import { Pencil, Trash2, Info } from "lucide-react";
 import { listVehicles, deleteVehicle } from "@/_actions/vehicle-actions";
 import { Vehicle, VehicleStatus } from "@/_types/vehicle-types";
 import ButtonType from "@/_components/ui/buttons/button-type";
@@ -44,6 +46,7 @@ export default function VehiclesPage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [sortField, setSortField] = useState<SortField>("dateAdded");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [tenderInfoVehicle, setTenderInfoVehicle] = useState<Vehicle | null>(null);
 
   const limit = 20;
 
@@ -176,9 +179,20 @@ export default function VehiclesPage() {
     return <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>;
   };
 
-  const SortableHeader = ({ field, label }: { field: SortField; label: string }) => (
+  const SortableHeader = ({
+    field,
+    label,
+    cssClasses,
+  }: {
+    field: SortField;
+    label: string;
+    cssClasses?: string;
+  }) => (
     <th
-      className="text-left p-3 text-blue font-bold cursor-pointer hover:opacity-70"
+      className={classNames(
+        "text-left p-2 text-blue font-bold cursor-pointer hover:opacity-80",
+        cssClasses
+      )}
       onClick={() => handleSort(field)}
     >
       {label}
@@ -187,85 +201,82 @@ export default function VehiclesPage() {
   );
 
   return (
-    <div className="p-50px desktop:p-100px">
-      <div className="max-w-7xl mx-auto">
+    <div className="space-y-5 py-10 px-5 tablet:px-50px desktop-small:px-100px">
+      <div className="mx-auto">
         <div className="flex flex-col tablet:flex-row tablet:items-center tablet:justify-between mb-10 gap-5">
           <h1 className="text-heading text-blue">Vehicle Management</h1>
           <ButtonLink
             href="/dealer-portal/vehicles/new"
             ariaLabel="Add New Vehicle"
             cssClasses="bg-blue text-white"
+            traditionalButton
           >
             Add New Vehicle
           </ButtonLink>
         </div>
 
         {error && (
-          <div className="p-18px bg-red rounded border-2 border-red mb-10">
+          <div className="p-18px bg-red rounded-md border-2 border-red mb-10">
             <p className="text-white text-paragraph">{error}</p>
           </div>
         )}
 
-        <div className="bg-white rounded border-2 border-grey p-50px">
-          <div className="space-y-5 mb-10">
-            <h3 className="text-subheading text-blue">Filters</h3>
+        <div className="bg-white rounded-md border-2 border-blue p-10">
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-5 mb-10">
+            <div>
+              <label className="block text-paragraph text-blue mb-2">
+                Search
+              </label>
+              <input
+                type="text"
+                placeholder="Make, Model, or VIN"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2 border-2 border-grey rounded-md focus:outline-none focus:border-blue"
+              />
+            </div>
 
-            <div className="grid grid-cols-1 tablet:grid-cols-3 gap-5">
-              <div>
-                <label className="block text-paragraph text-blue font-bold mb-2">
-                  Search
-                </label>
-                <input
-                  type="text"
-                  placeholder="Make, Model, or VIN"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 py-2 border-2 border-grey rounded focus:outline-none focus:border-blue"
-                />
-              </div>
+            <div>
+              <label className="block text-paragraph text-blue mb-2">
+                Listing Type
+              </label>
+              <select
+                value={listingTypeFilter}
+                onChange={(e) => {
+                  setListingTypeFilter(e.target.value);
+                  setOffset(0);
+                }}
+                className="w-full px-3 h-[45px] py-2 border-2 border-grey rounded-md focus:outline-none focus:border-blue"
+              >
+                <option value="">All Types</option>
+                <option value="tender">Tender</option>
+                <option value="buy-now">Buy Now</option>
+              </select>
+            </div>
 
-              <div>
-                <label className="block text-paragraph text-blue font-bold mb-2">
-                  Listing Type
-                </label>
-                <select
-                  value={listingTypeFilter}
-                  onChange={(e) => {
-                    setListingTypeFilter(e.target.value);
-                    setOffset(0);
-                  }}
-                  className="w-full px-3 py-2 border-2 border-grey rounded focus:outline-none focus:border-blue"
-                >
-                  <option value="">All Types</option>
-                  <option value="tender">Tender</option>
-                  <option value="buy-now">Buy Now</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-paragraph text-blue font-bold mb-2">
-                  Status
-                </label>
-                <select
-                  value={statusFilter}
-                  onChange={(e) => {
-                    setStatusFilter(e.target.value);
-                    setOffset(0);
-                  }}
-                  className="w-full px-3 py-2 border-2 border-grey rounded focus:outline-none focus:border-blue"
-                >
-                  <option value="">All Status</option>
-                  <option value="draft">Draft</option>
-                  <option value="active">Active</option>
-                  <option value="sold">Sold</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-paragraph text-blue mb-2">
+                Status
+              </label>
+              <select
+                value={statusFilter}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setOffset(0);
+                }}
+                className="w-full px-3 py-2 h-[45px] border-2 border-grey rounded-md focus:outline-none focus:border-blue"
+              >
+                <option value="">All Status</option>
+                <option value="draft">Draft</option>
+                <option value="active">Active</option>
+                <option value="sold">Sold</option>
+              </select>
             </div>
           </div>
 
           {isLoading ? (
-            <div className="text-center py-20">
-              <p className="text-paragraph text-grey">Loading vehicles...</p>
+            <div className="flex flex-col items-center py-32">
+              <div className="spinner" />
             </div>
           ) : filteredVehicles.length === 0 ? (
             <div className="text-center py-20">
@@ -278,43 +289,62 @@ export default function VehiclesPage() {
           ) : (
             <>
               <div className="overflow-x-auto">
-                <table className="w-full text-paragraph text-grey">
+                <table className="w-full text-paragraph table-fixed">
                   <thead>
                     <tr className="border-b-2 border-grey">
-                      <SortableHeader field="dateAdded" label="Date Added" />
-                      <SortableHeader field="year" label="Year" />
-                      <SortableHeader field="make" label="Make" />
-                      <SortableHeader field="model" label="Model" />
-                      <SortableHeader field="price" label="Price" />
-                      <th className="text-left p-3 text-blue font-bold">
+                      <SortableHeader
+                        field="dateAdded"
+                        label="Date Added"
+                        cssClasses="w-[125px]"
+                      />
+                      <SortableHeader
+                        field="year"
+                        label="Year"
+                        cssClasses="w-[80px]"
+                      />
+                      <SortableHeader
+                        field="make"
+                        label="Make"
+                        cssClasses="w-[140px]"
+                      />
+                      <SortableHeader
+                        field="model"
+                        label="Model"
+                        cssClasses="w-[140px]"
+                      />
+                      <SortableHeader
+                        field="price"
+                        label="Price"
+                        cssClasses="w-[120px]"
+                      />
+                      <th className="text-left p-2 text-blue font-bold w-[120px]">
                         Status
                       </th>
-                      <th className="text-left p-3 text-blue font-bold">
+                      <th className="text-left p-2 text-blue font-bold w-[120px]">
                         Type
                       </th>
-                      <th className="text-left p-3 text-blue font-bold">
+                      <th className="text-left p-2 text-blue font-bold w-[100px]">
                         Actions
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredVehicles.map((vehicle) => (
-                      <tr
-                        key={vehicle.id}
-                        className="border-b border-grey hover:bg-grey hover:bg-opacity-10"
-                      >
-                        <td className="p-3">{formatDate(vehicle.metadata.createdAt)}</td>
-                        <td className="p-3">{vehicle.year}</td>
-                        <td className="p-3">{vehicle.make}</td>
-                        <td className="p-3">{vehicle.model}</td>
-                        <td className="p-3">
-                          ${vehicle.price.toLocaleString()}
+                      <tr key={vehicle.id} className="border-b border-grey">
+                        <td className="p-2 truncate">
+                          {vehicle.metadata?.createdAt ? formatDate(vehicle.metadata.createdAt) : "-"}
                         </td>
-                        <td className="p-3">
+                        <td className="p-2 truncate">{vehicle.year || "-"}</td>
+                        <td className="p-2 truncate">{vehicle.make || "-"}</td>
+                        <td className="p-2 truncate">{vehicle.model || "-"}</td>
+                        <td className="p-2 truncate">
+                          {vehicle.price ? `$${vehicle.price.toLocaleString()}` : "-"}
+                        </td>
+                        <td className="p-2 truncate">
                           <VehicleStatusToggle
                             vehicleId={vehicle.id}
-                            currentStatus={vehicle.status}
-                            vehicleTitle={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                            currentStatus={vehicle.status || "draft"}
+                            vehicleTitle={`${vehicle.year || "Unknown"} ${vehicle.make || "Unknown"} ${vehicle.model || "Unknown"}`}
                             onStatusChange={(newStatus) => {
                               setVehicles((prev) =>
                                 prev.map((v) =>
@@ -326,23 +356,36 @@ export default function VehiclesPage() {
                             }}
                           />
                         </td>
-                        <td className="p-3">
-                          {LISTING_TYPE_LABELS[vehicle.listingType]}
+                        <td className="p-2 truncate">
+                          <div className="flex items-center gap-2">
+                            <span>{vehicle.listingType ? LISTING_TYPE_LABELS[vehicle.listingType] : "-"}</span>
+                            {vehicle.listingType === "tender" && (
+                              <button
+                                onClick={() => setTenderInfoVehicle(vehicle)}
+                                className="hover:opacity-70 transition-opacity"
+                                aria-label="View tender details"
+                              >
+                                <Info className="w-5 h-5" color="#13103F" />
+                              </button>
+                            )}
+                          </div>
                         </td>
-                        <td className="p-3">
+                        <td className="p-2 truncate">
                           <div className="flex gap-3">
                             <Link
                               href={`/dealer-portal/vehicles/${vehicle.id}/edit`}
-                              className="text-link-blue underline hover:no-underline"
+                              className="hover:opacity-70 transition-opacity"
+                              aria-label="Edit vehicle"
                             >
-                              Edit
+                              <Pencil className="w-5 h-5" color="#0000ff" />
                             </Link>
                             <button
                               onClick={() => setDeleteConfirmId(vehicle.id)}
-                              className="text-red underline hover:no-underline"
+                              className="hover:opacity-70 transition-opacity"
                               disabled={isDeleting}
+                              aria-label="Delete vehicle"
                             >
-                              Delete
+                              <Trash2 className="w-5 h-5" color="#FF0000" />
                             </button>
                           </div>
                         </td>
@@ -352,11 +395,11 @@ export default function VehiclesPage() {
                 </table>
               </div>
 
-              <div className="flex justify-between items-center mt-10">
+              <div className="flex flex-col gap-5 justify-between items-center mt-10 tablet:flex-row">
                 <ButtonType
                   onClick={() => setOffset(Math.max(0, offset - limit))}
                   disabled={offset === 0 || isLoading}
-                  cssClasses="bg-blue text-white"
+                  cssClasses="w-full tablet:w-auto"
                 >
                   Previous
                 </ButtonType>
@@ -369,7 +412,7 @@ export default function VehiclesPage() {
                 <ButtonType
                   onClick={() => setOffset(offset + limit)}
                   disabled={!hasMore || isLoading}
-                  cssClasses="bg-blue text-white"
+                  cssClasses="w-full tablet:w-auto"
                 >
                   Next
                 </ButtonType>
@@ -381,7 +424,7 @@ export default function VehiclesPage() {
 
       {deleteConfirmId && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
-          <div className="bg-white rounded border-2 border-blue p-50px max-w-md w-full">
+          <div className="bg-white rounded-md border-2 border-blue p-50px max-w-md w-full">
             <h3 className="text-subheading text-blue mb-5">Delete Vehicle</h3>
             <p className="text-paragraph text-grey mb-10">
               Are you sure you want to delete this vehicle? This action cannot
@@ -405,6 +448,43 @@ export default function VehiclesPage() {
                 Cancel
               </ButtonType>
             </div>
+          </div>
+        </div>
+      )}
+
+      {tenderInfoVehicle && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
+          <div className="bg-white rounded-md border-2 border-blue p-50px max-w-md w-full">
+            <h3 className="text-subheading text-blue mb-5">Tender Details</h3>
+            <div className="space-y-5 mb-10">
+              <div>
+                <p className="text-paragraph text-blue font-bold mb-2">
+                  Reserve Price
+                </p>
+                <p className="text-paragraph text-grey">
+                  {tenderInfoVehicle.reservePrice
+                    ? `$${tenderInfoVehicle.reservePrice.toLocaleString()}`
+                    : "Not set"}
+                </p>
+              </div>
+              <div>
+                <p className="text-paragraph text-blue font-bold mb-2">
+                  Tender Deadline
+                </p>
+                <p className="text-paragraph text-grey">
+                  {tenderInfoVehicle.tenderDeadline
+                    ? formatDate(tenderInfoVehicle.tenderDeadline)
+                    : "Not set"}
+                </p>
+              </div>
+            </div>
+
+            <ButtonType
+              onClick={() => setTenderInfoVehicle(null)}
+              cssClasses="w-full bg-blue text-white"
+            >
+              Close
+            </ButtonType>
           </div>
         </div>
       )}

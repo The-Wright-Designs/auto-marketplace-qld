@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { formLabelStyles } from "@/_styles/form-input-styles";
 import { FormInputFileProps } from "@/_types/form-types";
 import { useFileUpload } from "./form-input-file-components/use-file-upload";
+import { ProcessedImageResult } from "@/_actions/process-single-image";
 import FileUploadErrors from "./form-input-file-components/file-upload-errors";
 import FileListDisplay from "./form-input-file-components/file-list-display";
 import UploadControls from "./form-input-file-components/upload-controls";
@@ -18,7 +19,11 @@ const FormInputFileAccumulator = ({
   disabled = false,
   maxFiles,
   onImageCountChange,
-}: FormInputFileProps & { onImageCountChange?: (count: number) => void }) => {
+  onProcessedImagesChange,
+}: FormInputFileProps & {
+  onImageCountChange?: (count: number) => void;
+  onProcessedImagesChange?: (images: ProcessedImageResult[]) => void;
+}) => {
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -37,6 +42,12 @@ const FormInputFileAccumulator = ({
     clearAllFailedFiles,
     triggerFileSelect,
   } = useFileUpload({ maxFiles, onImageCountChange });
+
+  useEffect(() => {
+    if (onProcessedImagesChange) {
+      onProcessedImagesChange(processedImages);
+    }
+  }, [processedImages, onProcessedImagesChange]);
 
   return (
     <div>
