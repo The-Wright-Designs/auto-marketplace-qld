@@ -45,7 +45,7 @@ export default function DealerPortalLayout({
   return (
     <>
       <DashboardMobileNav />
-      <div className="flex min-h-screen">
+      <div className="max-w-[1600px] px-5 py-20 flex min-h-screen desktop-small:px-10">
         <DashboardSidebar />
         <main className="flex-1 min-w-0 ml-0 desktop-small:ml-[280px]">
           {children}

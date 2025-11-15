@@ -19,15 +19,11 @@ export default async function EditVehiclePage({
   }
 
   return (
-    <div className="p-50px desktop:p-100px">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-heading text-blue mb-10">Edit Vehicle</h1>
-        <VehicleForm
-          mode="edit"
-          initialData={result.data}
-          vehicleId={id}
-        />
-      </div>
+    <div>
+      <h1 className="text-subheading full-hd:text-subheading-desktop mb-10">
+        Edit Vehicle
+      </h1>
+      <VehicleForm mode="edit" initialData={result.data} vehicleId={id} />
     </div>
   );
 }

@@ -7,9 +7,11 @@ export default function DealerDashboard() {
   const isAdmin = user?.customClaims?.admin === true;
 
   return (
-    <div className="space-y-5 py-10 px-5 phone:px-18px tablet-small:px-50px tablet:px-50px desktop-small:px-50px full-hd:px-120px">
-      <h2 className="text-heading text-blue">Dealer Dashboard</h2>
-      <p className="text-paragraph text-grey">
+    <div className="space-y-5">
+      <h1 className="text-subheading full-hd:text-subheading-desktop">
+        Dealer Dashboard
+      </h1>
+      <p className="text-[16px] text-grey">
         Congratulations, you&apos;re logged in as <strong>{user!.email}</strong>
         .
       </p>

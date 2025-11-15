@@ -47,6 +47,9 @@ export default function VehicleMediaSection({
   const [isDeletingAll, setIsDeletingAll] = useState(false);
   const [deleteAllConfirm, setDeleteAllConfirm] = useState(false);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
+  const [touchStartIndex, setTouchStartIndex] = useState<number | null>(null);
+  const [touchCurrentIndex, setTouchCurrentIndex] = useState<number | null>(null);
+  const imageRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
 
   const fetchImages = useCallback(async () => {
     try {
@@ -227,6 +230,66 @@ export default function VehicleMediaSection({
     }
   };
 
+  const getImageIndexFromTouch = (touchY: number): number | null => {
+    for (const [index, element] of imageRefsMap.current) {
+      const rect = element.getBoundingClientRect();
+      if (touchY >= rect.top && touchY <= rect.bottom) {
+        return index;
+      }
+    }
+    return null;
+  };
+
+  const handleTouchStart = (index: number) => {
+    if (isReordering || isDeletingAll || disabled) return;
+    setTouchStartIndex(index);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartIndex === null) return;
+    const touch = e.touches[0];
+    const hoveredIndex = getImageIndexFromTouch(touch.clientY);
+    setTouchCurrentIndex(hoveredIndex);
+  };
+
+  const handleTouchEnd = async () => {
+    if (touchStartIndex === null || touchCurrentIndex === null) {
+      setTouchStartIndex(null);
+      setTouchCurrentIndex(null);
+      return;
+    }
+
+    if (touchStartIndex === touchCurrentIndex) {
+      setTouchStartIndex(null);
+      setTouchCurrentIndex(null);
+      return;
+    }
+
+    const newOrder = [...displayImages];
+    const [draggedItem] = newOrder.splice(touchStartIndex, 1);
+    newOrder.splice(touchCurrentIndex, 0, draggedItem);
+
+    setDisplayImages(newOrder);
+    const storagePaths = newOrder.map((img) => img.filename);
+
+    setTouchStartIndex(null);
+    setTouchCurrentIndex(null);
+    setIsReordering(true);
+
+    try {
+      const result = await reorderVehicleImages(vehicleId, storagePaths);
+      if (!result.success) {
+        setGlobalError(result.error || "Failed to reorder images");
+        await fetchImages();
+      }
+    } catch (error) {
+      setGlobalError(error instanceof Error ? error.message : "Reorder failed");
+      await fetchImages();
+    } finally {
+      setIsReordering(false);
+    }
+  };
+
   const handleDeleteAll = async () => {
     if (displayImages.length === 0) return;
 
@@ -322,17 +385,28 @@ export default function VehicleMediaSection({
           {displayImages.map((image, index) => (
             <div
               key={`${image.filename}-${index}`}
+              ref={(el) => {
+                if (el) {
+                  imageRefsMap.current.set(index, el);
+                } else {
+                  imageRefsMap.current.delete(index);
+                }
+              }}
               draggable={!isReordering && !isDeletingAll && !disabled}
               onDragStart={(e) => handleDragStart(e, index)}
               onDragOver={(e) => handleDragOver(e, index)}
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, index)}
+              onTouchStart={() => handleTouchStart(index)}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               className={classNames(
                 "relative cursor-move group transition-opacity",
                 {
-                  "opacity-50": draggedIndex === index,
+                  "opacity-50": draggedIndex === index || touchStartIndex === index,
                   "border-2 border-yellow":
-                    dragOverIndex === index && draggedIndex !== index,
+                    (dragOverIndex === index && draggedIndex !== index) ||
+                    (touchCurrentIndex === index && touchStartIndex !== index),
                 }
               )}
             >

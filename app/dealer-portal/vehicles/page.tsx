@@ -46,7 +46,9 @@ export default function VehiclesPage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [sortField, setSortField] = useState<SortField>("dateAdded");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
-  const [tenderInfoVehicle, setTenderInfoVehicle] = useState<Vehicle | null>(null);
+  const [tenderInfoVehicle, setTenderInfoVehicle] = useState<Vehicle | null>(
+    null
+  );
 
   const limit = 20;
 
@@ -201,10 +203,12 @@ export default function VehiclesPage() {
   );
 
   return (
-    <div className="space-y-5 py-10 px-5 tablet:px-50px desktop-small:px-100px">
+    <div className="space-y-5">
       <div className="mx-auto">
         <div className="flex flex-col tablet:flex-row tablet:items-center tablet:justify-between mb-10 gap-5">
-          <h1 className="text-heading text-blue">Vehicle Management</h1>
+          <h1 className="text-subheading full-hd:text-subheading-desktop">
+            Manage Vehicles
+          </h1>
           <ButtonLink
             href="/dealer-portal/vehicles/new"
             ariaLabel="Add New Vehicle"
@@ -332,19 +336,25 @@ export default function VehiclesPage() {
                     {filteredVehicles.map((vehicle) => (
                       <tr key={vehicle.id} className="border-b border-grey">
                         <td className="p-2 truncate">
-                          {vehicle.metadata?.createdAt ? formatDate(vehicle.metadata.createdAt) : "-"}
+                          {vehicle.metadata?.createdAt
+                            ? formatDate(vehicle.metadata.createdAt)
+                            : "-"}
                         </td>
                         <td className="p-2 truncate">{vehicle.year || "-"}</td>
                         <td className="p-2 truncate">{vehicle.make || "-"}</td>
                         <td className="p-2 truncate">{vehicle.model || "-"}</td>
                         <td className="p-2 truncate">
-                          {vehicle.price ? `$${vehicle.price.toLocaleString()}` : "-"}
+                          {vehicle.price
+                            ? `$${vehicle.price.toLocaleString()}`
+                            : "-"}
                         </td>
                         <td className="p-2 truncate">
                           <VehicleStatusToggle
                             vehicleId={vehicle.id}
                             currentStatus={vehicle.status || "draft"}
-                            vehicleTitle={`${vehicle.year || "Unknown"} ${vehicle.make || "Unknown"} ${vehicle.model || "Unknown"}`}
+                            vehicleTitle={`${vehicle.year || "Unknown"} ${
+                              vehicle.make || "Unknown"
+                            } ${vehicle.model || "Unknown"}`}
                             onStatusChange={(newStatus) => {
                               setVehicles((prev) =>
                                 prev.map((v) =>
@@ -358,7 +368,11 @@ export default function VehiclesPage() {
                         </td>
                         <td className="p-2 truncate">
                           <div className="flex items-center gap-2">
-                            <span>{vehicle.listingType ? LISTING_TYPE_LABELS[vehicle.listingType] : "-"}</span>
+                            <span>
+                              {vehicle.listingType
+                                ? LISTING_TYPE_LABELS[vehicle.listingType]
+                                : "-"}
+                            </span>
                             {vehicle.listingType === "tender" && (
                               <button
                                 onClick={() => setTenderInfoVehicle(vehicle)}
@@ -374,14 +388,14 @@ export default function VehiclesPage() {
                           <div className="flex gap-3">
                             <Link
                               href={`/dealer-portal/vehicles/${vehicle.id}/edit`}
-                              className="hover:opacity-70 transition-opacity"
+                              className="p-2 -m-2 hover:opacity-70 transition-opacity desktop-small:p-1 desktop-small:-m-1"
                               aria-label="Edit vehicle"
                             >
                               <Pencil className="w-5 h-5" color="#0000ff" />
                             </Link>
                             <button
                               onClick={() => setDeleteConfirmId(vehicle.id)}
-                              className="hover:opacity-70 transition-opacity"
+                              className="p-2 -m-2 hover:opacity-70 transition-opacity desktop-small:p-1 desktop-small:-m-1"
                               disabled={isDeleting}
                               aria-label="Delete vehicle"
                             >
