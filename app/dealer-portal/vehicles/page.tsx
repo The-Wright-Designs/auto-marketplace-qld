@@ -335,7 +335,10 @@ export default function VehiclesPage() {
                   </thead>
                   <tbody>
                     {filteredVehicles.map((vehicle) => (
-                      <tr key={vehicle.id} className="border-b border-grey">
+                      <tr
+                        key={vehicle.id}
+                        className="border-b border-grey desktop-small:hover:bg-black/5 ease-in-out duration-300"
+                      >
                         <td className="p-2 truncate">
                           {vehicle.metadata?.createdAt
                             ? formatDate(vehicle.metadata.createdAt)

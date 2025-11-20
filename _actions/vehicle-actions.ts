@@ -442,15 +442,13 @@ export async function deleteVehicleImage(
       primaryImage = updatedImages[0] || "";
     }
 
-    if (updatedImages.length > 0) {
-      await docRef.update({
-        media: {
-          images: updatedImages,
-          primaryImage,
-        },
-        "metadata.updatedAt": new Date().toISOString(),
-      });
-    }
+    await docRef.update({
+      media: {
+        images: updatedImages,
+        primaryImage,
+      },
+      "metadata.updatedAt": new Date().toISOString(),
+    });
 
     return {
       success: true,

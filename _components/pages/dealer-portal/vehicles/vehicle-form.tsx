@@ -22,6 +22,7 @@ import ButtonType from "@/_components/ui/buttons/button-type";
 import FormInputSelect from "@/_components/ui/form/form-input-select";
 import FormInputFileAccumulator from "@/_components/ui/form/form-input-file-accumulator";
 import DeleteConfirmationModal from "./delete-confirmation-modal";
+import UnsavedChangesModal from "./unsaved-changes-modal";
 import { ProcessedImageResult } from "@/_actions/process-single-image";
 
 interface VehicleFormProps {
@@ -136,7 +137,58 @@ export default function VehicleForm({
   >([]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showUnsavedChangesModal, setShowUnsavedChangesModal] = useState(false);
   const errorRef = useRef<HTMLDivElement>(null);
+
+  const getInitialFormData = (): FormData => {
+    if (initialData) {
+      return {
+        year: initialData.year,
+        make: initialData.make,
+        model: initialData.model,
+        vin: initialData.vin,
+        colour: initialData.colour,
+        bodyType: initialData.bodyType,
+        transmission: initialData.transmission,
+        fuelType: initialData.fuelType,
+        engineCapacity: initialData.engineCapacity,
+        driveType: initialData.driveType,
+        odometer: initialData.odometer,
+        odometerUnit: initialData.odometerUnit,
+        seats: initialData.seats,
+        doors: initialData.doors,
+        condition: initialData.condition,
+        serviceHistory: initialData.serviceHistory,
+        accidentHistory: initialData.accidentHistory,
+        modifications: initialData.modifications,
+        notes: initialData.notes,
+        registrationNumber: initialData.registrationNumber,
+        registrationExpiry: initialData.registrationExpiry,
+        listingType: initialData.listingType,
+        price: initialData.price,
+        reservePrice: initialData.reservePrice || "",
+        tenderDeadline: initialData.tenderDeadline || "",
+        status: initialData.status || "",
+      };
+    }
+    return emptyFormData;
+  };
+
+  const hasUnsavedChanges = (): boolean => {
+    const initial = getInitialFormData();
+    return Object.keys(formData).some((key) => {
+      const formKey = key as keyof FormData;
+      return String(formData[formKey]) !== String(initial[formKey]);
+    });
+  };
+
+  const handleCancelClick = () => {
+    if (hasUnsavedChanges()) {
+      setShowUnsavedChangesModal(true);
+    } else {
+      router.push("/dealer-portal/vehicles");
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -495,7 +547,7 @@ export default function VehicleForm({
 
         <ButtonType
           type="button"
-          onClick={() => router.push("/dealer-portal/vehicles")}
+          onClick={handleCancelClick}
           whiteButton
           disabled={isSubmitting}
         >
@@ -524,6 +576,13 @@ export default function VehicleForm({
           isLoading={isDeleting}
           onConfirm={handleDeleteVehicle}
           onCancel={() => setShowDeleteConfirm(false)}
+        />
+      )}
+
+      {showUnsavedChangesModal && (
+        <UnsavedChangesModal
+          onConfirm={() => router.push("/dealer-portal/vehicles")}
+          onCancel={() => setShowUnsavedChangesModal(false)}
         />
       )}
     </form>
