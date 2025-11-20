@@ -18,7 +18,7 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
 
   return (
     <Link
-      href="#"
+      href={`/dealer-portal/vehicles/${vehicle.id}/view`}
       className="max-w-[250px] border border-blue rounded-md overflow-hidden"
       onMouseEnter={() => setShowHover(true)}
       onMouseLeave={() => setShowHover(false)}

@@ -70,7 +70,7 @@ export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
           setError(null);
         }
       } catch {
-        setError("Failed to load tender vehicles");
+        setError("Failed to load vehicles");
         setVehicles([]);
       } finally {
         setLoading(false);
