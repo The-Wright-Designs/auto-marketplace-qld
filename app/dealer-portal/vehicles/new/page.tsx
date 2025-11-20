@@ -1,4 +1,4 @@
-import VehicleForm from "@/_components/pages/dashboard/vehicles/vehicle-form";
+import VehicleForm from "@/_components/pages/dealer-portal/vehicles/vehicle-form";
 
 export const metadata = {
   title: "Add New Vehicle",

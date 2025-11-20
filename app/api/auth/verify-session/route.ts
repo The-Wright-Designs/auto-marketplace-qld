@@ -10,11 +10,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ user: null }, { status: 200 });
     }
 
-    // Verify session cookie using Firebase Admin SDK
-    const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie,
-      true // checkRevoked
-    );
+    // Verify session cookie
+    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie);
 
     // Get additional user data
     const userRecord = await adminAuth.getUser(decodedClaims.uid);

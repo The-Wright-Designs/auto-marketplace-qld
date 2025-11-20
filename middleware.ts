@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UserSession } from "@/_types/auth-types";
 
 // Define public and protected routes
 const publicRoutes = [
@@ -10,7 +9,7 @@ const publicRoutes = [
   "/for-dealers",
   "/for-dealers/login",
   "/for-dealers/register",
-  "/auth/action", // Password reset action page
+  "/auth/action",
   "/privacy-policy",
   "/terms-and-conditions",
   "/api/test-password-auth",
@@ -33,8 +32,8 @@ const staticRoutes = [
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static assets
-  if (staticRoutes.some((route) => pathname.startsWith(route))) {
+  // Skip middleware for static assets and API routes
+  if (staticRoutes.some((route) => pathname.startsWith(route)) || pathname.startsWith("/api")) {
     return NextResponse.next();
   }
 
@@ -48,58 +47,16 @@ export async function middleware(request: NextRequest) {
 
   // If it's a protected route, check authentication
   if (isProtectedRoute) {
-    try {
-      // Get session cookie from request
-      const sessionCookie = request.cookies.get("session")?.value;
-
-      if (!sessionCookie) {
-        // No session cookie found, redirect to login
-        const loginUrl = new URL("/for-dealers/login", request.url);
-        loginUrl.searchParams.set("redirect", pathname);
-        return NextResponse.redirect(loginUrl);
-      }
-
-      // Verify session cookie using API route
-      const verifyResponse = await fetch(
-        `${request.nextUrl.origin}/api/auth/verify-session`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sessionCookie }),
-        }
-      );
-
-      if (!verifyResponse.ok) {
-        throw new Error("Session verification failed");
-      }
-
-      const { user } = await verifyResponse.json();
-
-      if (!user) {
-        // User is not authenticated, redirect to login
-        const loginUrl = new URL("/for-dealers/login", request.url);
-        loginUrl.searchParams.set("redirect", pathname);
-        return NextResponse.redirect(loginUrl);
-      }
-
-      // User is authenticated, allow access
-      const response = NextResponse.next();
-
-      // Add user info to headers for server components
-      response.headers.set("x-user-id", user.uid);
-      response.headers.set("x-user-email", user.email);
-
-      return response;
-    } catch (error) {
-      console.error("Middleware auth error:", error);
-
-      // On any auth error, redirect to login
+    const sessionCookie = request.cookies.get("session")?.value;
+    if (!sessionCookie) {
       const loginUrl = new URL("/for-dealers/login", request.url);
       loginUrl.searchParams.set("redirect", pathname);
       return NextResponse.redirect(loginUrl);
     }
+
+    // Just check if session cookie exists - actual verification happens in server components
+    // This avoids Firebase Admin SDK issues in middleware
+    return NextResponse.next();
   }
 
   // If user is authenticated and tries to access login/register, redirect to dashboard
@@ -107,39 +64,11 @@ export async function middleware(request: NextRequest) {
     isPublicRoute &&
     (pathname === "/for-dealers/login" || pathname === "/for-dealers/register")
   ) {
-    try {
-      // Get session cookie from request
-      const sessionCookie = request.cookies.get("session")?.value;
-
-      if (sessionCookie) {
-        // Verify session cookie using API route
-        const verifyResponse = await fetch(
-          `${request.nextUrl.origin}/api/auth/verify-session`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ sessionCookie }),
-          }
-        );
-
-        if (verifyResponse.ok) {
-          const { user } = await verifyResponse.json();
-
-          if (user) {
-            // User is already authenticated, redirect to dashboard
-            const dashboardUrl = new URL(
-              "/dealer-portal",
-              request.url
-            );
-            return NextResponse.redirect(dashboardUrl);
-          }
-        }
-      }
-    } catch (error) {
-      // Continue to public route if auth check fails
-      console.log("Auth check for login page failed, continuing:", error);
+    const sessionCookie = request.cookies.get("session")?.value;
+    if (sessionCookie) {
+      // User has a session, redirect to dashboard
+      const dashboardUrl = new URL("/dealer-portal", request.url);
+      return NextResponse.redirect(dashboardUrl);
     }
   }
 
@@ -159,4 +88,5 @@ export const config = {
      */
     "/((?!api|_next/static|_next/image|favicon.ico|public).*)",
   ],
+  runtime: "nodejs",
 };

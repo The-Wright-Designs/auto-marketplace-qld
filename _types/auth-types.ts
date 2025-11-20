@@ -89,6 +89,7 @@ export const FIREBASE_AUTH_ERRORS = {
 export type FirebaseAuthErrorCode = keyof typeof FIREBASE_AUTH_ERRORS;
 
 // Cookie configuration
+// maxAge set to 14 days to match Firebase session cookie duration
 export const SESSION_COOKIE_CONFIG: SessionCookieOptions = {
   httpOnly: true,
   secure: typeof window !== "undefined", // Client-side: use secure in production

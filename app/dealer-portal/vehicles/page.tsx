@@ -8,7 +8,8 @@ import { listVehicles, deleteVehicle } from "@/_actions/vehicle-actions";
 import { Vehicle, VehicleStatus } from "@/_types/vehicle-types";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import ButtonLink from "@/_components/ui/buttons/button-link";
-import VehicleStatusToggle from "@/_components/pages/dashboard/vehicles/vehicle-status-toggle";
+import VehicleStatusToggle from "@/_components/pages/dealer-portal/vehicles/vehicle-status-toggle";
+import DeleteConfirmationModal from "@/_components/pages/dealer-portal/vehicles/delete-confirmation-modal";
 
 const LISTING_TYPE_LABELS: Record<string, string> = {
   tender: "Tender",
@@ -437,33 +438,13 @@ export default function VehiclesPage() {
       </div>
 
       {deleteConfirmId && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
-          <div className="bg-white rounded-md border-2 border-blue p-50px max-w-md w-full">
-            <h3 className="text-subheading text-blue mb-5">Delete Vehicle</h3>
-            <p className="text-paragraph text-grey mb-10">
-              Are you sure you want to delete this vehicle? This action cannot
-              be undone.
-            </p>
-
-            <div className="flex gap-5">
-              <ButtonType
-                onClick={() => handleDelete(deleteConfirmId)}
-                disabled={isDeleting}
-                cssClasses="bg-red text-white flex-1"
-              >
-                {isDeleting ? "Deleting..." : "Delete"}
-              </ButtonType>
-
-              <ButtonType
-                onClick={() => setDeleteConfirmId(null)}
-                disabled={isDeleting}
-                cssClasses="bg-grey text-white flex-1"
-              >
-                Cancel
-              </ButtonType>
-            </div>
-          </div>
-        </div>
+        <DeleteConfirmationModal
+          title="Delete Vehicle"
+          description="Are you sure you want to delete this vehicle? This action cannot be undone."
+          isLoading={isDeleting}
+          onConfirm={() => handleDelete(deleteConfirmId)}
+          onCancel={() => setDeleteConfirmId(null)}
+        />
       )}
 
       {tenderInfoVehicle && (

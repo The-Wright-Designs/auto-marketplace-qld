@@ -11,21 +11,46 @@ import {
 const SESSION_COOKIE_NAME = "session";
 
 /**
- * Create an HTTP-only session cookie
+ * Create a session cookie from an ID token
+ *
+ * Converts a Firebase ID token to a long-lived session cookie that can last up to 14 days.
+ * The session cookie is verified server-side using the Firebase Admin SDK.
+ *
+ * The idToken must be a valid Firebase ID token signed by Google's secure token service.
  */
 export async function createSessionCookie(idToken: string): Promise<string> {
   try {
-    // Create session cookie that expires in 14 days (Firebase maximum)
-    const expiresIn = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+    if (!idToken) {
+      throw new Error("ID token is required");
+    }
 
+    // Verify the token is valid before converting it
+    try {
+      await adminAuth.verifyIdToken(idToken);
+    } catch (verifyError: any) {
+      console.error(
+        "[createSessionCookie] Error verifying ID token:",
+        verifyError.message
+      );
+      throw new Error(
+        "Invalid ID token - cannot create session. Verification failed: " +
+          verifyError.message
+      );
+    }
+
+    // Create a session cookie from the ID token (14-day expiration)
+    const expiresIn = 14 * 24 * 60 * 60 * 1000;
     const sessionCookie = await adminAuth.createSessionCookie(idToken, {
       expiresIn,
     });
 
     return sessionCookie;
   } catch (error: any) {
-    console.error("Error creating session cookie:", error);
-    throw new Error("Failed to create session");
+    console.error(
+      "[createSessionCookie] Error creating session cookie:",
+      error.message
+    );
+    throw new Error("Failed to create session: " + error.message);
   }
 }
 
@@ -46,6 +71,8 @@ export async function setSessionCookie(sessionCookie: string): Promise<void> {
 
 /**
  * Verify and decode session cookie
+ *
+ * Verifies a Firebase session cookie using the Admin SDK.
  */
 export async function verifySessionCookie(): Promise<UserSession | null> {
   try {
@@ -56,13 +83,10 @@ export async function verifySessionCookie(): Promise<UserSession | null> {
       return null;
     }
 
-    // Verify the session cookie
     const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie.value,
-      true // checkRevoked
+      sessionCookie.value
     );
 
-    // Get additional user data
     const userRecord = await adminAuth.getUser(decodedClaims.uid);
 
     return {
@@ -76,13 +100,10 @@ export async function verifySessionCookie(): Promise<UserSession | null> {
   } catch (error: any) {
     console.error("Error verifying session cookie:", error);
 
-    // Handle specific Firebase auth errors
     if (error.code === "auth/session-cookie-expired") {
-      throw new Error(FIREBASE_AUTH_ERRORS["auth/session-cookie-expired"]);
+      throw new Error("Session expired. Please log in again.");
     } else if (error.code === "auth/session-cookie-revoked") {
-      throw new Error(FIREBASE_AUTH_ERRORS["auth/session-cookie-revoked"]);
-    } else if (error.code === "auth/invalid-session-cookie") {
-      throw new Error("Invalid session. Please log in again");
+      throw new Error("Session revoked. Please log in again.");
     }
 
     return null;
@@ -96,7 +117,6 @@ export async function deleteSessionCookie(): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE_NAME);
 }
-
 
 /**
  * Revoke all session tokens for a user
@@ -140,10 +160,7 @@ export async function getSession(): Promise<SessionData | null> {
     }
 
     // Decode session cookie to get expiration time
-    const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie.value,
-      false
-    );
+    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie.value);
 
     return {
       user,

@@ -206,11 +206,6 @@ export default function VehicleForm({
         | "active"
         | "sold";
 
-      if (initialData?.media?.images)
-        submitData.images = initialData.media.images;
-      if (initialData?.media?.primaryImage)
-        submitData.primaryImage = initialData.media.primaryImage;
-
       let result;
       if (mode === "create") {
         const validationResult = createVehicleSchema.safeParse(submitData);
@@ -380,14 +375,14 @@ export default function VehicleForm({
       {globalError && (
         <div
           ref={errorRef}
-          className="p-18px bg-red rounded border-2 border-red"
+          className="p-18px bg-red rounded-md border-2 border-red"
         >
           <p className="text-white text-paragraph">{globalError}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="p-18px bg-blue rounded border-2 border-blue">
+        <div className="p-18px bg-blue rounded-md border-2 border-blue">
           <p className="text-white text-paragraph">{successMessage}</p>
         </div>
       )}

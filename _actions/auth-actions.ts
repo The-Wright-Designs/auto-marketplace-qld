@@ -21,13 +21,16 @@ import {
 } from "@/_lib/auth/rate-limiter-server";
 
 /**
- * Server action for user login
+ * Server action for user login with ID token
+ * IMPORTANT: The ID token must be obtained from client-side Firebase authentication
+ * using signInWithEmailAndPassword() and then passed to this function.
+ * This ensures the token is signed by Firebase's secure token service.
  */
 export async function loginWithEmailAndPassword(
-  credentials: LoginCredentials
+  credentials: LoginCredentials & { idToken?: string }
 ): Promise<AuthResult> {
   try {
-    const { email, password, recaptchaToken } = credentials;
+    const { email, password, recaptchaToken, idToken } = credentials;
 
     // Validate inputs
     if (!email || !password) {
@@ -59,46 +62,108 @@ export async function loginWithEmailAndPassword(
       }
     }
 
-    // Get user by email first to check if user exists
-    let userRecord: any;
-    try {
-      userRecord = await adminAuth.getUserByEmail(email);
-    } catch (error: any) {
-      console.error("Login error:", error);
+    // If ID token is provided (hybrid approach - client-side verified)
+    if (idToken) {
+      try {
+        // Verify the ID token to ensure it's valid and signed by Firebase
+        const decodedToken = await adminAuth.verifyIdToken(idToken);
 
-      if (error.code === "auth/user-not-found") {
+        // Verify the email matches
+        if (decodedToken.email !== email) {
+          return {
+            success: false,
+            message: "Email mismatch. Please try again.",
+          };
+        }
+
+        // Get user record for additional info
+        const userRecord = await adminAuth.getUser(decodedToken.uid);
+
+        // Create session cookie using the verified ID token
+        // This is the CORRECT approach - the ID token is signed by Firebase
+        const sessionCookie = await createSessionCookie(idToken);
+
+        // Set session cookie
+        await setSessionCookie(sessionCookie);
+
+        // Create user session object
+        const userSession: UserSession = {
+          uid: userRecord.uid,
+          email: userRecord.email || email,
+          displayName: userRecord.displayName || undefined,
+          emailVerified: userRecord.emailVerified || false,
+          customClaims: userRecord.customClaims || {},
+          lastSignInTime: new Date().toISOString(),
+        };
+
+        return {
+          success: true,
+          message: "Login successful",
+          user: userSession,
+        };
+      } catch (error: any) {
+        console.error("ID token verification error:", error);
         return {
           success: false,
-          message: FIREBASE_AUTH_ERRORS["auth/user-not-found"],
+          message: "Authentication failed. Please try again.",
+        };
+      }
+    }
+
+    // If no ID token provided, use Firebase REST API for email/password authentication
+    try {
+      const firebaseApiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+      if (!firebaseApiKey) {
+        return {
+          success: false,
+          message: "Authentication service not configured",
         };
       }
 
-      return {
-        success: false,
-        message: "Authentication failed",
-      };
-    }
+      // Use Firebase REST API to authenticate with email/password
+      const authResponse = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseApiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            returnSecureToken: true,
+          }),
+        }
+      );
 
-    // Note: Firebase Admin SDK doesn't provide direct password verification
-    // For a production app, you have several options:
-    // 1. Use a hybrid approach: verify password on client, then create server session
-    // 2. Implement custom authentication with your own password hashing
-    // 3. Use Firebase Functions to handle authentication
-    // 4. Use the REST API with email/password authentication
+      const authData = await authResponse.json();
 
-    // For this implementation, we'll use a hybrid approach:
-    // We'll create a custom token and assume the client has verified the password
-    // In a real implementation, you should add proper password verification
+      if (!authResponse.ok) {
+        if (authData.error?.message === "INVALID_PASSWORD") {
+          return {
+            success: false,
+            message: FIREBASE_AUTH_ERRORS["auth/wrong-password"],
+          };
+        }
+        if (authData.error?.message === "EMAIL_NOT_FOUND") {
+          return {
+            success: false,
+            message: FIREBASE_AUTH_ERRORS["auth/user-not-found"],
+          };
+        }
+        throw new Error(authData.error?.message || "Authentication failed");
+      }
 
-    try {
-      // Create custom token for the user
-      const customToken = await adminAuth.createCustomToken(userRecord.uid, {
-        email: userRecord.email,
-        emailVerified: userRecord.emailVerified,
-      });
+      // Get the ID token from the response
+      const receivedIdToken = authData.idToken;
 
-      // Create session cookie using the custom token
-      const sessionCookie = await createSessionCookie(customToken);
+      // Get user record
+      const decodedToken = await adminAuth.verifyIdToken(receivedIdToken);
+      const userRecord = await adminAuth.getUser(decodedToken.uid);
+
+      // Create session cookie using the ID token received from Firebase
+      // This token is properly signed by Firebase's secure token service
+      const sessionCookie = await createSessionCookie(receivedIdToken);
 
       // Set session cookie
       await setSessionCookie(sessionCookie);
@@ -118,11 +183,11 @@ export async function loginWithEmailAndPassword(
         message: "Login successful",
         user: userSession,
       };
-    } catch (tokenError: any) {
-      console.error("Token creation error:", tokenError);
+    } catch (apiError: any) {
+      console.error("Firebase REST API error:", apiError);
       return {
         success: false,
-        message: "Failed to create authentication session",
+        message: "Authentication failed. Please check your email and password.",
       };
     }
   } catch (error: any) {
@@ -150,10 +215,9 @@ export async function logoutAction(): Promise<{
 
     if (sessionCookie?.value) {
       try {
-        // Decode session to get user UID
+        // Decode session cookie to get user UID
         const decodedClaims = await adminAuth.verifySessionCookie(
-          sessionCookie.value,
-          false
+          sessionCookie.value
         );
 
         // Revoke all user sessions
@@ -181,7 +245,6 @@ export async function logoutAction(): Promise<{
   }
 }
 
-
 /**
  * Server action to get current user
  */
@@ -195,10 +258,7 @@ export async function getCurrentUserAction(): Promise<UserSession | null> {
     }
 
     // Verify session cookie
-    const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie.value,
-      true
-    );
+    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie.value);
 
     // Get user data
     const userRecord = await adminAuth.getUser(decodedClaims.uid);
@@ -239,94 +299,12 @@ export async function loginAction(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const recaptchaToken = formData.get("recaptchaToken") as string;
+  const idToken = formData.get("idToken") as string;
 
   return await loginWithEmailAndPassword({
     email,
     password,
     recaptchaToken,
+    idToken,
   });
-}
-
-/**
- * Hybrid login action that verifies password client-side then creates server session
- * This is a more secure approach for Firebase
- */
-export async function hybridLoginAction(
-  prevState: AuthResult | null,
-  formData: FormData
-): Promise<AuthResult> {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const recaptchaToken = formData.get("recaptchaToken") as string;
-  const idToken = formData.get("idToken") as string; // Client-side verified ID token
-
-  try {
-    // Validate inputs
-    if (!email || !password || !idToken) {
-      return {
-        success: false,
-        message: "Email, password, and verification are required",
-      };
-    }
-
-    // Verify reCAPTCHA if provided
-    if (recaptchaToken) {
-      const recaptchaResult = await verifyRecaptcha(recaptchaToken);
-      if (!recaptchaResult.success) {
-        return {
-          success: false,
-          message: recaptchaResult.error || "Security verification failed",
-        };
-      }
-    }
-
-    // Verify the ID token from client-side authentication
-    const decodedToken = await adminAuth.verifyIdToken(idToken);
-
-    // Get user record
-    const userRecord = await adminAuth.getUser(decodedToken.uid);
-
-    // Create session cookie using the verified ID token
-    const sessionCookie = await createSessionCookie(idToken);
-
-    // Set session cookie
-    await setSessionCookie(sessionCookie);
-
-    // Create user session object
-    const userSession: UserSession = {
-      uid: userRecord.uid,
-      email: userRecord.email || email,
-      displayName: userRecord.displayName || undefined,
-      emailVerified: userRecord.emailVerified || false,
-      customClaims: userRecord.customClaims || {},
-      lastSignInTime: new Date().toISOString(),
-    };
-
-    return {
-      success: true,
-      message: "Login successful",
-      user: userSession,
-    };
-  } catch (error: any) {
-    console.error("Hybrid login error:", error);
-
-    if (error.code === "auth/id-token-expired") {
-      return {
-        success: false,
-        message: "Authentication expired. Please try again.",
-      };
-    }
-
-    if (error.code === "auth/id-token-revoked") {
-      return {
-        success: false,
-        message: "Authentication revoked. Please log in again.",
-      };
-    }
-
-    return {
-      success: false,
-      message: "Authentication failed. Please try again.",
-    };
-  }
 }

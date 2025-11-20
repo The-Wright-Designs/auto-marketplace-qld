@@ -70,7 +70,7 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
                   <Link
                     href={url}
                     className={classNames(
-                      "text-paragraph text-white block p-3 -m-3 rounded transition-colors hover:bg-white/10",
+                      "text-paragraph text-white block p-3 -m-3 rounded-md transition-colors hover:bg-white/10",
                       {
                         "bg-white/20 hover:bg-white/20": isActive,
                       }

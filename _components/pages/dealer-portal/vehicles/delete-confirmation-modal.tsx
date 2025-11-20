@@ -44,7 +44,13 @@ export default function DeleteConfirmationModal({
             disabled={isLoading}
             cssClasses="bg-red text-white flex-1"
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? (
+              <div className="my-[1px]">
+                <div className="spinner-button" />
+              </div>
+            ) : (
+              "Delete"
+            )}
           </ButtonType>
 
           <ButtonType

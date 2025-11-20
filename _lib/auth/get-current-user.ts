@@ -49,10 +49,7 @@ export async function getSession(): Promise<{
     const { adminAuth } = await import("@/_lib/firebase/firebase-admin");
 
     // Verify session cookie
-    const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie.value,
-      false
-    );
+    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie.value);
 
     // Get user data
     const userRecord = await adminAuth.getUser(decodedClaims.uid);

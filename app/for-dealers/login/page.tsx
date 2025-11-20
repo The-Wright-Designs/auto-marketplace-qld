@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useEffect, useActionState, startTransition, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useActionState,
+  startTransition,
+  Suspense,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -10,7 +16,7 @@ import FormInputEmail from "@/_components/ui/form/form-input-email";
 import FormInputPassword from "@/_components/ui/form/form-input-password";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { hybridLoginAction } from "@/_actions/auth-actions";
+import { loginAction } from "@/_actions/auth-actions";
 import PasswordResetModal from "@/_components/ui/password-reset-modal";
 import { useAuth } from "@/_lib/auth/auth-context";
 
@@ -24,10 +30,7 @@ function LoginContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Use server action for form handling
-  const [formResult, formAction, isPending] = useActionState(
-    hybridLoginAction,
-    null
-  );
+  const [formResult, formAction, isPending] = useActionState(loginAction, null);
 
   // Handle error from URL params
   useEffect(() => {
@@ -107,8 +110,7 @@ function LoginContent() {
     if (formResult?.success && formResult.user) {
       setUser(formResult.user);
 
-      const redirect =
-        searchParams.get("redirect") || "/dealer-portal";
+      const redirect = searchParams.get("redirect") || "/dealer-portal";
       router.push(redirect);
     }
   }, [formResult, router, searchParams, setUser]);

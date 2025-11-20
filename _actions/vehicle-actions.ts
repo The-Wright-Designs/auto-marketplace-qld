@@ -585,6 +585,89 @@ export async function getVehicleImagesWithUrls(vehicleId: string): Promise<
 }
 
 /**
+ * Get vehicle images for multiple vehicles in batch (single admin check)
+ */
+export async function getMultipleVehicleImagesWithUrls(
+  vehicleIds: string[]
+): Promise<
+  ActionResult<
+    Record<
+      string,
+      {
+        images: Array<{ filename: string; url: string }>;
+        primaryImage: string;
+      }
+    >
+  >
+> {
+  try {
+    const hasAdminAccess = await isAdmin();
+    if (!hasAdminAccess) {
+      return {
+        success: false,
+        error: "Only admin users can access vehicle images",
+      };
+    }
+
+    const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+    if (!bucketName) {
+      return {
+        success: false,
+        error: "Firebase Storage bucket name not configured",
+      };
+    }
+
+    const bucket = adminStorage.bucket(bucketName);
+    const result: Record<
+      string,
+      {
+        images: Array<{ filename: string; url: string }>;
+        primaryImage: string;
+      }
+    > = {};
+
+    for (const vehicleId of vehicleIds) {
+      const docRef = adminDb.collection("vehicles").doc(vehicleId);
+      const doc = await docRef.get();
+
+      if (!doc.exists) {
+        result[vehicleId] = { images: [], primaryImage: "" };
+        continue;
+      }
+
+      const docData = doc.data();
+      const storagePaths = docData?.media?.images || [];
+      const primaryImage = docData?.media?.primaryImage || "";
+      const images: Array<{ filename: string; url: string }> = [];
+
+      for (const storagePath of storagePaths) {
+        const file = bucket.file(storagePath);
+
+        const [url] = await file.getSignedUrl({
+          action: "read",
+          expires: Date.now() + 60 * 60 * 1000,
+        });
+
+        images.push({ filename: storagePath, url });
+      }
+
+      result[vehicleId] = { images, primaryImage };
+    }
+
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return {
+      success: false,
+      error: `Failed to get vehicle images: ${message}`,
+    };
+  }
+}
+
+/**
  * Upload a single vehicle image in real-time
  */
 export async function uploadSingleVehicleImage(

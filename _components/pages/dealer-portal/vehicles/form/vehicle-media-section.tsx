@@ -48,7 +48,9 @@ export default function VehicleMediaSection({
   const [deleteAllConfirm, setDeleteAllConfirm] = useState(false);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [touchStartIndex, setTouchStartIndex] = useState<number | null>(null);
-  const [touchCurrentIndex, setTouchCurrentIndex] = useState<number | null>(null);
+  const [touchCurrentIndex, setTouchCurrentIndex] = useState<number | null>(
+    null
+  );
   const imageRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
 
   const fetchImages = useCallback(async () => {
@@ -332,7 +334,7 @@ export default function VehicleMediaSection({
       </h3>
 
       {globalError && (
-        <div className="p-18px bg-red rounded border-2 border-red">
+        <div className="p-18px bg-red rounded-md border-2 border-red">
           <p className="text-white text-paragraph">{globalError}</p>
         </div>
       )}
@@ -373,7 +375,8 @@ export default function VehicleMediaSection({
           className={classNames(
             "grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 relative",
             {
-              "opacity-50 pointer-events-none": isReordering || isDeletingAll || disabled,
+              "opacity-50 pointer-events-none":
+                isReordering || isDeletingAll || disabled,
             }
           )}
         >
@@ -403,7 +406,8 @@ export default function VehicleMediaSection({
               className={classNames(
                 "relative cursor-move group transition-opacity",
                 {
-                  "opacity-50": draggedIndex === index || touchStartIndex === index,
+                  "opacity-50":
+                    draggedIndex === index || touchStartIndex === index,
                   "border-2 border-yellow":
                     (dragOverIndex === index && draggedIndex !== index) ||
                     (touchCurrentIndex === index && touchStartIndex !== index),
@@ -489,11 +493,13 @@ export default function VehicleMediaSection({
                     e.stopPropagation();
                     handleDeleteClick(image.filename);
                   }}
-                  disabled={isDeleting || image.isUploading || isDeletingAll || disabled}
+                  disabled={
+                    isDeleting || image.isUploading || isDeletingAll || disabled
+                  }
                   className={classNames(
                     "absolute top-2 left-2 transition-all",
                     {
-                      "bg-red text-white px-2 py-1 rounded text-[12px] font-bold":
+                      "bg-red text-white px-2 py-1 rounded-md text-[12px] font-bold":
                         deleteConfirmId === image.filename &&
                         !image.isUploading,
                       "bg-red text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-grey":
