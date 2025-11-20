@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import classNames from "classnames";
-import { Pencil, Trash2, Info } from "lucide-react";
+import { Pencil, Trash2, Info, Eye } from "lucide-react";
 import { listVehicles, deleteVehicle } from "@/_actions/vehicle-actions";
 import { Vehicle, VehicleStatus } from "@/_types/vehicle-types";
 import ButtonType from "@/_components/ui/buttons/button-type";
@@ -390,6 +390,13 @@ export default function VehiclesPage() {
                         </td>
                         <td className="p-2 truncate">
                           <div className="flex gap-3">
+                            <Link
+                              href={`/dealer-portal/vehicles/${vehicle.id}/view`}
+                              className="p-2 -m-2 hover:opacity-70 transition-opacity desktop-small:p-1 desktop-small:-m-1"
+                              aria-label="Edit vehicle"
+                            >
+                              <Eye className="w-5 h-5" color="#0000ff" />
+                            </Link>
                             <Link
                               href={`/dealer-portal/vehicles/${vehicle.id}/edit`}
                               className="p-2 -m-2 hover:opacity-70 transition-opacity desktop-small:p-1 desktop-small:-m-1"
