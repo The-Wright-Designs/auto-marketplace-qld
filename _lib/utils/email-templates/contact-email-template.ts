@@ -1,5 +1,3 @@
-import { HTMLSanitizer } from "@/_lib/utils/html-sanitizer";
-
 interface EmailTemplateProps {
   name: string;
   email: string;
@@ -13,12 +11,6 @@ export const contactEmailTemplate = ({
   phone,
   message,
 }: EmailTemplateProps) => {
-  const sanitizedData = {
-    name: HTMLSanitizer.sanitizeForEmail(name),
-    email: HTMLSanitizer.sanitizeEmail(email),
-    phone: phone ? HTMLSanitizer.sanitizePhoneNumber(phone) : undefined,
-    message: HTMLSanitizer.sanitizeForEmail(message),
-  };
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -49,20 +41,20 @@ export const contactEmailTemplate = ({
 
         <div class="field">
           <span class="label">Name:</span>
-          <span class="value">${sanitizedData.name}</span>
+          <span class="value">${name}</span>
         </div>
 
         <div class="field">
           <span class="label">Email:</span>
-          <span class="value">${sanitizedData.email}</span>
+          <span class="value">${email}</span>
         </div>
 
         ${
-          sanitizedData.phone
+          phone
             ? `
         <div class="field">
           <span class="label">Phone:</span>
-          <span class="value">${sanitizedData.phone}</span>
+          <span class="value">${phone}</span>
         </div>
         `
             : ""
@@ -71,7 +63,7 @@ export const contactEmailTemplate = ({
         <div class="field">
           <span class="label">Message:</span>
           <br />
-          <span class="value">${sanitizedData.message}</span>
+          <span class="value">${message}</span>
         </div>
 
         <div class="footer">

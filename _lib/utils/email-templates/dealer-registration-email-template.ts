@@ -1,5 +1,3 @@
-import { HTMLSanitizer } from "@/_lib/utils/html-sanitizer";
-
 interface DealerRegistrationEmailTemplateProps {
   firstName: string;
   lastName: string;
@@ -17,16 +15,7 @@ export const dealerRegistrationEmailTemplate = ({
   licensedDealer,
   interestedIn,
 }: DealerRegistrationEmailTemplateProps) => {
-  const sanitizedData = {
-    firstName: HTMLSanitizer.sanitizeForEmail(firstName),
-    lastName: HTMLSanitizer.sanitizeForEmail(lastName),
-    email: HTMLSanitizer.sanitizeEmail(email),
-    phone: HTMLSanitizer.sanitizePhoneNumber(phone),
-    licensedDealer: HTMLSanitizer.sanitizeForEmail(licensedDealer),
-    interestedIn: HTMLSanitizer.sanitizeForEmail(interestedIn),
-  };
-
-  const fullName = `${sanitizedData.firstName} ${sanitizedData.lastName}`;
+  const fullName = `${firstName} ${lastName}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -62,26 +51,26 @@ export const dealerRegistrationEmailTemplate = ({
 
         <div class="field">
           <span class="label">Email:</span>
-          <span class="value">${sanitizedData.email}</span>
+          <span class="value">${email}</span>
         </div>
 
         <div class="field">
           <span class="label">Phone:</span>
-          <span class="value">${sanitizedData.phone}</span>
+          <span class="value">${phone}</span>
         </div>
 
         <div class="field">
           <span class="label">Licensed Dealer:</span>
           <span class="status-badge">${
-            sanitizedData.licensedDealer === "yes" ? "Yes" : "No"
+            licensedDealer === "yes" ? "Yes" : "No"
           }</span>
         </div>
 
         <div class="field">
           <span class="label">Interested In:</span>
           <span class="status-badge">${
-            sanitizedData.interestedIn.charAt(0).toUpperCase() +
-            sanitizedData.interestedIn.slice(1)
+            interestedIn.charAt(0).toUpperCase() +
+            interestedIn.slice(1)
           }</span>
         </div>
 

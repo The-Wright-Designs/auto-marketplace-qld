@@ -7,7 +7,6 @@ import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 import { SellMyCarEmailTemplateProps } from "@/_types/email-types";
 import { validateSellMyCarForm } from "@/_lib/validation/sell-my-car-schema";
 import { FileValidator } from "@/_lib/utils/file-validator";
-import { HTMLSanitizer } from "@/_lib/utils/html-sanitizer";
 import { RateLimiter } from "@/_lib/utils/rate-limiter";
 import { headers } from "next/headers";
 
@@ -177,8 +176,8 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
       }
     }
 
-    // 7. Sanitize data for email template
-    const sanitizedData = HTMLSanitizer.sanitizeFormData({
+    // 7. Prepare data for email template
+    const emailData = {
       name: `${validatedData.firstName} ${validatedData.lastName}`,
       email: validatedData.email,
       contactNumber: validatedData.contactNumber,
@@ -187,11 +186,11 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
       vehicleYear: validatedData.vehicleYear?.toString() || "Not specified",
       fuelType: validatedData.fuelType,
       transmission: validatedData.transmission,
-    });
+    };
 
     // 8. Generate email content
     const emailHtmlContent = sellMyCarEmailTemplate(
-      sanitizedData as SellMyCarEmailTemplateProps
+      emailData as SellMyCarEmailTemplateProps
     );
 
     // 9. Send email
@@ -220,7 +219,7 @@ export async function sellMyCarEmail(formData: FormData): Promise<{
       from: `Auto Marketplace QLD <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_SEND_TO as string,
       subject: "Vehicle Sell Request - AMQ",
-      replyTo: sanitizedData.email,
+      replyTo: emailData.email,
       html: emailHtmlContent,
       attachments: attachments.length > 0 ? attachments : undefined,
     };

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Define public and protected routes
 const publicRoutes = [
   "/",
   "/about",
@@ -18,7 +17,6 @@ const publicRoutes = [
 
 const protectedRoutes = ["/dealer-portal"];
 
-// Static assets that don't need authentication
 const staticRoutes = [
   "/_next",
   "/favicon.ico",
@@ -29,15 +27,13 @@ const staticRoutes = [
   "/logo",
 ];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static assets and API routes
   if (staticRoutes.some((route) => pathname.startsWith(route)) || pathname.startsWith("/api")) {
     return NextResponse.next();
   }
 
-  // Check if the path is a protected route
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -45,7 +41,6 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // If it's a protected route, check authentication
   if (isProtectedRoute) {
     const sessionCookie = request.cookies.get("session")?.value;
     if (!sessionCookie) {
@@ -54,25 +49,20 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    // Just check if session cookie exists - actual verification happens in server components
-    // This avoids Firebase Admin SDK issues in middleware
     return NextResponse.next();
   }
 
-  // If user is authenticated and tries to access login/register, redirect to dashboard
   if (
     isPublicRoute &&
     (pathname === "/for-dealers/login" || pathname === "/for-dealers/register")
   ) {
     const sessionCookie = request.cookies.get("session")?.value;
     if (sessionCookie) {
-      // User has a session, redirect to dashboard
       const dashboardUrl = new URL("/dealer-portal", request.url);
       return NextResponse.redirect(dashboardUrl);
     }
   }
 
-  // Allow access to public routes
   return NextResponse.next();
 }
 

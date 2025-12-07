@@ -1,5 +1,4 @@
 import { SellMyCarEmailTemplateProps } from "@/_types/email-types";
-import { HTMLSanitizer } from "@/_lib/utils/html-sanitizer";
 
 export const sellMyCarEmailTemplate = ({
   name,
@@ -11,17 +10,6 @@ export const sellMyCarEmailTemplate = ({
   fuelType,
   transmission,
 }: SellMyCarEmailTemplateProps) => {
-  // Sanitize all inputs for email safety
-  const sanitizedData = {
-    name: HTMLSanitizer.sanitizeForEmail(name),
-    email: HTMLSanitizer.sanitizeEmail(email),
-    contactNumber: HTMLSanitizer.sanitizePhoneNumber(contactNumber),
-    vehicleMake: HTMLSanitizer.sanitizeForEmail(vehicleMake),
-    vehicleModel: HTMLSanitizer.sanitizeForEmail(vehicleModel),
-    vehicleYear: HTMLSanitizer.sanitizeForEmail(vehicleYear),
-    fuelType: HTMLSanitizer.sanitizeForEmail(fuelType),
-    transmission: HTMLSanitizer.sanitizeForEmail(transmission),
-  };
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -52,44 +40,44 @@ export const sellMyCarEmailTemplate = ({
         
         <div class="field">
           <span class="label">Name:</span>
-          <span class="value">${sanitizedData.name}</span>
+          <span class="value">${name}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Email:</span>
-          <span class="value">${sanitizedData.email}</span>
+          <span class="value">${email}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Contact Number:</span>
-          <span class="value">${sanitizedData.contactNumber}</span>
+          <span class="value">${contactNumber}</span>
         </div>
-        
+
         <h3 class="section-title">Vehicle Information:</h3>
-        
+
         <div class="field">
           <span class="label">Make:</span>
-          <span class="value">${sanitizedData.vehicleMake}</span>
+          <span class="value">${vehicleMake}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Model:</span>
-          <span class="value">${sanitizedData.vehicleModel}</span>
+          <span class="value">${vehicleModel}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Year:</span>
-          <span class="value">${sanitizedData.vehicleYear}</span>
+          <span class="value">${vehicleYear}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Fuel Type:</span>
-          <span class="value">${sanitizedData.fuelType}</span>
+          <span class="value">${fuelType}</span>
         </div>
-        
+
         <div class="field">
           <span class="label">Transmission:</span>
-          <span class="value">${sanitizedData.transmission}</span>
+          <span class="value">${transmission}</span>
         </div>
         
         <h3 class="section-title">Vehicle Images:</h3>

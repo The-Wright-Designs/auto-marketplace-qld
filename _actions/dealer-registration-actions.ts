@@ -2,7 +2,6 @@
 
 import nodemailer from "nodemailer";
 import { dealerRegistrationEmailTemplate } from "@/_lib/utils/email-templates/dealer-registration-email-template";
-import DOMPurify from "isomorphic-dompurify";
 import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
 interface DealerRegistrationData {
@@ -41,20 +40,12 @@ export async function sendEmail(
           error: recaptchaResult.error || "reCAPTCHA verification failed",
         };
       }
-      const firstName = DOMPurify.sanitize(
-        formData.get("firstName")?.toString() || ""
-      );
-      const lastName = DOMPurify.sanitize(
-        formData.get("lastName")?.toString() || ""
-      );
-      const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
-      const phone = DOMPurify.sanitize(formData.get("phone")?.toString() || "");
-      const licensedDealer = DOMPurify.sanitize(
-        formData.get("licensedDealer")?.toString() || ""
-      );
-      const interestedIn = DOMPurify.sanitize(
-        formData.get("interestedIn")?.toString() || ""
-      );
+      const firstName = formData.get("firstName")?.toString() || "";
+      const lastName = formData.get("lastName")?.toString() || "";
+      const email = formData.get("email")?.toString() || "";
+      const phone = formData.get("phone")?.toString() || "";
+      const licensedDealer = formData.get("licensedDealer")?.toString() || "";
+      const interestedIn = formData.get("interestedIn")?.toString() || "";
 
       if (
         !firstName.trim() ||
