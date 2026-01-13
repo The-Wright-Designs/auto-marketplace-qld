@@ -91,7 +91,7 @@ export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col gap-5">
       {error && <p className="text-paragraph text-red">{error}</p>}
 
       {!loading && !error && vehicles.length > 0 ? (

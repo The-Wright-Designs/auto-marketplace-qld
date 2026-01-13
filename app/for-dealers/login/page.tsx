@@ -130,14 +130,14 @@ function LoginContent() {
       useMainElement
       cssClasses="min-h-[500px] flex flex-col items-center"
     >
-      <div className="space-y-10">
+      <div className="grid gap-10">
         <h1 className="text-heading tablet:text-heading-tablet full-hd:text-heading-desktop">
           Dealer Login
         </h1>
-        <div className="space-y-5">
+        <div className="grid gap-5">
           <p className="text-paragraph">Sign in to access your dealer portal</p>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="grid gap-6" onSubmit={handleSubmit}>
             {/* Honeypot field for bot protection */}
             <input
               type="text"

@@ -54,8 +54,7 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
             {vehicle.model}
           </li>
           <li className="text-paragraph text-grey text-[16px] truncate">
-            {vehicle.odometer}
-            {vehicle.odometerUnit}
+            {vehicle.odometer} km
           </li>
         </div>
         <div className="place-items-end">

@@ -14,12 +14,12 @@ const ContactPage = () => {
       useMainElement
       cssClasses="grid gap-7 tablet:grid-cols-2 tablet:gap-x-10"
     >
-      <div className="space-y-7">
+      <div className="grid gap-7">
         <h2 className="text-subheading tablet:col-span-2 full-hd:text-subheading-desktop">
           Contact
         </h2>
-        <div className="space-y-7">
-          <div className="space-y-5 desktop-small:space-y-2">
+        <div className="grid gap-7">
+          <div className="grid gap-5 desktop-small:gap-2">
             <div className={contactStyles}>
               <p className="font-bold">Email:</p>
               <ShowEmailAddress />

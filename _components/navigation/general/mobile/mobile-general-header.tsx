@@ -8,12 +8,14 @@ import { X, AlignJustify, ChevronDown } from "lucide-react";
 import classNames from "classnames";
 
 import generalNavData from "@/_data/general-nav-data.json";
+import { useAuth } from "@/_lib/auth/auth-context";
 
 const { header: headerNavData } = generalNavData;
 
 export function MobileGeneralHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (isOpen) {
@@ -84,8 +86,14 @@ export function MobileGeneralHeader() {
         <nav>
           <ul className="grid gap-5 mt-5">
             {headerNavData.map(({ title, url, submenu }, id) => {
+              const isForDealers = title === "For Dealers";
+              
+              // Modify item if user is authenticated and it's the "For Dealers" item
+              const displayTitle = isForDealers && isAuthenticated ? "Dashboard" : title;
+              const displayUrl = isForDealers && isAuthenticated ? "/dealer-portal" : url;
+              
               const hasSubmenu = submenu && submenu.length > 0;
-              const isSubmenuOpen = openSubmenu === title;
+              const isSubmenuOpen = openSubmenu === displayTitle;
 
               return (
                 <li key={id}>
@@ -93,11 +101,11 @@ export function MobileGeneralHeader() {
                     <>
                       <button
                         onClick={() =>
-                          setOpenSubmenu(isSubmenuOpen ? null : title)
+                          setOpenSubmenu(isSubmenuOpen ? null : displayTitle)
                         }
                         className="text-paragraph font-normal p-3 -m-3 flex items-center justify-between w-full"
                       >
-                        <span className="text-blue">{title}</span>
+                        <span className="text-blue">{displayTitle}</span>
                         <ChevronDown
                           className={classNames(
                             "h-8 w-8 transition-transform duration-200",
@@ -131,16 +139,16 @@ export function MobileGeneralHeader() {
                     </>
                   ) : (
                     <>
-                      {url && (
+                      {displayUrl && (
                         <Link
-                          href={url}
+                          href={displayUrl}
                           onClick={() => {
                             setIsOpen(false);
                             setOpenSubmenu(null);
                           }}
                           className="text-paragraph text-blue font-normal p-3 -m-3"
                         >
-                          {title}
+                          {displayTitle}
                         </Link>
                       )}
                     </>

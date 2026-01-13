@@ -19,17 +19,26 @@ const AboutPage = () => {
           </h2>
           <AboutPageComponent />
         </section>
-        <div id="our-story" className="-translate-y-28" />
+        <div
+          id="our-story"
+          className="-translate-y-40 tablet:-translate-y-28"
+        />
         <main className="grid gap-7">
           <h3>Our Story</h3>
           <OurStoryComponent />
         </main>
-        <div id="how-it-works" className="-translate-y-28" />
+        <div
+          id="how-it-works"
+          className="-translate-y-40 tablet:-translate-y-28"
+        />
         <section className="grid gap-7">
           <h3>How It Works</h3>
           <HowItWorksComponent />
         </section>
-        <div id="seller-fees" className="-translate-y-28" />
+        <div
+          id="seller-fees"
+          className="-translate-y-40 tablet:-translate-y-28"
+        />
         <section className="grid gap-7">
           <h3>Seller Fees</h3>
           <div className="grid gap-7 desktop-small:grid-cols-2 gap-x-10">

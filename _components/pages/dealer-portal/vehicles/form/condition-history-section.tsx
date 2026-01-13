@@ -8,6 +8,7 @@ interface ConditionHistorySectionProps {
     condition: string;
     serviceHistory: string;
     accidentHistory: string;
+    financeOwing: string;
     modifications: string;
     notes: string;
   };
@@ -27,11 +28,11 @@ export default function ConditionHistorySection({
   disabled = false,
 }: ConditionHistorySectionProps) {
   return (
-    <div className="space-y-5">
+    <div className="grid gap-5">
       <h3 className="text-blue font-bold text-paragraph-desktop">
         Condition & History
       </h3>
-      <div className="space-y-5 desktop-small:space-y-3">
+      <div className="grid gap-5 desktop-small:gap-3">
         <FormInputSelect
           id="condition"
           name="condition"
@@ -65,19 +66,36 @@ export default function ConditionHistorySection({
           <p className="text-red text-paragraph">{errors.serviceHistory}</p>
         )}
 
-        <FormInputTextarea
+        <FormInputSelect
           id="accidentHistory"
           name="accidentHistory"
-          placeholder="Accident History (max 500 characters)"
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
           label="Accident History"
-          maxLength={500}
-          rows={4}
           value={formData.accidentHistory}
           onChange={onInputChange}
           disabled={disabled}
         />
         {errors?.accidentHistory && (
           <p className="text-red text-paragraph">{errors.accidentHistory}</p>
+        )}
+
+        <FormInputSelect
+          id="financeOwing"
+          name="financeOwing"
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+          label="Finance Owing"
+          value={formData.financeOwing}
+          onChange={onInputChange}
+          disabled={disabled}
+        />
+        {errors?.financeOwing && (
+          <p className="text-red text-paragraph">{errors.financeOwing}</p>
         )}
 
         <FormInputTextarea

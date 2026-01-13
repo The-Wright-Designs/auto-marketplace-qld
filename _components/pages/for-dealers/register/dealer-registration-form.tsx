@@ -24,13 +24,13 @@ export const DealerRegistrationForm = () => {
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   return (
-    <div className="space-y-7">
+    <div className="grid gap-7">
       {showEmailSubmitted ? (
         <div
           className="grid place-items-center min-h-[400px] p-10 bg-blue rounded-md scroll-mt-56"
           id="submitted"
         >
-          <div className="space-y-6">
+          <div className="grid gap-6">
             <p className="text-center text-white">
               Your application has been sent, our team will be in touch soon.
             </p>
@@ -49,7 +49,7 @@ export const DealerRegistrationForm = () => {
             </div>
           )}
           <form
-            className="space-y-5"
+            className="grid gap-5"
             action={async (formData) => {
               try {
                 setError(null);

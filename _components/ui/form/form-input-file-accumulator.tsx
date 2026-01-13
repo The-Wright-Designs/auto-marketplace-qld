@@ -56,7 +56,7 @@ const FormInputFileAccumulator = ({
           {label}
         </label>
       )}
-      <div className="space-y-5">
+      <div className="grid gap-5">
         <div className="flex flex-wrap gap-3 justify-between items-center">
           {description && <p className="text-paragraph">{description}</p>}
           <span className="text-[16px] flex items-center gap-2">

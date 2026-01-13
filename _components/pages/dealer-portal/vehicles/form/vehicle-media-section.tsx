@@ -328,7 +328,7 @@ export default function VehicleMediaSection({
   };
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col gap-5">
       <h3 className="text-blue font-bold text-paragraph-desktop">
         Vehicle Media
       </h3>

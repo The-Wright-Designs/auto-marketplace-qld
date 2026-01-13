@@ -8,7 +8,6 @@ export interface VehicleBasicInfo {
   vin: string;
   colour: string;
   odometer: number;
-  odometerUnit: "km" | "mi";
   transmission: "manual" | "automatic" | "cvt";
   fuelType: "petrol" | "diesel" | "hybrid" | "electric" | "lpg";
   engineCapacity: number;
@@ -18,7 +17,8 @@ export interface VehicleBasicInfo {
   doors: number;
   condition: "excellent" | "good" | "fair" | "poor";
   serviceHistory: string;
-  accidentHistory: string;
+  accidentHistory: "yes" | "no";
+  financeOwing: "yes" | "no";
   modifications: string;
   notes: string;
   registrationExpiry: string;

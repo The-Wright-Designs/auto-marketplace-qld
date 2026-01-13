@@ -10,7 +10,6 @@ interface EngineDrivetrainSectionProps {
     engineCapacity: number | string;
     driveType: string;
     odometer: number | string;
-    odometerUnit: string;
     seats: number | string;
     doors: number | string;
   };
@@ -30,11 +29,11 @@ export default function EngineDrivetrainSection({
   disabled = false,
 }: EngineDrivetrainSectionProps) {
   return (
-    <div className="space-y-5">
+    <div className="grid gap-5">
       <h3 className="text-blue font-bold text-paragraph-desktop">
         Engine & Drivetrain
       </h3>
-      <div className="space-y-5 desktop-small:space-y-3">
+      <div className="grid gap-5 desktop-small:gap-3">
         <FormInputSelect
           id="transmission"
           name="transmission"
@@ -115,22 +114,6 @@ export default function EngineDrivetrainSection({
         />
         {errors?.odometer && (
           <p className="text-red text-paragraph">{errors.odometer}</p>
-        )}
-
-        <FormInputSelect
-          id="odometerUnit"
-          name="odometerUnit"
-          options={[
-            { value: "km", label: "Kilometers" },
-            { value: "mi", label: "Miles" },
-          ]}
-          label="Odometer Unit"
-          value={formData.odometerUnit}
-          onChange={onInputChange}
-          disabled={disabled}
-        />
-        {errors?.odometerUnit && (
-          <p className="text-red text-paragraph">{errors.odometerUnit}</p>
         )}
 
         <div className="grid grid-cols-2 gap-3">

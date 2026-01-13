@@ -18,7 +18,9 @@ interface DashboardMobileNavProps {
   disabled?: boolean;
 }
 
-export function DashboardMobileNav({ disabled = false }: DashboardMobileNavProps) {
+export function DashboardMobileNav({
+  disabled = false,
+}: DashboardMobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { logout, user } = useAuth();
@@ -72,7 +74,7 @@ export function DashboardMobileNav({ disabled = false }: DashboardMobileNavProps
           />
         </button>
         <Link
-          href="/dealer-portal"
+          href="/"
           className="flex gap-1 place-self-center"
           aria-label="Dashboard Home"
         >

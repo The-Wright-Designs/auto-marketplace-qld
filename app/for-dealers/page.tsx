@@ -5,8 +5,8 @@ import Image from "next/image";
 const ForDealers = () => {
   return (
     <PageWrapper>
-      <div className="grid tablet:grid-cols-2 gap-10">
-        <div className="space-y-50px">
+      <div className="grid items-start tablet:grid-cols-2 gap-10">
+        <div className="grid gap-50px">
           <h2 className="text-subheading full-hd:text-subheading-desktop">
             For Dealers
           </h2>
@@ -16,7 +16,7 @@ const ForDealers = () => {
             and easy-to-use platform designed for professional automotive
             trading.
           </p>
-          <div className="grid gap-5 tablet:gap-10 tablet:grid-cols-2">
+          <div className="grid items-start gap-5 tablet:gap-10 tablet:grid-cols-2">
             <ButtonLink
               href="/for-dealers/register"
               ariaLabel="Register now for dealers"

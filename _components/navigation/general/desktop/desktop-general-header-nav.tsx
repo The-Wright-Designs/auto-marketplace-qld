@@ -16,6 +16,7 @@ import {
   navContainerStyles,
   headerNavStyles,
 } from "@/_styles/navigation-styles";
+import { useAuth } from "@/_lib/auth/auth-context";
 
 interface NavItem {
   title: string;
@@ -32,6 +33,7 @@ const DesktopGeneralHeaderNav = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [ctaHover, setCtaHover] = useState(false);
   const currentRoute = usePathname();
+  const { isAuthenticated } = useAuth();
 
   const shouldSelfEnd =
     currentRoute !== "/sell-my-car" &&
@@ -42,8 +44,15 @@ const DesktopGeneralHeaderNav = () => {
     <nav className={headerNavStyles(shouldSelfEnd)}>
       <ul className={navContainerStyles()}>
         {(headerNavData as NavItem[]).map((item, id) => {
-          const hasSubmenu = item.submenu && item.submenu.length > 0;
-          const isActive = activeId === id || currentRoute === item.url;
+          const isForDealers = item.title === "For Dealers";
+          
+          // Modify item if user is authenticated and it's the "For Dealers" item
+          const displayItem = isForDealers && isAuthenticated 
+            ? { ...item, title: "Dashboard", url: "/dealer-portal" } 
+            : item;
+
+          const hasSubmenu = displayItem.submenu && displayItem.submenu.length > 0;
+          const isActive = activeId === id || currentRoute === displayItem.url;
 
           return (
             <li
@@ -52,12 +61,12 @@ const DesktopGeneralHeaderNav = () => {
               onMouseEnter={() => setActiveId(id)}
               onMouseLeave={() => setActiveId(null)}
             >
-              {item.url ? (
+              {displayItem.url ? (
                 <Link
-                  href={item.url}
+                  href={displayItem.url}
                   className={navLinkStyles(isActive, activeId === id, true)}
                 >
-                  {item.title}
+                  {displayItem.title}
                   {hasSubmenu && (
                     <ChevronDown
                       size={30}
@@ -71,7 +80,7 @@ const DesktopGeneralHeaderNav = () => {
                 <span
                   className={navLinkStyles(isActive, activeId === id, false)}
                 >
-                  {item.title}
+                  {displayItem.title}
                   {hasSubmenu && (
                     <ChevronDown
                       size={30}
@@ -91,16 +100,16 @@ const DesktopGeneralHeaderNav = () => {
                     {
                       "opacity-100 visible translate-y-4": activeId === id,
                       "-translate-x-[34px] min-w-[150px] full-hd:-translate-x-12 full-hd:min-w-[180px]":
-                        item.title === "About",
+                        displayItem.title === "About",
                       "-translate-x-1.5 min-w-[150px]":
-                        item.title === "For Dealers",
+                        displayItem.title === "For Dealers",
                       "opacity-0 invisible translate-y-2": activeId !== id,
                     }
                   )}
                 >
                   <div className="h-[45px] w-full bg-blue"></div>
                   <div className="bg-[#3B3B3C]">
-                    {item.submenu!.map(
+                    {displayItem.submenu!.map(
                       (subItem, subIndex) =>
                         subItem.url && (
                           <Link

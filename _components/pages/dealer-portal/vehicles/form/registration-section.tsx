@@ -23,11 +23,11 @@ export default function RegistrationSection({
   disabled = false,
 }: RegistrationSectionProps) {
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col gap-5">
       <h3 className="text-blue font-bold text-paragraph-desktop">
         Registration
       </h3>
-      <div className="space-y-5 desktop-small:space-y-3">
+      <div className="grid gap-5 desktop-small:gap-3">
         <FormInputText
           id="registrationNumber"
           name="registrationNumber"

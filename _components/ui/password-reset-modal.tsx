@@ -81,7 +81,7 @@ function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
         </svg>
       </button>
 
-      <div className="p-5 space-y-5">
+      <div className="p-5 grid gap-5">
         <div className="text-center">
           <h2 className="text-subheading">Reset Your Password</h2>
           <p className="text-paragraph mt-2">
@@ -90,7 +90,7 @@ function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="grid gap-6">
           <input
             type="text"
             name="_honey"

@@ -22,7 +22,7 @@ const FileListDisplay = ({
   if (processedImages.length === 0) return null;
 
   return (
-    <div className="space-y-2">
+    <div className="grid gap-2">
       <div className="flex items-center justify-between">
         <p className="text-[16px] font-medium">
           Added images:
@@ -39,7 +39,7 @@ const FileListDisplay = ({
           </button>
         )}
       </div>
-      <div className="space-y-3">
+      <div className="grid gap-3">
         {processedImages.map((item, index) => {
           const processedImage = (item as ProcessedImageResult).processedImage;
           const fileName = processedImage?.filename || `Image ${index + 1}`;

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import VehicleImageSlider from "@/_components/ui/sliders/vehicle-image-slider";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { Vehicle } from "@/_types/vehicle-types";
-import classNames from "classnames";
 
 interface VehicleDetailViewProps {
   vehicle: Vehicle;
@@ -51,21 +50,10 @@ function formatPrice(price: number | undefined): string {
   return `$${price.toLocaleString("en-AU")}`;
 }
 
-function formatOdometer(
-  odometer: number | undefined,
-  unit: string | undefined
-): string {
+function formatOdometer(odometer: number | undefined): string {
   if (odometer === undefined) return "Not provided";
-  const odometerUnit = unit === "mi" ? "mi" : "km";
-  return `${odometer.toLocaleString("en-AU")} ${odometerUnit}`;
+  return `${odometer.toLocaleString("en-AU")} km`;
 }
-
-const STATUS_LABELS: Record<string, string> = {
-  draft: "Draft",
-  active: "Active",
-  sold: "Sold",
-  delisted: "Delisted",
-};
 
 interface InfoSection {
   title: string;
@@ -107,7 +95,7 @@ export default function VehicleDetailView({
         { label: "Drive Type", value: vehicle.driveType },
         {
           label: "Odometer",
-          value: formatOdometer(vehicle.odometer, vehicle.odometerUnit),
+          value: formatOdometer(vehicle.odometer),
         },
         { label: "Seats", value: vehicle.seats?.toString() },
         { label: "Doors", value: vehicle.doors?.toString() },
@@ -119,6 +107,7 @@ export default function VehicleDetailView({
         { label: "Condition", value: CONDITION_LABELS[vehicle.condition] },
         { label: "Service History", value: vehicle.serviceHistory },
         { label: "Accident History", value: vehicle.accidentHistory },
+        { label: "Finance Owing", value: vehicle.financeOwing },
         { label: "Modifications", value: vehicle.modifications },
         { label: "Additional Notes", value: vehicle.notes },
       ],
@@ -126,7 +115,6 @@ export default function VehicleDetailView({
     {
       title: "Registration",
       fields: [
-        { label: "Registration Number", value: vehicle.registrationNumber },
         {
           label: "Registration Expiry",
           value: formatDate(vehicle.registrationExpiry),
@@ -158,7 +146,7 @@ export default function VehicleDetailView({
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="grid gap-10">
       <ButtonType
         type="button"
         onClick={() => router.back()}
@@ -167,7 +155,7 @@ export default function VehicleDetailView({
         Back
       </ButtonType>
       <div className="grid grid-cols-1 desktop-small:grid-cols-2 gap-10">
-        <div className="space-y-10 desktop-small:sticky desktop-small:top-10 desktop-small:self-start">
+        <div className="flex flex-col gap-10 desktop-small:sticky desktop-small:top-10 desktop-small:self-start">
           <div className="flex gap-10 justify-between">
             <div>
               <h1 className="text-subheading text-blue">
@@ -189,7 +177,7 @@ export default function VehicleDetailView({
           />
         </div>
 
-        <div className="bg-white rounded-md border border-blue p-7 space-y-10">
+        <div className="bg-white rounded-md border border-blue p-7 grid gap-10">
           {sections.map((section) => (
             <div key={section.title}>
               <h2 className="text-paragraph-desktop text-blue font-semibold mb-5">

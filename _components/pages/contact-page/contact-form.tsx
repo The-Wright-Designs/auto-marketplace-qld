@@ -17,7 +17,7 @@ export const ContactForm = () => {
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <div className="space-y-7">
+    <div className="grid gap-7">
       {showEmailSubmitted ? (
         <div
           className="grid place-items-center min-h-[400px] p-10 bg-blue scroll-mt-56"
@@ -40,7 +40,7 @@ export const ContactForm = () => {
             </div>
           )}
           <form
-            className="space-y-5"
+            className="grid gap-5"
             action={async (formData) => {
               try {
                 setError(null);
@@ -82,12 +82,7 @@ export const ContactForm = () => {
               tabIndex={-1}
               autoComplete="off"
             />
-            <FormInputText
-              id="name"
-              name="name"
-              placeholder="Name"
-              required
-            />
+            <FormInputText id="name" name="name" placeholder="Name" required />
 
             <FormInputEmail
               id="email"
@@ -96,11 +91,7 @@ export const ContactForm = () => {
               required
             />
 
-            <FormInputTel
-              id="phone"
-              name="phone"
-              placeholder="Phone"
-            />
+            <FormInputTel id="phone" name="phone" placeholder="Phone" />
 
             <FormInputTextarea
               id="message"

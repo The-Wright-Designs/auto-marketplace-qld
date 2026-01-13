@@ -11,15 +11,15 @@ const iconColor = "#13103F";
 
 const HowItWorksComponent = () => {
   return (
-    <div className="space-y-10">
+    <div className="grid gap-10">
       <p>{howItWorksSection.description}</p>
-      <div className="space-y-5">
+      <div className="grid gap-5">
         <p>{howItWorksSection.intro}</p>
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-4">
           {howItWorksSection.steps.map((step, index) => (
             <div
               key={index}
-              className="space-y-5 border-2 border-blue p-7 rounded-md"
+              className="grid gap-5 border-2 border-blue p-7 rounded-md"
             >
               <div className="flex gap-5 justify-between">
                 <p className="text-heading text-blue">{index + 1}.</p>

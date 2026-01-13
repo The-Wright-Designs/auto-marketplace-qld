@@ -23,7 +23,7 @@ const TermsAndConditions = () => {
           return <p key={index}>{item.text!}</p>;
         case "list":
           return (
-            <ul key={index} className="list-disc pl-10 space-y-2">
+            <ul key={index} className="list-disc pl-10 grid gap-2">
               {item.items!.map((listItem: string, listIndex: number) => (
                 <li key={listIndex} className="text-paragraph">
                   {listItem}
@@ -38,13 +38,13 @@ const TermsAndConditions = () => {
   };
 
   return (
-    <PageWrapper useMainElement cssClasses="space-y-10">
+    <PageWrapper useMainElement cssClasses="grid gap-10">
       <h2 className="text-subheading full-hd:text-subheading-desktop">
         Website Terms and Conditions of Use
       </h2>
 
       {(termsData as Section[]).map((section: Section, index: number) => (
-        <section key={index} className="space-y-5">
+        <section key={index} className="grid gap-5">
           <h2 className="text-paragraph-desktop font-bold">{section.title}</h2>
           {renderContent(section.content)}
         </section>

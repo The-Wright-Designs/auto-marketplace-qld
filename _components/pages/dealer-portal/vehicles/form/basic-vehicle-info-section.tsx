@@ -28,11 +28,11 @@ export default function BasicVehicleInfoSection({
   disabled = false,
 }: BasicVehicleInfoSectionProps) {
   return (
-    <div className="space-y-5">
+    <div className="grid gap-5">
       <h3 className="text-blue font-bold text-paragraph-desktop">
         Basic Vehicle Information
       </h3>
-      <div className="space-y-5 desktop-small:space-y-3">
+      <div className="grid gap-5 desktop-small:gap-3">
         <FormInputNumber
           id="year"
           name="year"

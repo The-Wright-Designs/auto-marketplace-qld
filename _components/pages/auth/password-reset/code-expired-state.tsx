@@ -17,7 +17,7 @@ export default function CodeExpiredState({
   const [state, formAction] = useActionState(resendResetLinkAction, null);
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-grey/10">
-      <div className="bg-white p-5 rounded-md shadow-md max-w-md w-full space-y-5">
+      <div className="bg-white p-5 rounded-md shadow-md max-w-md w-full grid gap-5">
         <svg
           className="w-16 h-16 mx-auto"
           fill="none"
@@ -34,7 +34,7 @@ export default function CodeExpiredState({
         <h2 className="text-subheading text-center">Link Expired</h2>
         <p className="text-paragraph text-center">{error}</p>
 
-        <form action={formAction} className="space-y-4">
+        <form action={formAction} className="grid gap-4">
           <div>
             <label className="block text-paragraph mb-2">Email Address</label>
             <input

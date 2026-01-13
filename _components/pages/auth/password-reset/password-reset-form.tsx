@@ -31,12 +31,12 @@ export default function PasswordResetForm({
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-grey/10">
-      <div className="bg-white p-5 rounded-md shadow-md max-w-md w-full space-y-5">
+      <div className="bg-white p-5 rounded-md shadow-md max-w-md w-full grid gap-5">
         <h2 className="text-subheading text-black text-center">
           Reset Your Password
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="grid gap-5">
           {/* Hidden inputs for server action */}
           <input type="hidden" name="oobCode" value={oobCode} />
           <input type="hidden" name="email" value={email} />

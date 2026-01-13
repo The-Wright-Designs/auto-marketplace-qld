@@ -46,7 +46,7 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
     >
       <div className="p-50px border-b border-white/20">
         <Link
-          href="/dealer-portal"
+          href="/"
           className="flex justify-center"
           aria-label="Dashboard Home"
         >
@@ -60,7 +60,7 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
       </div>
 
       <nav className="flex-1 overflow-y-auto py-50px px-50px">
-        <ul className="space-y-5">
+        <ul className="grid gap-5">
           {filteredNavData.map(({ title, url }, id) => {
             const isActive = pathname === url;
 

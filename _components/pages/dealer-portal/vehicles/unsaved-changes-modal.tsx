@@ -13,7 +13,7 @@ export default function UnsavedChangesModal({
 }: UnsavedChangesModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
-      <div className="bg-white rounded-md border-2 border-blue px-7 py-5 max-w-[500px] overflow-hidden space-y-5">
+      <div className="bg-white rounded-md border-2 border-blue px-7 py-5 max-w-[500px] overflow-hidden grid gap-5">
         <h3 className="text-[28px] font-bold text-blue whitespace-normal">
           Unsaved Changes
         </h3>

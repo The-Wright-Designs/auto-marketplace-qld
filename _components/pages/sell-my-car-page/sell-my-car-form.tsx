@@ -115,7 +115,7 @@ const SellMyCarForm = () => {
 
   return (
     <PageWrapper useMainElement cssClasses="max-w-6xl mx-auto">
-      <div id="sell-my-car" className="space-y-7">
+      <div id="sell-my-car" className="grid gap-7">
         <h2 className="text-subheading full-hd:text-subheading-desktop">
           Sell My Car
         </h2>
@@ -142,7 +142,7 @@ const SellMyCarForm = () => {
               Please fill out your personal & vehicle details below, and our
               team reach out to you ASAP.
             </p>
-            <form ref={formRef} className="space-y-5" onSubmit={handleSubmit}>
+            <form ref={formRef} className="grid gap-5" onSubmit={handleSubmit}>
               <input
                 type="text"
                 name="_honey"

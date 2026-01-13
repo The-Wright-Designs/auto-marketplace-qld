@@ -204,7 +204,7 @@ export default function VehiclesPage() {
   );
 
   return (
-    <div className="space-y-5">
+    <div>
       <div className="mx-auto">
         <div className="flex flex-col tablet:flex-row tablet:items-center tablet:justify-between mb-10 gap-5">
           <h1 className="text-subheading full-hd:text-subheading-desktop">
@@ -302,6 +302,9 @@ export default function VehiclesPage() {
                         label="Date Added"
                         cssClasses="w-[125px]"
                       />
+                      <th className="text-left p-2 text-blue font-bold w-[120px]">
+                        Rego
+                      </th>
                       <SortableHeader
                         field="year"
                         label="Year"
@@ -343,6 +346,9 @@ export default function VehiclesPage() {
                           {vehicle.metadata?.createdAt
                             ? formatDate(vehicle.metadata.createdAt)
                             : "-"}
+                        </td>
+                        <td className="p-2 truncate">
+                          {vehicle.registrationNumber || "-"}
                         </td>
                         <td className="p-2 truncate">{vehicle.year || "-"}</td>
                         <td className="p-2 truncate">{vehicle.make || "-"}</td>
@@ -461,7 +467,7 @@ export default function VehiclesPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
           <div className="bg-white rounded-md border-2 border-blue p-50px max-w-md w-full">
             <h3 className="text-subheading text-blue mb-5">Tender Details</h3>
-            <div className="space-y-5 mb-10">
+            <div className="flex flex-col mb-10">
               <div>
                 <p className="text-paragraph text-blue font-bold mb-2">
                   Reserve Price

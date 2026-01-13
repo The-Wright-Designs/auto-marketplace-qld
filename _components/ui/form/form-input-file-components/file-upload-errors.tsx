@@ -30,7 +30,7 @@ const FileUploadErrors = ({
               Image upload errors:
             </h4>
           </div>
-          <ul className="text-sm text-red-600 list-disc list-inside space-y-1">
+          <ul className="text-sm text-red-600 list-disc list-inside grid gap-1">
             {validationErrors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
@@ -39,14 +39,14 @@ const FileUploadErrors = ({
       )}
 
       {failedFiles.length > 0 && (
-        <div className="space-y-2">
+        <div className="grid gap-2">
           <div className="flex items-center justify-between">
             <p className="text-[16px] font-medium text-red-600">
               Failed uploads:
               <span className="ml-2 text-sm text-gray-600"></span>
             </p>
           </div>
-          <div className="space-y-3">
+          <div className="grid gap-3">
             {failedFiles.map((failedFile, index) => (
               <div
                 key={index}

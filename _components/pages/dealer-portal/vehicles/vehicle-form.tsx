@@ -43,12 +43,12 @@ interface FormData {
   engineCapacity: number | string;
   driveType: string;
   odometer: number | string;
-  odometerUnit: string;
   seats: number | string;
   doors: number | string;
   condition: string;
   serviceHistory: string;
   accidentHistory: string;
+  financeOwing: string;
   modifications: string;
   notes: string;
   registrationNumber: string;
@@ -72,12 +72,12 @@ const emptyFormData: FormData = {
   engineCapacity: "",
   driveType: "",
   odometer: "",
-  odometerUnit: "km",
   seats: "",
   doors: "",
   condition: "",
   serviceHistory: "",
-  accidentHistory: "",
+  accidentHistory: "no",
+  financeOwing: "no",
   modifications: "",
   notes: "",
   registrationNumber: "",
@@ -109,12 +109,12 @@ export default function VehicleForm({
           engineCapacity: initialData.engineCapacity,
           driveType: initialData.driveType,
           odometer: initialData.odometer,
-          odometerUnit: initialData.odometerUnit,
           seats: initialData.seats,
           doors: initialData.doors,
           condition: initialData.condition,
           serviceHistory: initialData.serviceHistory,
           accidentHistory: initialData.accidentHistory,
+          financeOwing: initialData.financeOwing,
           modifications: initialData.modifications,
           notes: initialData.notes,
           registrationNumber: initialData.registrationNumber,
@@ -154,12 +154,12 @@ export default function VehicleForm({
         engineCapacity: initialData.engineCapacity,
         driveType: initialData.driveType,
         odometer: initialData.odometer,
-        odometerUnit: initialData.odometerUnit,
         seats: initialData.seats,
         doors: initialData.doors,
         condition: initialData.condition,
         serviceHistory: initialData.serviceHistory,
         accidentHistory: initialData.accidentHistory,
+        financeOwing: initialData.financeOwing,
         modifications: initialData.modifications,
         notes: initialData.notes,
         registrationNumber: initialData.registrationNumber,
@@ -230,8 +230,6 @@ export default function VehicleForm({
         submitData.engineCapacity = Number(formData.engineCapacity);
       if (formData.driveType) submitData.driveType = formData.driveType;
       if (formData.odometer) submitData.odometer = Number(formData.odometer);
-      if (formData.odometerUnit)
-        submitData.odometerUnit = formData.odometerUnit;
       if (formData.seats) submitData.seats = Number(formData.seats);
       if (formData.doors) submitData.doors = Number(formData.doors);
       if (formData.condition) submitData.condition = formData.condition;
@@ -239,6 +237,8 @@ export default function VehicleForm({
         submitData.serviceHistory = formData.serviceHistory;
       if (formData.accidentHistory)
         submitData.accidentHistory = formData.accidentHistory;
+      if (formData.financeOwing)
+        submitData.financeOwing = formData.financeOwing;
       if (formData.modifications)
         submitData.modifications = formData.modifications;
       if (formData.notes) submitData.notes = formData.notes;
@@ -411,7 +411,7 @@ export default function VehicleForm({
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="grid gap-5">
       <FormInputSelect
         id="status"
         name="status"
@@ -440,7 +440,7 @@ export default function VehicleForm({
       )}
 
       <div className="grid grid-cols-1 tablet:grid-cols-2 gap-10 mt-10">
-        <div className="space-y-10">
+        <div className="grid gap-10">
           <BasicVehicleInfoSection
             formData={{
               year: formData.year,
@@ -462,7 +462,6 @@ export default function VehicleForm({
               engineCapacity: formData.engineCapacity,
               driveType: formData.driveType,
               odometer: formData.odometer,
-              odometerUnit: formData.odometerUnit,
               seats: formData.seats,
               doors: formData.doors,
             }}
@@ -476,6 +475,7 @@ export default function VehicleForm({
               condition: formData.condition,
               serviceHistory: formData.serviceHistory,
               accidentHistory: formData.accidentHistory,
+              financeOwing: formData.financeOwing,
               modifications: formData.modifications,
               notes: formData.notes,
             }}
@@ -485,7 +485,7 @@ export default function VehicleForm({
           />
         </div>
 
-        <div className="space-y-10 tablet:space-y-[44px]">
+        <div className="flex flex-col gap-10 tablet:gap-[44px]">
           <RegistrationSection
             formData={{
               registrationNumber: formData.registrationNumber,
