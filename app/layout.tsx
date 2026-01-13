@@ -1,12 +1,8 @@
-"use client";
-
 import { Poppins } from "next/font/google";
+import { Metadata } from "next";
 import "@/_styles/globals.css";
-import { GeneralHeader } from "@/_components/navigation/general/general-header";
-import { GeneralFooter } from "@/_components/navigation/general/footer/general-footer";
-import { AuthProvider } from "@/_lib/auth/auth-context";
-import { ReCaptchaProvider } from "@/_components/providers/recaptcha-provider";
-import { usePathname } from "next/navigation";
+import { ClientLayout } from "@/_components/layout/client-layout";
+import { getCurrentUser } from "@/_lib/auth/get-current-user";
 
 const poppinsFont = Poppins({
   variable: "--font-poppins",
@@ -15,7 +11,7 @@ const poppinsFont = Poppins({
   weight: ["500", "600", "700"],
 });
 
-/* export const metadata: Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://automarketplaceqld.com.au"),
   title: "Auto Marketplace QLD - Australia",
   description:
@@ -34,35 +30,20 @@ const poppinsFont = Poppins({
       },
     ],
   },
-}; */
+};
 
-function RootLayoutContent({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isDashboard = pathname.startsWith("/dealer-portal");
+  const user = await getCurrentUser();
 
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
-        <ReCaptchaProvider>
-          <AuthProvider initialUser={null}>
-            {!isDashboard && <GeneralHeader />}
-            {children}
-            {!isDashboard && <GeneralFooter />}
-          </AuthProvider>
-        </ReCaptchaProvider>
+        <ClientLayout initialUser={user}>{children}</ClientLayout>
       </body>
     </html>
   );
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return <RootLayoutContent>{children}</RootLayoutContent>;
 }
