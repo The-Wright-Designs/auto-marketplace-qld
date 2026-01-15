@@ -15,6 +15,7 @@ const FormInputNumber = ({
   disabled = false,
   value,
   onChange,
+  error,
 }: FormInputNumberProps) => {
   return (
     <div>
@@ -35,7 +36,7 @@ const FormInputNumber = ({
         disabled={disabled}
         value={value}
         onChange={onChange}
-        className={formInputStyles(className, disabled)}
+        className={formInputStyles(className, disabled, !!error)}
       />
     </div>
   );

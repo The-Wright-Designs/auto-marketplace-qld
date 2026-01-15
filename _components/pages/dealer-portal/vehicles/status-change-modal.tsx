@@ -7,12 +7,15 @@ const STATUS_LABELS: Record<VehicleStatus, string> = {
   draft: "Draft",
   active: "Active",
   sold: "Sold",
+  delisted: "Delisted",
 };
 
 const STATUS_DESCRIPTIONS: Record<VehicleStatus, string> = {
   draft: "This vehicle will not be visible to the public.",
   active: "This vehicle will be visible to the public.",
   sold: "This vehicle has been sold.",
+  delisted:
+    "This vehicle has been delisted and is no longer available for sale.",
 };
 
 interface StatusChangeModalProps {

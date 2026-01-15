@@ -1,6 +1,6 @@
 "use client";
 
-import RecentVehiclesComponent from "@/_components/pages/dealer-portal/dashboard/recent-vehicles-component";
+import ListedVehiclesComponent from "@/_components/pages/dealer-portal/dashboard/listed-vehicles-component";
 
 export default function DealerDashboard() {
   return (
@@ -10,13 +10,13 @@ export default function DealerDashboard() {
       </h1>
       <div className="grid gap-5">
         <h2 className="text-paragraph-desktop">Most recent tenders</h2>
-        <RecentVehiclesComponent type="tender" />
+        <ListedVehiclesComponent listingType="tender" maxLimit={20} />
       </div>
       <div className="grid gap-5">
         <h2 className="text-paragraph-desktop">
           Recent Vehicles available to buy now
         </h2>
-        <RecentVehiclesComponent type="buy-now" />
+        <ListedVehiclesComponent listingType="buy-now" maxLimit={20} />
       </div>
     </div>
   );

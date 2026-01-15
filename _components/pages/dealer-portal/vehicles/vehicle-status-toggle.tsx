@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { updateVehicle } from "@/_actions/vehicle-actions";
+import { partialUpdateVehicle } from "@/_actions/vehicle-actions";
 import { VehicleStatus } from "@/_types/vehicle-types";
 import StatusChangeModal from "./status-change-modal";
 
@@ -9,9 +9,15 @@ const STATUS_LABELS: Record<VehicleStatus, string> = {
   draft: "Draft",
   active: "Active",
   sold: "Sold",
+  delisted: "Delisted",
 };
 
-const AVAILABLE_STATUS: VehicleStatus[] = ["draft", "active", "sold"];
+const AVAILABLE_STATUS: VehicleStatus[] = [
+  "draft",
+  "active",
+  "sold",
+  "delisted",
+];
 
 interface VehicleStatusToggleProps {
   vehicleId: string;
@@ -47,7 +53,7 @@ export default function VehicleStatusToggle({
       setIsLoading(true);
       setError(null);
 
-      const result = await updateVehicle(vehicleId, {
+      const result = await partialUpdateVehicle(vehicleId, {
         status: selectedStatus,
       });
 

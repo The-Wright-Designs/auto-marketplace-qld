@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   createVehicle,
   updateVehicle,
+  partialUpdateVehicle,
   uploadProcessedImagesToStorage,
 } from "@/_actions/vehicle-actions";
 import {
@@ -223,13 +224,17 @@ export default function VehicleForm({
       if (formData.vin) submitData.vin = formData.vin;
       if (formData.colour) submitData.colour = formData.colour;
       if (formData.bodyType) submitData.bodyType = formData.bodyType;
-      if (formData.transmission)
-        submitData.transmission = formData.transmission;
-      if (formData.fuelType) submitData.fuelType = formData.fuelType;
-      if (formData.engineCapacity)
+      submitData.fuelType = formData.fuelType;
+      if (formData.engineCapacity !== "") {
         submitData.engineCapacity = Number(formData.engineCapacity);
+      }
       if (formData.driveType) submitData.driveType = formData.driveType;
-      if (formData.odometer) submitData.odometer = Number(formData.odometer);
+
+      submitData.transmission = formData.transmission;
+      if (formData.odometer !== "") {
+        submitData.odometer = Number(formData.odometer);
+      }
+
       if (formData.seats) submitData.seats = Number(formData.seats);
       if (formData.doors) submitData.doors = Number(formData.doors);
       if (formData.condition) submitData.condition = formData.condition;
@@ -270,6 +275,7 @@ export default function VehicleForm({
           });
           setErrors(validationErrors);
           setGlobalError("Please check the form for errors and try again.");
+          setIsSubmitting(false);
           setTimeout(() => {
             errorRef.current?.scrollIntoView({
               behavior: "smooth",
@@ -291,6 +297,7 @@ export default function VehicleForm({
           });
           setErrors(validationErrors);
           setGlobalError("Please check the form for errors and try again.");
+          setIsSubmitting(false);
           setTimeout(() => {
             errorRef.current?.scrollIntoView({
               behavior: "smooth",
@@ -323,7 +330,7 @@ export default function VehicleForm({
                 const storagePaths = uploadResult.data.map(
                   (filename) => `vehicles/${vehicleId}/${filename}`
                 );
-                await updateVehicle(vehicleId, {
+                await partialUpdateVehicle(vehicleId, {
                   images: storagePaths,
                   primaryImage: storagePaths[0],
                 });
@@ -372,7 +379,7 @@ export default function VehicleForm({
       setIsDeleting(true);
       setGlobalError(null);
 
-      const result = await updateVehicle(vehicleId, {
+      const result = await partialUpdateVehicle(vehicleId, {
         status: "delisted",
       });
 

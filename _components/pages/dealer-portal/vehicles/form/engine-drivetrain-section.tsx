@@ -45,6 +45,7 @@ export default function EngineDrivetrainSection({
           label="Transmission"
           value={formData.transmission}
           onChange={onInputChange}
+          error={errors?.transmission}
           disabled={disabled}
         />
         {errors?.transmission && (
@@ -64,6 +65,7 @@ export default function EngineDrivetrainSection({
           label="Fuel Type"
           value={formData.fuelType}
           onChange={onInputChange}
+          error={errors?.fuelType}
           disabled={disabled}
         />
         {errors?.fuelType && (
@@ -79,6 +81,7 @@ export default function EngineDrivetrainSection({
           step={0.1}
           value={formData.engineCapacity}
           onChange={onInputChange}
+          error={errors?.engineCapacity}
           disabled={disabled}
         />
         {errors?.engineCapacity && (
@@ -110,6 +113,7 @@ export default function EngineDrivetrainSection({
           min={0}
           value={formData.odometer}
           onChange={onInputChange}
+          error={errors?.odometer}
           disabled={disabled}
         />
         {errors?.odometer && (

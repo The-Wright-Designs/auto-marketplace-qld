@@ -9,9 +9,14 @@ import classNames from "classnames";
 interface VehicleCardProps {
   vehicle: Vehicle;
   imageUrl?: string;
+  listingType?: "tender" | "buy-now" | undefined;
 }
 
-export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
+export default function VehicleCard({
+  vehicle,
+  imageUrl,
+  listingType,
+}: VehicleCardProps) {
   const imageSrc = imageUrl || "/images/placeholder-vehicle.png";
 
   const [showHover, setShowHover] = useState(false);
@@ -28,7 +33,7 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
           src={imageSrc}
           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
           width={400}
-          height={300}
+          height={3400}
           className={classNames(
             "object-cover aspect-[4/3] w-[250px] h-full ease-in-out duration-500 delay-75",
             {
@@ -38,10 +43,9 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
           )}
         />
       </div>
-
       <ul
         className={classNames(
-          "p-4 grid grid-cols-[1fr_0.75fr] gap-5 ease-in-out duration-500 delay-75",
+          "px-4 py-2 grid grid-cols-[1fr_0.75fr] gap-5 ease-in-out duration-500 delay-75",
           {
             "bg-blue/5": !showHover,
             "bg-blue/15": showHover,
@@ -54,7 +58,12 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
             {vehicle.model}
           </li>
           <li className="text-paragraph text-grey text-[16px] truncate">
-            {vehicle.odometer} km
+            {vehicle.fuelType.charAt(0).toUpperCase() +
+              vehicle.fuelType.slice(1)}{" "}
+            {vehicle.engineCapacity}
+          </li>
+          <li className="text-paragraph text-grey text-[16px] truncate">
+            {vehicle.odometer}km
           </li>
         </div>
         <div className="place-items-end">
@@ -68,6 +77,21 @@ export default function VehicleCard({ vehicle, imageUrl }: VehicleCardProps) {
             {vehicle.transmission.charAt(0).toUpperCase() +
               vehicle.transmission.slice(1)}
           </li>
+          <p
+            className={classNames(
+              "px-2 rounded-md text-[12px] leading-[22px] mt-0.5",
+              {
+                "bg-yellow text-blue": listingType === "tender",
+                "bg-blue text-white": listingType === "buy-now",
+              }
+            )}
+          >
+            {listingType === "tender"
+              ? "Tender"
+              : listingType === "buy-now"
+              ? "Buy Now"
+              : null}
+          </p>
         </div>
       </ul>
     </Link>

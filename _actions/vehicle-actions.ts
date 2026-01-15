@@ -6,11 +6,13 @@ import { isAdmin, getCurrentUser } from "@/_lib/auth/get-current-user";
 import {
   createVehicleSchema,
   updateVehicleSchema,
+  partialUpdateVehicleSchema,
 } from "@/_lib/validation/vehicle-schema";
 import { Vehicle, VehicleStatus } from "@/_types/vehicle-types";
 import {
   CreateVehicleInput,
   UpdateVehicleInput,
+  PartialUpdateVehicleInput,
 } from "@/_lib/validation/vehicle-schema";
 
 interface ActionResult<T> {
@@ -251,6 +253,61 @@ export async function updateVehicle(
     }
 
     const validatedData = updateVehicleSchema.parse(input);
+
+    const docRef = adminDb.collection("vehicles").doc(vehicleId);
+    const doc = await docRef.get();
+
+    if (!doc.exists) {
+      return {
+        success: false,
+        error: "Vehicle not found",
+      };
+    }
+
+    const docData = doc.data();
+    const updateData: any = { ...validatedData };
+
+    if (validatedData.images || validatedData.primaryImage) {
+      updateData.media = {
+        images: validatedData.images || docData?.media?.images,
+        primaryImage:
+          validatedData.primaryImage || docData?.media?.primaryImage,
+      };
+      delete updateData.images;
+      delete updateData.primaryImage;
+    }
+
+    updateData["metadata.updatedAt"] = new Date().toISOString();
+
+    await docRef.update(updateData);
+
+    return {
+      success: true,
+      data: { id: vehicleId },
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return {
+      success: false,
+      error: `Failed to update vehicle: ${message}`,
+    };
+  }
+}
+
+export async function partialUpdateVehicle(
+  vehicleId: string,
+  input: PartialUpdateVehicleInput
+): Promise<ActionResult<{ id: string }>> {
+  try {
+    const hasAdminAccess = await isAdmin();
+    if (!hasAdminAccess) {
+      return {
+        success: false,
+        error: "Only admin users can update vehicles",
+      };
+    }
+
+    const validatedData = partialUpdateVehicleSchema.parse(input);
 
     const docRef = adminDb.collection("vehicles").doc(vehicleId);
     const doc = await docRef.get();

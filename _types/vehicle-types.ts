@@ -1,5 +1,5 @@
 export type ListingType = "tender" | "buy-now";
-export type VehicleStatus = "draft" | "active" | "sold";
+export type VehicleStatus = "draft" | "active" | "sold" | "delisted";
 
 export interface VehicleBasicInfo {
   year: number;

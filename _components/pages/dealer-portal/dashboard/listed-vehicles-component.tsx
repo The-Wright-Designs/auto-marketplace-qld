@@ -14,22 +14,27 @@ interface VehicleWithImage {
   imageUrl?: string;
 }
 
-interface RecentVehiclesProps {
-  type: "tender" | "buy-now" | undefined;
+interface ListedVehiclesProps {
+  listingType: "tender" | "buy-now" | undefined;
+  maxLimit?: number;
 }
 
-export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
+export default function ListedVehiclesComponent({
+  listingType,
+  maxLimit,
+}: ListedVehiclesProps) {
   const [vehicles, setVehicles] = useState<VehicleWithImage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTenderVehicles = async () => {
+    const fetchVehicles = async () => {
       try {
         setLoading(true);
         const result = await listVehicles({
-          listingType: type,
+          listingType: listingType,
           status: "active",
+          limit: maxLimit || 1000,
         });
 
         if (result.success && result.data && result.data.length > 0) {
@@ -77,8 +82,8 @@ export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
       }
     };
 
-    fetchTenderVehicles();
-  }, []);
+    fetchVehicles();
+  }, [listingType, maxLimit]);
 
   if (loading) {
     return (
@@ -89,6 +94,16 @@ export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
       </div>
     );
   }
+
+  const getEmptyMessage = () => {
+    if (listingType === "tender") {
+      return "No active tender vehicles available";
+    }
+    if (listingType === "buy-now") {
+      return "No active buy now vehicles available";
+    }
+    return "No active vehicles available";
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -101,15 +116,14 @@ export default function RecentVehiclesComponent({ type }: RecentVehiclesProps) {
               key={item.vehicle.id}
               vehicle={item.vehicle}
               imageUrl={item.imageUrl}
+              listingType={listingType}
             />
-          ))}{" "}
+          ))}
         </div>
       ) : (
         !loading &&
         !error && (
-          <p className="text-paragraph text-grey">
-            No active tender vehicles available
-          </p>
+          <p className="text-paragraph text-grey">{getEmptyMessage()}</p>
         )
       )}
     </div>

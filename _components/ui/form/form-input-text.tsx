@@ -29,7 +29,7 @@ const FormInputText = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        value={value}
+        value={value ?? ""}
         onChange={onChange}
         className={formInputStyles(className, disabled, !!error)}
       />

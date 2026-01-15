@@ -10,8 +10,13 @@ export const vehicleBasicInfoSchema = z.object({
   model: z.string().min(1, "Model is required").max(50),
   vin: z.string().min(1).max(20),
   colour: z.string().min(1).max(30),
-  odometer: z.number().int().min(0),
-  transmission: z.enum(["manual", "automatic", "cvt"]),
+  odometer: z
+    .number({ message: "Odometer must be a number" })
+    .int()
+    .min(0),
+  transmission: z.enum(["manual", "automatic", "cvt"], {
+    message: "Please select a transmission type",
+  }),
   fuelType: z.enum(["petrol", "diesel", "hybrid", "electric", "lpg"]),
   engineCapacity: z.number().min(0),
   driveType: z.enum(["2WD", "4WD", "AWD"]),
@@ -54,9 +59,42 @@ export const createVehicleSchema = vehicleBasicInfoSchema
   .merge(vehicleMediaSchema)
   .merge(vehicleStatusSchema)
   .partial()
-  .required({ make: true, model: true, listingType: true });
+  .extend({
+    make: z.string().min(1, "Make is required").max(50),
+    model: z.string().min(1, "Model is required").max(50),
+    listingType: z
+      .string()
+      .min(1, "Listing type is required")
+      .refine(
+        (val) => val === "tender" || val === "buy-now",
+        "Please select a valid listing type"
+      ),
+    transmission: z
+      .string()
+      .min(1, "Transmission is required")
+      .refine(
+        (val) => ["manual", "automatic", "cvt"].includes(val),
+        "Please select a valid transmission type"
+      ),
+    fuelType: z
+      .string()
+      .min(1, "Fuel type is required")
+      .refine(
+        (val) => ["petrol", "diesel", "hybrid", "electric", "lpg"].includes(val),
+        "Please select a valid fuel type"
+      ),
+    engineCapacity: z
+      .number({ message: "Engine capacity is required" })
+      .min(0, "Engine capacity must be 0 or greater"),
+    odometer: z
+      .number({ message: "Odometer is required" })
+      .min(0),
+  });
 
-export const updateVehicleSchema = createVehicleSchema.partial();
+export const updateVehicleSchema = createVehicleSchema;
+
+export const partialUpdateVehicleSchema = createVehicleSchema.partial();
 
 export type CreateVehicleInput = z.infer<typeof createVehicleSchema>;
 export type UpdateVehicleInput = z.infer<typeof updateVehicleSchema>;
+export type PartialUpdateVehicleInput = z.infer<typeof partialUpdateVehicleSchema>;
