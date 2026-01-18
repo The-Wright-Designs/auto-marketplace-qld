@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import { ZoomIn } from "lucide-react";
@@ -28,9 +28,8 @@ export default function MainSlider({
   return (
     <div className={classNames("relative", cssClasses)}>
       <Swiper
-        modules={[Pagination, Autoplay]}
+        modules={[Pagination]}
         pagination={{ clickable: true, dynamicBullets: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: true }}
         loop={images.length > 1}
         onSwiper={onSwiperInit}
         onSlideChange={(swiper) => onSlideChange(swiper.realIndex)}

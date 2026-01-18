@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Vehicle } from "@/_types/vehicle-types";
 import { useState } from "react";
 import classNames from "classnames";
+import { formatPrice } from "@/_components/pages/dealer-portal/vehicles/vehicle-detail-view";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -68,7 +69,7 @@ export default function VehicleCard({
         </div>
         <div className="place-items-end">
           <li className="text-paragraph text-blue truncate">
-            ${vehicle.price.toLocaleString()}
+            {formatPrice(vehicle.price)}
           </li>
           <li className="text-paragraph text-grey text-[16px] truncate">
             {vehicle.year}

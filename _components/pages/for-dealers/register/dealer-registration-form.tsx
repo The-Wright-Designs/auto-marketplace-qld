@@ -58,7 +58,7 @@ export const DealerRegistrationForm = () => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
                   if (!executeRecaptcha) {
                     setError(
-                      "Security verification unavailable. Please refresh the page and try again."
+                      "Security verification unavailable. Please refresh the page and try again.",
                     );
                     return;
                   }
@@ -73,7 +73,7 @@ export const DealerRegistrationForm = () => {
                   setShowEmailSubmitted(true);
                 } else {
                   setError(
-                    result.error || "Failed to send message. Please try again."
+                    result.error || "Failed to send message. Please try again.",
                   );
                 }
               } catch (err) {
@@ -125,7 +125,7 @@ export const DealerRegistrationForm = () => {
                 Are you a licensed dealer?
               </FormLabel>
               <RadioGroup name="licensedDealer" required>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <RadioGroupItem value="yes" id="licensed-yes" />
                   <FormLabel
                     htmlFor="licensed-yes"
@@ -134,7 +134,7 @@ export const DealerRegistrationForm = () => {
                     Yes
                   </FormLabel>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <RadioGroupItem value="no" id="licensed-no" />
                   <FormLabel
                     htmlFor="licensed-no"
@@ -150,7 +150,7 @@ export const DealerRegistrationForm = () => {
                 Interested in:
               </FormLabel>
               <RadioGroup name="interestedIn" required>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <RadioGroupItem value="buying" id="interested-buying" />
                   <FormLabel
                     htmlFor="interested-buying"
@@ -159,7 +159,7 @@ export const DealerRegistrationForm = () => {
                     Buying
                   </FormLabel>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <RadioGroupItem value="selling" id="interested-selling" />
                   <FormLabel
                     htmlFor="interested-selling"
@@ -168,7 +168,7 @@ export const DealerRegistrationForm = () => {
                     Selling
                   </FormLabel>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <RadioGroupItem value="both" id="interested-both" />
                   <FormLabel
                     htmlFor="interested-both"

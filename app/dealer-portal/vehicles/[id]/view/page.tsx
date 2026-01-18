@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
-import { getVehicle, getVehicleImagesWithUrls } from "@/_actions/vehicle-actions";
+import {
+  getVehicle,
+  getVehicleImagesWithUrls,
+} from "@/_actions/vehicle-actions";
 import VehicleDetailView from "@/_components/pages/dealer-portal/vehicles/vehicle-detail-view";
 
 interface VehicleViewPageParams {

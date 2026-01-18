@@ -49,7 +49,7 @@ const FileListDisplay = ({
               key={index}
               className="flex items-center justify-between rounded-md"
             >
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center gap-3">
                 {previews[index] && (
                   <Image
                     src={previews[index]}

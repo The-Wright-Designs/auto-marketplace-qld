@@ -8,3 +8,44 @@ export interface SellMyCarEmailTemplateProps {
   fuelType: string;
   transmission: string;
 }
+
+export interface PurchaseEmailTemplateProps {
+  userEmail: string;
+  registrationNumber: string;
+  make: string;
+  model: string;
+  year: number;
+  price: string;
+  featuredImageUrl: string;
+  bodyType?: string;
+  transmission?: string;
+  engineCapacity?: number;
+  fuelType?: string;
+  driveType?: string;
+  colour?: string;
+  vin?: string;
+  dealerFirstName?: string;
+  dealerFullName?: string;
+  dealerPhone?: string;
+}
+
+export interface OfferEmailTemplateProps {
+  userEmail: string;
+  registrationNumber: string;
+  make: string;
+  model: string;
+  year: number;
+  listPrice: string;
+  offerPrice: string;
+  featuredImageUrl: string;
+  bodyType?: string;
+  transmission?: string;
+  engineCapacity?: number;
+  fuelType?: string;
+  driveType?: string;
+  colour?: string;
+  vin?: string;
+  dealerFirstName?: string;
+  dealerFullName?: string;
+  dealerPhone?: string;
+}

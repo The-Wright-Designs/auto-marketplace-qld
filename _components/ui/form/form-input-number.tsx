@@ -36,7 +36,7 @@ const FormInputNumber = ({
         disabled={disabled}
         value={value}
         onChange={onChange}
-        className={formInputStyles(className, disabled, !!error)}
+        className={`${formInputStyles(className, disabled, !!error)} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
       />
     </div>
   );

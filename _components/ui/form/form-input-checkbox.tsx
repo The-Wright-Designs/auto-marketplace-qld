@@ -12,7 +12,7 @@ const FormInputCheckbox = ({
   children,
 }: FormInputCheckboxProps) => {
   return (
-    <div className="flex items-start space-x-2">
+    <div className="flex items-start gap-2">
       <input
         type="checkbox"
         id={id}
@@ -24,7 +24,7 @@ const FormInputCheckbox = ({
         className={formCheckboxStyles(className, disabled)}
       />
       {children && (
-        <label htmlFor={id} className="text-16px font-normal translate-y-1">
+        <label htmlFor={id} className="text-16px font-normal">
           {children}
         </label>
       )}

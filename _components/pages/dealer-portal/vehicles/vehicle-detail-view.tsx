@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import VehicleImageSlider from "@/_components/ui/sliders/vehicle-image-slider";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { Vehicle } from "@/_types/vehicle-types";
+import BuyAndOfferComponent from "../purchase-components/buy-and-offer-component";
 
 interface VehicleDetailViewProps {
   vehicle: Vehicle;
@@ -45,7 +46,7 @@ function formatDate(isoString: string | undefined): string {
   });
 }
 
-function formatPrice(price: number | undefined): string {
+export function formatPrice(price: number | undefined): string {
   if (price === undefined) return "Not provided";
   return `$${price.toLocaleString("en-AU")}`;
 }
@@ -132,10 +133,6 @@ export default function VehicleDetailView({
         ...(vehicle.listingType === "tender"
           ? [
               {
-                label: "Reserve Price",
-                value: formatPrice(vehicle.reservePrice),
-              },
-              {
                 label: "Tender Deadline",
                 value: formatDate(vehicle.tenderDeadline),
               },
@@ -176,27 +173,54 @@ export default function VehicleDetailView({
             primaryImage={vehicle.media?.primaryImage || ""}
           />
         </div>
-
-        <div className="bg-white rounded-md border border-blue p-7 grid gap-10">
-          {sections.map((section) => (
-            <div key={section.title}>
-              <h2 className="text-paragraph-desktop text-blue font-semibold mb-5">
-                {section.title}
-              </h2>
-              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
-                {section.fields.map((field) =>
-                  field.value && field.value !== "Not provided" ? (
-                    <div key={field.label}>
-                      <p className="text-paragraph text-blue font-semibold">
-                        {field.label}
-                      </p>
-                      <p className="text-paragraph text-grey">{field.value}</p>
-                    </div>
-                  ) : null
-                )}
+        <div className="grid gap-10">
+          {vehicle.listingType === "buy-now" && (
+            <BuyAndOfferComponent
+              vehiclePrice={vehicle.price}
+              vehicleId={vehicle.id}
+              registrationNumber={vehicle.registrationNumber}
+              make={vehicle.make}
+              model={vehicle.model}
+              year={vehicle.year}
+              featuredImageUrl={
+                images.find(
+                  (img) => img.filename === vehicle.media?.primaryImage,
+                )?.url ||
+                images[0]?.url ||
+                ""
+              }
+              bodyType={vehicle.bodyType}
+              transmission={TRANSMISSION_LABELS[vehicle.transmission]}
+              engineCapacity={vehicle.engineCapacity}
+              fuelType={FUEL_TYPE_LABELS[vehicle.fuelType]}
+              driveType={vehicle.driveType}
+              colour={vehicle.colour}
+              vin={vehicle.vin}
+            />
+          )}
+          <div className="bg-white rounded-md border border-blue p-7 grid gap-10">
+            {sections.map((section) => (
+              <div key={section.title}>
+                <h2 className="text-paragraph-desktop text-blue font-semibold mb-5">
+                  {section.title}
+                </h2>
+                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
+                  {section.fields.map((field) =>
+                    field.value && field.value !== "Not provided" ? (
+                      <div key={field.label}>
+                        <p className="text-paragraph text-blue font-semibold">
+                          {field.label}
+                        </p>
+                        <p className="text-paragraph text-grey">
+                          {field.value}
+                        </p>
+                      </div>
+                    ) : null,
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
