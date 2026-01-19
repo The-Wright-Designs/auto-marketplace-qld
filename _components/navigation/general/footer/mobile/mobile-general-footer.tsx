@@ -9,7 +9,7 @@ const { footer: footerNavData } = generalNavData;
 
 export function MobileGeneralFooter() {
   return (
-    <div className="flex flex-col gap-2 items-center desktop-small:hidden">
+    <div className="flex flex-col px-5 gap-2 items-center desktop-small:hidden">
       <div className="grid gap-5">
         <Link
           href="/"
@@ -42,6 +42,18 @@ export function MobileGeneralFooter() {
         </ul>
       </div>
       <SocialIcons />
+      <Link
+        href="https://vonblackstudios.com.au"
+        target="_blank"
+        className="my-5"
+      >
+        <Image
+          src="/logo/von-black-studios-logo.png"
+          alt="Von Black Studios logo"
+          width={100}
+          height={100}
+        />
+      </Link>
       <h4 className="text-paragraph text-white text-center">
         © {new Date().getFullYear()} Auto Marketplace QLD. All rights reserved
       </h4>

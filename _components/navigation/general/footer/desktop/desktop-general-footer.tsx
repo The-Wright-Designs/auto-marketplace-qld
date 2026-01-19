@@ -57,13 +57,24 @@ export function DesktopGeneralFooter() {
                 ABN - 97 653 564 982
               </li>
             </ul>
+
             <SocialIcons iconCssClasses="w-[30px] h-auto desktop:w-[49px]" />
           </nav>
-          <div className="col-span-2 mt-7 place-self-start">
-            <h4 className="text-paragraph text-white text-center desktop:text-paragraph-desktop">
-              © {new Date().getFullYear()} Auto Marketplace QLD. All rights
-              reserved
-            </h4>
+          <div className="flex gap-10 justify-between w-full items-center col-span-2 mt-7 place-self-start">
+            <div className="">
+              <h4 className="text-paragraph text-white">
+                © {new Date().getFullYear()} Auto Marketplace QLD. All rights
+                reserved
+              </h4>
+            </div>
+            <Link href="https://vonblackstudios.com.au" target="_blank">
+              <Image
+                src="/logo/von-black-studios-logo.png"
+                alt="Von Black Studios logo"
+                width={80}
+                height={80}
+              />
+            </Link>
           </div>
         </div>
       </div>

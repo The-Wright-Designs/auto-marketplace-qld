@@ -2,7 +2,6 @@ import { Poppins } from "next/font/google";
 import { Metadata } from "next";
 import "@/_styles/globals.css";
 import { ClientLayout } from "@/_components/layout/client-layout";
-import { getCurrentUser } from "@/_lib/auth/get-current-user";
 
 const poppinsFont = Poppins({
   variable: "--font-poppins",
@@ -32,17 +31,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getCurrentUser();
-
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable} antialiased`}>
-        <ClientLayout initialUser={user}>{children}</ClientLayout>
+        <ClientLayout initialUser={null}>{children}</ClientLayout>
       </body>
     </html>
   );

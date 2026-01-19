@@ -1,7 +1,7 @@
 "use client";
 
-import { MobileGeneralHeader } from "./mobile/mobile-general-header";
-import { DesktopGeneralHeader } from "./desktop/desktop-general-header";
+import { MobileGeneralHeader } from "./header/mobile/mobile-general-header";
+import { DesktopGeneralHeader } from "./header/desktop/desktop-general-header";
 
 import useScrollPosition from "@/_lib/utils/scroll-position";
 import { useEffect, useState } from "react";
@@ -35,7 +35,7 @@ export function GeneralHeader() {
               "bg-white border-b-2 border-blue fixed w-full left-0 top-0 h-[90px] flex items-center justify-center gap-2 ease-in-out duration-300 desktop-small:hidden overflow-hidden",
               {
                 "top-[90px]": isScrolled,
-              }
+              },
             )}
           >
             <h3 className="text-paragraph-desktop font-bold min-[375px]:text-subheading uppercase">
