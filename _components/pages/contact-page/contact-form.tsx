@@ -9,6 +9,7 @@ import FormInputTextarea from "@/_components/ui/form/form-input-textarea";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { sendEmail } from "@/_actions/send-email-actions";
+import RecaptchaNotice from "@/_components/ui/recaptcha-notice";
 
 export const ContactForm = () => {
   const router = useRouter();
@@ -101,9 +102,12 @@ export const ContactForm = () => {
               required
             />
 
-            <ButtonType type="submit" cssClasses="w-full min-[600px]:w-auto">
-              Submit
-            </ButtonType>
+            <div className="flex flex-col gap-4">
+              <ButtonType type="submit" cssClasses="w-full min-[600px]:w-auto">
+                Submit
+              </ButtonType>
+              <RecaptchaNotice />
+            </div>
           </form>
         </>
       )}

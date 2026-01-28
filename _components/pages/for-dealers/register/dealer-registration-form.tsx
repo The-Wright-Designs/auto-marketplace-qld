@@ -15,6 +15,7 @@ import ButtonType from "@/_components/ui/buttons/button-type";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { sendEmail } from "@/_actions/dealer-registration-actions";
 import Link from "next/link";
+import RecaptchaNotice from "@/_components/ui/recaptcha-notice";
 
 export const DealerRegistrationForm = () => {
   const router = useRouter();
@@ -203,18 +204,21 @@ export const DealerRegistrationForm = () => {
                 Privacy Policy
               </Link>
             </FormInputCheckbox>
-            <ButtonType
-              type="submit"
-              cssClasses="w-full min-[600px]:w-auto"
-              disabled={!isTermsAccepted}
-              title={
-                !isTermsAccepted
-                  ? "Please accept the Terms & Conditions and Privacy Policy to continue"
-                  : undefined
-              }
-            >
-              Submit Application
-            </ButtonType>
+            <div className="flex flex-col gap-4">
+              <ButtonType
+                type="submit"
+                cssClasses="w-full min-[600px]:w-auto"
+                disabled={!isTermsAccepted}
+                title={
+                  !isTermsAccepted
+                    ? "Please accept the Terms & Conditions and Privacy Policy to continue"
+                    : undefined
+                }
+              >
+                Submit Application
+              </ButtonType>
+              <RecaptchaNotice />
+            </div>
           </form>
         </>
       )}

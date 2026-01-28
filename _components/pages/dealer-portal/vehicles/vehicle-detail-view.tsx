@@ -153,7 +153,7 @@ export default function VehicleDetailView({
       </ButtonType>
       <div className="grid grid-cols-1 desktop-small:grid-cols-2 gap-10">
         <div className="flex flex-col gap-10 desktop-small:sticky desktop-small:top-10 desktop-small:self-start">
-          <div className="flex gap-10 justify-between">
+          <div className="flex flex-col gap-5 tablet-small:flex-row tablet-small:gap-10 tablet-small:justify-between">
             <div>
               <h1 className="text-subheading text-blue">
                 {[vehicle.make, vehicle.model].filter(Boolean).join(" ") ||

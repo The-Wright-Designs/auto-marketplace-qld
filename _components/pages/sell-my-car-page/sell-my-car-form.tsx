@@ -8,6 +8,7 @@ import PersonalInfoSection from "./personal-info-section";
 import VehicleInfoSection from "./vehicle-info-section";
 import { sellMyCarEmail } from "@/_actions/sell-my-car-email-actions";
 import Image from "next/image";
+import RecaptchaNotice from "@/_components/ui/recaptcha-notice";
 
 const SellMyCarForm = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -165,7 +166,7 @@ const SellMyCarForm = () => {
                 />
               </div>
               <hr className="border-black/25 my-10 tablet:hidden" />
-              <div className="flex flex-col justify-center gap-2 min-[600px]:justify-start tablet:hidden">
+              <div className="flex flex-col justify-center gap-4 min-[600px]:justify-start tablet:hidden">
                 <ButtonType
                   type="submit"
                   cssClasses="w-full min-[600px]:w-auto desktop-small:px-10"
@@ -224,6 +225,7 @@ const SellMyCarForm = () => {
                     "Submit Vehicle"
                   )}
                 </ButtonType>
+                <RecaptchaNotice />
                 {imageCount < 2 && (
                   <p className="text-[14px] text-red italic">
                     Please upload at least 2 images

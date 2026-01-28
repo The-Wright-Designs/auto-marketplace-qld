@@ -19,6 +19,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { loginAction } from "@/_actions/auth-actions";
 import PasswordResetModal from "@/_components/ui/password-reset-modal";
 import { useAuth } from "@/_lib/auth/auth-context";
+import RecaptchaNotice from "@/_components/ui/recaptcha-notice";
 
 function LoginContent() {
   const router = useRouter();
@@ -171,14 +172,17 @@ function LoginContent() {
                 {error || formResult?.message}
               </div>
             )}
-            <ButtonType
-              type="submit"
-              cssClasses="w-full"
-              disabled={isFormDisabled}
-              isLoading={isSubmitting}
-            >
-              Sign in
-            </ButtonType>
+            <div className="flex flex-col gap-4">
+              <ButtonType
+                type="submit"
+                cssClasses="w-full"
+                disabled={isFormDisabled}
+                isLoading={isSubmitting}
+              >
+                Sign in
+              </ButtonType>
+              <RecaptchaNotice />
+            </div>
             <div className="flex justify-between items-center">
               <Link
                 href="/for-dealers/register"

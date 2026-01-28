@@ -33,7 +33,7 @@ const ButtonType = ({
         whiteButton,
         traditionalButton,
         blueStroke,
-        yellowStroke
+        yellowStroke,
       )}
       disabled={disabled || isButtonPending}
       title={title}

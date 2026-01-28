@@ -160,14 +160,14 @@ const BuyAndOfferComponent = ({
 
   return (
     <div className="bg-black/70 w-full rounded-md p-7">
-      <div className="grid grid-cols-2">
+      <div className="grid rounded-t-md overflow-hidden min-[500px]:grid-cols-2 min-[500px]:rounded-none">
         <button
           onClick={() => handleTabChange("buy")}
           className={classNames(
-            "border-2 border-white grid place-items-center p-2 rounded-tl-md transition-colors duration-300",
+            "border-2 border-b-0 border-white grid place-items-center p-2 min-[500px]:rounded-tl-md min-[500px]:border-b-2 transition-colors duration-300",
             {
-              "bg-white": activeTab === "buy",
-              "bg-transparent": activeTab !== "buy",
+              "bg-yellow min-[500px]:bg-white": activeTab === "buy",
+              "bg-yellow/30 min-[500px]:bg-transparent": activeTab !== "buy",
             },
           )}
         >
@@ -176,7 +176,7 @@ const BuyAndOfferComponent = ({
               "text-[16px] transition-colors duration-300",
               {
                 "text-black": activeTab === "buy",
-                "text-white": activeTab !== "buy",
+                "min-[500px]:text-white": activeTab !== "buy",
               },
             )}
           >
@@ -186,10 +186,10 @@ const BuyAndOfferComponent = ({
         <button
           onClick={() => handleTabChange("offer")}
           className={classNames(
-            "border-2 border-l-0 border-white grid place-items-center p-2 rounded-tr-md transition-colors duration-300",
+            "border-2  border-white grid place-items-center p-2 min-[500px]:rounded-tr-md min-[500px]:border-l-0 transition-colors duration-300",
             {
-              "bg-white": activeTab === "offer",
-              "bg-transparent": activeTab !== "offer",
+              "bg-yellow min-[500px]:bg-white": activeTab === "offer",
+              "bg-yellow/30 min-[500px]:bg-transparent": activeTab !== "offer",
             },
           )}
         >
@@ -198,7 +198,7 @@ const BuyAndOfferComponent = ({
               "text-[16px] transition-colors duration-300",
               {
                 "text-black": activeTab === "offer",
-                "text-white": activeTab !== "offer",
+                "min-[500px]:text-white": activeTab !== "offer",
               },
             )}
           >
@@ -207,7 +207,7 @@ const BuyAndOfferComponent = ({
         </button>
       </div>
       {activeTab === "buy" && (
-        <div className="grid grid-cols-2 gap-7 items-center justify-center px-5 py-5 border-2 border-t-0 rounded-b-md border-white animate-fadeIn">
+        <div className="grid gap-5 items-center px-5 py-5 border-2 border-t-0 rounded-b-md border-white animate-fadeIn min-[500px]:grid-cols-2 min-[500px]:gap-7 min-[500px]:justify-center">
           {purchaseSuccess ? (
             <div className="col-span-2 text-center py-5">
               <p className="text-white text-[20px] font-semibold mb-2">
@@ -228,6 +228,7 @@ const BuyAndOfferComponent = ({
                   small
                   yellowStroke
                   onClick={() => setShowConfirm(true)}
+                  cssClasses="w-full min-[500px]:w-auto"
                 >
                   Buy Now
                 </ButtonType>
@@ -243,7 +244,7 @@ const BuyAndOfferComponent = ({
               )}
 
               {showConfirm && (
-                <div className="col-span-2 mt-2">
+                <div className="mt-2 min-[500px]:col-span-2">
                   <FormInputCheckbox
                     id="terms-agreement"
                     name="terms-agreement"
@@ -276,7 +277,7 @@ const BuyAndOfferComponent = ({
         </div>
       )}
       {activeTab === "offer" && (
-        <div className="grid grid-cols-2 gap-7 items-center justify-center px-5 py-5 border-2 border-t-0 rounded-b-md border-white animate-fadeIn">
+        <div className="grid gap-5 items-center px-5 py-5 border-2 border-t-0 rounded-b-md border-white animate-fadeIn min-[500px]:grid-cols-2 min-[500px]:gap-7 min-[500px]:justify-center">
           {offerSuccess ? (
             <div className="col-span-2 text-center py-5">
               <p className="text-white text-[20px] font-semibold mb-2">

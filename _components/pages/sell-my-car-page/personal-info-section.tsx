@@ -3,6 +3,7 @@ import FormInputEmail from "@/_components/ui/form/form-input-email";
 import FormInputTel from "@/_components/ui/form/form-input-tel";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import classNames from "classnames";
+import RecaptchaNotice from "@/_components/ui/recaptcha-notice";
 
 interface PersonalInfoSectionProps {
   formData: {
@@ -86,7 +87,7 @@ const PersonalInfoSection = ({
         </div>
       </div>
       <div className="grid gap-5">
-        <div className="hidden tablet:flex flex-col gap-1">
+        <div className="hidden tablet:flex flex-col gap-4">
           {imageCount < 2 && (
             <p className="text-[14px] text-red italic">
               Please upload at least 2 images
@@ -147,6 +148,7 @@ const PersonalInfoSection = ({
               "Submit Vehicle"
             )}
           </ButtonType>
+          <RecaptchaNotice />
         </div>
         {error && (
           <div className="hidden bg-red/50 rounded-md p-3 tablet:block">
