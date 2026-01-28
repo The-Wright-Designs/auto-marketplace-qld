@@ -55,7 +55,7 @@ export default function MainSlider({
       {images.length > 0 && (
         <button
           onClick={onLightboxOpen}
-          className="absolute bottom-4 right-4 z-10 bg-white desktop:hover:scale-105 p-2 rounded-md"
+          className="absolute bottom-4 right-4 z-10 bg-white desktop:hover:scale-105 desktop:hover:cursor-pointer p-2 rounded-md"
           aria-label="Open fullscreen view"
         >
           <ZoomIn className="size-7 desktop-small:size-6" color="#13103F" />

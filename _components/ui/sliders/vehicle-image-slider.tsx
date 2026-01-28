@@ -35,6 +35,7 @@ export default function VehicleImageSlider({
   }, [images, primaryImage]);
 
   const handleSlideChange = (index: number) => {
+    if (activeIndex === index) return;
     setActiveIndex(index);
 
     if (mainSwiperRef.current && mainSwiperRef.current.realIndex !== index) {
@@ -49,10 +50,6 @@ export default function VehicleImageSlider({
     ) {
       lightboxSwiperRef.current.slideToLoop(index);
     }
-  };
-
-  const handleThumbnailClick = (index: number) => {
-    handleSlideChange(index);
   };
 
   const handleLightboxOpen = () => {
@@ -90,7 +87,7 @@ export default function VehicleImageSlider({
       <ThumbnailSlider
         images={sortedImages}
         activeIndex={activeIndex}
-        onThumbnailClick={handleThumbnailClick}
+        onSlideChange={handleSlideChange}
         onSwiperInit={(swiper) => {
           thumbSwiperRef.current = swiper;
         }}

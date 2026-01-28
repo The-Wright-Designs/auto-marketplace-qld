@@ -48,7 +48,7 @@ export default function VehiclesPage() {
   const [sortField, setSortField] = useState<SortField>("dateAdded");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [tenderInfoVehicle, setTenderInfoVehicle] = useState<Vehicle | null>(
-    null
+    null,
   );
 
   const limit = 20;
@@ -194,7 +194,7 @@ export default function VehiclesPage() {
     <th
       className={classNames(
         "text-left p-2 text-blue font-bold cursor-pointer hover:opacity-80",
-        cssClasses
+        cssClasses,
       )}
       onClick={() => handleSort(field)}
     >
@@ -370,8 +370,8 @@ export default function VehiclesPage() {
                                 prev.map((v) =>
                                   v.id === vehicle.id
                                     ? { ...v, status: newStatus }
-                                    : v
-                                )
+                                    : v,
+                                ),
                               );
                             }}
                           />

@@ -10,7 +10,7 @@ import "swiper/css";
 interface ThumbnailSliderProps {
   images: Array<{ filename: string; url: string }>;
   activeIndex: number;
-  onThumbnailClick: (index: number) => void;
+  onSlideChange: (index: number) => void;
   onSwiperInit: (swiper: SwiperType) => void;
   cssClasses?: string;
 }
@@ -18,7 +18,7 @@ interface ThumbnailSliderProps {
 export default function ThumbnailSlider({
   images,
   activeIndex,
-  onThumbnailClick,
+  onSlideChange,
   onSwiperInit,
   cssClasses,
 }: ThumbnailSliderProps) {
@@ -28,6 +28,7 @@ export default function ThumbnailSlider({
     <div className={classNames("hidden tablet:block mt-5", cssClasses)}>
       <Swiper
         onSwiper={onSwiperInit}
+        onSlideChange={(swiper) => onSlideChange(swiper.realIndex)}
         slidesPerView={5}
         centeredSlides={true}
         spaceBetween={10}
@@ -38,10 +39,9 @@ export default function ThumbnailSlider({
       >
         {images.map((image, index) => (
           <SwiperSlide key={image.filename}>
-            <button
-              onClick={() => onThumbnailClick(index)}
+            <div
               className={classNames(
-                "relative aspect-video w-full rounded-md overflow-hidden flex items-center justify-center",
+                "relative aspect-video w-full rounded-md overflow-hidden flex items-center justify-center desktop:hover:cursor-pointer",
                 {
                   "opacity-60 desktop-small:hover:opacity-100":
                     index !== activeIndex,
@@ -54,7 +54,7 @@ export default function ThumbnailSlider({
                 fill
                 className="object-cover"
               />
-            </button>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

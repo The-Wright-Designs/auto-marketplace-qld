@@ -61,7 +61,7 @@ export default function LightboxSlider({
     >
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-50  bg-white p-1 rounded-md desktop-small:hover:scale-105"
+        className="absolute top-6 right-6 z-50  bg-white p-1 rounded-md desktop-small:hover:scale-105 desktop:hover:cursor-pointer"
         aria-label="Close lightbox"
       >
         <X className="w-8 h-8" color="#13103F" />
@@ -103,13 +103,13 @@ export default function LightboxSlider({
         </Swiper>
 
         <button
-          className="lightbox-prev bg-white/80 rounded-md p-1 absolute left-4 top-1/2 -translate-y-1/2 z-50 hidden tablet:block desktop-small:hover:scale-105"
+          className="lightbox-prev bg-white/80 rounded-md p-1 absolute left-4 top-1/2 -translate-y-1/2 z-50 hidden tablet:block desktop-small:hover:scale-105 desktop:hover:cursor-pointer"
           aria-label="Previous image"
         >
           <ChevronLeft className="w-10 h-10" color="#13103F" />
         </button>
         <button
-          className="lightbox-next bg-white rounded-md p-1 absolute right-4 top-1/2 -translate-y-1/2 z-50 hidden tablet:block desktop-small:hover:scale-105"
+          className="lightbox-next bg-white rounded-md p-1 absolute right-4 top-1/2 -translate-y-1/2 z-50 hidden tablet:block desktop-small:hover:scale-105 desktop:hover:cursor-pointer"
           aria-label="Next image"
         >
           <ChevronRight className="w-10 h-10" color="#13103F" />

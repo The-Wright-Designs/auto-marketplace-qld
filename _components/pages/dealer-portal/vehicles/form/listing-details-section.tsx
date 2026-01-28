@@ -14,7 +14,7 @@ interface ListingDetailsSectionProps {
   onInputChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   errors?: Record<string, string>;
   disabled?: boolean;
@@ -56,7 +56,7 @@ export default function ListingDetailsSection({
           id="price"
           name="price"
           placeholder="Price ($)"
-          label="Price"
+          label="Price (Buy Now)"
           min={0}
           step={1}
           value={formData.price}

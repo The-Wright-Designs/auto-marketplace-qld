@@ -74,7 +74,6 @@ export default function VehicleDetailView({
     {
       title: "Basic Vehicle Information",
       fields: [
-        { label: "VIN", value: vehicle.vin },
         { label: "Colour", value: vehicle.colour },
         { label: "Body Type", value: vehicle.bodyType },
       ],
@@ -129,7 +128,10 @@ export default function VehicleDetailView({
           label: "Listing Type",
           value: LISTING_TYPE_LABELS[vehicle.listingType],
         },
-        { label: "Price", value: formatPrice(vehicle.price) },
+        {
+          label: vehicle.listingType === "tender" ? "Price (Buy Now)" : "Price",
+          value: formatPrice(vehicle.price),
+        },
         ...(vehicle.listingType === "tender"
           ? [
               {
