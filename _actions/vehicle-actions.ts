@@ -32,7 +32,7 @@ interface ListVehiclesFilters {
  * Create a new vehicle listing
  */
 export async function createVehicle(
-  input: CreateVehicleInput
+  input: CreateVehicleInput,
 ): Promise<ActionResult<{ id: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -57,7 +57,6 @@ export async function createVehicle(
 
     const vehicleData: any = {
       ...validatedData,
-      status: "draft" as VehicleStatus,
       media: {
         images: validatedData.images || [],
         primaryImage: validatedData.primaryImage || "",
@@ -92,7 +91,7 @@ export async function createVehicle(
  * Get a single vehicle by ID
  */
 export async function getVehicle(
-  vehicleId: string
+  vehicleId: string,
 ): Promise<ActionResult<Vehicle>> {
   try {
     const docRef = adminDb.collection("vehicles").doc(vehicleId);
@@ -162,7 +161,7 @@ export async function getVehicle(
  * List vehicles with optional filtering and pagination
  */
 export async function listVehicles(
-  filters?: ListVehiclesFilters
+  filters?: ListVehiclesFilters,
 ): Promise<ActionResult<Vehicle[]>> {
   try {
     let query = adminDb.collection("vehicles") as any;
@@ -241,7 +240,7 @@ export async function listVehicles(
  */
 export async function updateVehicle(
   vehicleId: string,
-  input: UpdateVehicleInput
+  input: UpdateVehicleInput,
 ): Promise<ActionResult<{ id: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -296,7 +295,7 @@ export async function updateVehicle(
 
 export async function partialUpdateVehicle(
   vehicleId: string,
-  input: PartialUpdateVehicleInput
+  input: PartialUpdateVehicleInput,
 ): Promise<ActionResult<{ id: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -351,7 +350,7 @@ export async function partialUpdateVehicle(
 
 export async function deleteVehicle(
   vehicleId: string,
-  hardDelete = false
+  hardDelete = false,
 ): Promise<ActionResult<{ id: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -408,7 +407,7 @@ export async function deleteVehicle(
  */
 export async function uploadVehicleImages(
   vehicleId: string,
-  imageUrls: string[]
+  imageUrls: string[],
 ): Promise<ActionResult<{ images: string[] }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -461,7 +460,7 @@ export async function uploadVehicleImages(
  */
 export async function deleteVehicleImage(
   vehicleId: string,
-  storagePath: string
+  storagePath: string,
 ): Promise<ActionResult<{ images: string[] }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -484,14 +483,14 @@ export async function deleteVehicleImage(
 
     const docData = doc.data();
     const bucket = adminStorage.bucket(
-      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     );
     const file = bucket.file(storagePath);
     await file.delete().catch(() => {});
 
     const existingImages = docData?.media?.images || [];
     const updatedImages = existingImages.filter(
-      (img: string) => img !== storagePath
+      (img: string) => img !== storagePath,
     );
 
     let primaryImage = docData?.media?.primaryImage;
@@ -523,7 +522,7 @@ export async function deleteVehicleImage(
 export async function uploadProcessedImagesToStorage(
   vehicleId: string,
   base64Images: string[],
-  startIndex: number = 0
+  startIndex: number = 0,
 ): Promise<ActionResult<string[]>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -535,7 +534,7 @@ export async function uploadProcessedImagesToStorage(
     }
 
     const bucket = adminStorage.bucket(
-      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     );
     const imageFilenames: string[] = [];
 
@@ -643,7 +642,7 @@ export async function getVehicleImagesWithUrls(vehicleId: string): Promise<
  * Get vehicle images for multiple vehicles in batch (single admin check)
  */
 export async function getMultipleVehicleImagesWithUrls(
-  vehicleIds: string[]
+  vehicleIds: string[],
 ): Promise<
   ActionResult<
     Record<
@@ -727,7 +726,7 @@ export async function getMultipleVehicleImagesWithUrls(
  */
 export async function uploadSingleVehicleImage(
   vehicleId: string,
-  base64ImageData: string
+  base64ImageData: string,
 ): Promise<ActionResult<{ filename: string; imageUrl?: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -756,7 +755,7 @@ export async function uploadSingleVehicleImage(
     const storagePath = `vehicles/${vehicleId}/${filename}`;
 
     const bucket = adminStorage.bucket(
-      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     );
 
     const binaryString = atob(base64ImageData);
@@ -797,7 +796,7 @@ export async function uploadSingleVehicleImage(
  */
 export async function reorderVehicleImages(
   vehicleId: string,
-  newImageOrder: string[]
+  newImageOrder: string[],
 ): Promise<ActionResult<{ images: string[] }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -851,7 +850,7 @@ export async function reorderVehicleImages(
  */
 export async function setPrimaryVehicleImage(
   vehicleId: string,
-  imageFilename: string
+  imageFilename: string,
 ): Promise<ActionResult<{ primaryImage: string }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -901,7 +900,7 @@ export async function setPrimaryVehicleImage(
 }
 
 export async function deleteAllVehicleImages(
-  vehicleId: string
+  vehicleId: string,
 ): Promise<ActionResult<{ deletedCount: number }>> {
   try {
     const hasAdminAccess = await isAdmin();
@@ -933,7 +932,7 @@ export async function deleteAllVehicleImages(
     }
 
     const bucket = adminStorage.bucket(
-      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     );
 
     for (const storagePath of imagePaths) {

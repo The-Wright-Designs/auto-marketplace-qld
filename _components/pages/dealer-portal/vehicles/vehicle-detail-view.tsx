@@ -5,6 +5,8 @@ import VehicleImageSlider from "@/_components/ui/sliders/vehicle-image-slider";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { Vehicle } from "@/_types/vehicle-types";
 import BuyAndOfferComponent from "../purchase-components/buy-and-offer-component";
+import TenderCountdown from "@/_components/ui/tender-countdown";
+import classNames from "classnames";
 
 interface VehicleDetailViewProps {
   vehicle: Vehicle;
@@ -37,6 +39,11 @@ const FUEL_TYPE_LABELS: Record<string, string> = {
   lpg: "LPG",
 };
 
+const YES_NO_LABELS: Record<string, string> = {
+  yes: "Yes",
+  no: "No",
+};
+
 function formatDate(isoString: string | undefined): string {
   if (!isoString) return "Not provided";
   return new Date(isoString).toLocaleDateString("en-AU", {
@@ -44,6 +51,17 @@ function formatDate(isoString: string | undefined): string {
     month: "2-digit",
     year: "numeric",
   });
+}
+
+function formatDateTime(isoString: string | undefined): string {
+  if (!isoString) return "Not provided";
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}/${month}/${day}, ${hours}:${minutes}`;
 }
 
 export function formatPrice(price: number | undefined): string {
@@ -79,6 +97,31 @@ export default function VehicleDetailView({
       ],
     },
     {
+      title: "Listing Details",
+      fields: [
+        {
+          label: "Listing Type",
+          value: LISTING_TYPE_LABELS[vehicle.listingType],
+        },
+        ...(vehicle.listingType !== "tender"
+          ? [
+              {
+                label: "Price",
+                value: formatPrice(vehicle.price),
+              },
+            ]
+          : []),
+        ...(vehicle.listingType === "tender"
+          ? [
+              {
+                label: "Tender Deadline",
+                value: formatDateTime(vehicle.tenderDeadline),
+              },
+            ]
+          : []),
+      ],
+    },
+    {
       title: "Engine & Drivetrain",
       fields: [
         {
@@ -106,8 +149,11 @@ export default function VehicleDetailView({
       fields: [
         { label: "Condition", value: CONDITION_LABELS[vehicle.condition] },
         { label: "Service History", value: vehicle.serviceHistory },
-        { label: "Accident History", value: vehicle.accidentHistory },
-        { label: "Finance Owing", value: vehicle.financeOwing },
+        {
+          label: "Accident History",
+          value: YES_NO_LABELS[vehicle.accidentHistory],
+        },
+        { label: "Finance Owing", value: YES_NO_LABELS[vehicle.financeOwing] },
         { label: "Modifications", value: vehicle.modifications },
         { label: "Additional Notes", value: vehicle.notes },
       ],
@@ -119,27 +165,6 @@ export default function VehicleDetailView({
           label: "Registration Expiry",
           value: formatDate(vehicle.registrationExpiry),
         },
-      ],
-    },
-    {
-      title: "Listing Details",
-      fields: [
-        {
-          label: "Listing Type",
-          value: LISTING_TYPE_LABELS[vehicle.listingType],
-        },
-        {
-          label: vehicle.listingType === "tender" ? "Price (Buy Now)" : "Price",
-          value: formatPrice(vehicle.price),
-        },
-        ...(vehicle.listingType === "tender"
-          ? [
-              {
-                label: "Tender Deadline",
-                value: formatDate(vehicle.tenderDeadline),
-              },
-            ]
-          : []),
       ],
     },
   ];
@@ -156,7 +181,22 @@ export default function VehicleDetailView({
       <div className="grid grid-cols-1 desktop-small:grid-cols-2 gap-10">
         <div className="flex flex-col gap-10 desktop-small:sticky desktop-small:top-10 desktop-small:self-start">
           <div className="flex flex-col gap-5 tablet-small:flex-row tablet-small:gap-10 tablet-small:justify-between">
-            <div>
+            <div className="flex flex-col gap-1">
+              <p
+                className={classNames(
+                  "px-2 py-1 place-self-start rounded-md text-[12px] leading-normal",
+                  {
+                    "bg-yellow text-blue": vehicle.listingType === "tender",
+                    "bg-blue text-white": vehicle.listingType === "buy-now",
+                  },
+                )}
+              >
+                {vehicle.listingType === "tender"
+                  ? "Tender"
+                  : vehicle.listingType === "buy-now"
+                    ? "Buy Now"
+                    : null}
+              </p>
               <h1 className="text-subheading text-blue">
                 {[vehicle.make, vehicle.model].filter(Boolean).join(" ") ||
                   "Vehicle Details"}
@@ -165,9 +205,11 @@ export default function VehicleDetailView({
                 <h2 className="text-paragraph text-grey">{vehicle.year}</h2>
               )}
             </div>
-            <h2 className="text-subheading font-light">
-              {formatPrice(vehicle.price)}
-            </h2>
+            {vehicle.listingType !== "tender" && (
+              <h2 className="text-subheading font-light">
+                {formatPrice(vehicle.price)}
+              </h2>
+            )}
           </div>
 
           <VehicleImageSlider
@@ -200,6 +242,11 @@ export default function VehicleDetailView({
               vin={vehicle.vin}
             />
           )}
+
+          {vehicle.listingType === "tender" && vehicle.tenderDeadline && (
+            <TenderCountdown tenderDeadline={vehicle.tenderDeadline} />
+          )}
+
           <div className="bg-white rounded-md border border-blue p-7 grid gap-10">
             {sections.map((section) => (
               <div key={section.title}>

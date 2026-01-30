@@ -24,6 +24,16 @@ const formatDate = (isoString: string): string => {
   return `${day}/${month}/${year}`;
 };
 
+const formatDateTime = (isoString: string): string => {
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}/${month}/${day}, ${hours}:${minutes}`;
+};
+
 interface VehicleFilters {
   limit: number;
   offset: number;
@@ -484,7 +494,7 @@ export default function VehiclesPage() {
                 </p>
                 <p className="text-paragraph text-grey">
                   {tenderInfoVehicle.tenderDeadline
-                    ? formatDate(tenderInfoVehicle.tenderDeadline)
+                    ? formatDateTime(tenderInfoVehicle.tenderDeadline)
                     : "Not set"}
                 </p>
               </div>

@@ -34,7 +34,6 @@ export default function ThumbnailSlider({
         spaceBetween={10}
         slideToClickedSlide={true}
         watchSlidesProgress={true}
-        loop={true}
         className="thumbnail-slider"
       >
         {images.map((image, index) => (
@@ -45,7 +44,7 @@ export default function ThumbnailSlider({
                 {
                   "opacity-60 desktop-small:hover:opacity-100":
                     index !== activeIndex,
-                }
+                },
               )}
             >
               <Image

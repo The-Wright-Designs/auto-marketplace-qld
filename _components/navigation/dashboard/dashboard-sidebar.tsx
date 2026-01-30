@@ -41,7 +41,7 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
         "hidden desktop-small:flex fixed left-0 top-0 w-[280px] h-screen bg-blue flex-col z-40 transition-opacity",
         {
           "opacity-75 pointer-events-none": disabled,
-        }
+        },
       )}
     >
       <div className="p-50px border-b border-white/20">
@@ -70,10 +70,10 @@ export function DashboardSidebar({ disabled = false }: DashboardSidebarProps) {
                   <Link
                     href={url}
                     className={classNames(
-                      "text-paragraph text-white block p-3 -m-3 rounded-md transition-colors hover:bg-white/10",
+                      "text-paragraph text-white block py-2 px-3 -my-1 -mx-2 rounded-md transition-colors hover:bg-white/10",
                       {
                         "bg-white/20 hover:bg-white/20": isActive,
-                      }
+                      },
                     )}
                   >
                     {title}

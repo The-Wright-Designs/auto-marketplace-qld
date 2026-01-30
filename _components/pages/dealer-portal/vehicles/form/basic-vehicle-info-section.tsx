@@ -15,7 +15,7 @@ interface BasicVehicleInfoSectionProps {
   onInputChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   errors?: Record<string, string>;
   disabled?: boolean;
@@ -42,10 +42,11 @@ export default function BasicVehicleInfoSection({
           max={new Date().getFullYear() + 1}
           value={formData.year}
           onChange={onInputChange}
+          error={errors?.year}
           disabled={disabled}
         />
         {errors?.year && (
-          <p className="text-red text-paragraph">{errors.year}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.year}</p>
         )}
 
         <FormInputText
@@ -59,7 +60,7 @@ export default function BasicVehicleInfoSection({
           disabled={disabled}
         />
         {errors?.make && (
-          <p className="text-red text-paragraph">{errors.make}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.make}</p>
         )}
 
         <FormInputText
@@ -73,7 +74,7 @@ export default function BasicVehicleInfoSection({
           disabled={disabled}
         />
         {errors?.model && (
-          <p className="text-red text-paragraph">{errors.model}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.model}</p>
         )}
 
         <FormInputText
@@ -83,9 +84,12 @@ export default function BasicVehicleInfoSection({
           label="VIN"
           value={formData.vin}
           onChange={onInputChange}
+          error={errors?.vin}
           disabled={disabled}
         />
-        {errors?.vin && <p className="text-red text-paragraph">{errors.vin}</p>}
+        {errors?.vin && (
+          <p className="text-red text-[16px] -mt-2">{errors.vin}</p>
+        )}
 
         <FormInputText
           id="colour"
@@ -94,10 +98,11 @@ export default function BasicVehicleInfoSection({
           label="Colour"
           value={formData.colour}
           onChange={onInputChange}
+          error={errors?.colour}
           disabled={disabled}
         />
         {errors?.colour && (
-          <p className="text-red text-paragraph">{errors.colour}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.colour}</p>
         )}
 
         <FormInputText
@@ -107,10 +112,11 @@ export default function BasicVehicleInfoSection({
           label="Body Type"
           value={formData.bodyType}
           onChange={onInputChange}
+          error={errors?.bodyType}
           disabled={disabled}
         />
         {errors?.bodyType && (
-          <p className="text-red text-paragraph">{errors.bodyType}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.bodyType}</p>
         )}
       </div>
     </div>

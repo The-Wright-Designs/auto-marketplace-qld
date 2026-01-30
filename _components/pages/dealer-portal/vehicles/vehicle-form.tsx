@@ -77,8 +77,8 @@ const emptyFormData: FormData = {
   doors: "",
   condition: "",
   serviceHistory: "",
-  accidentHistory: "no",
-  financeOwing: "no",
+  accidentHistory: "",
+  financeOwing: "",
   modifications: "",
   notes: "",
   registrationNumber: "",
@@ -219,19 +219,19 @@ export default function VehicleForm({
       const submitData: any = {};
 
       if (formData.year) submitData.year = Number(formData.year);
-      submitData.make = formData.make;
-      submitData.model = formData.model;
+      if (formData.make) submitData.make = formData.make;
+      if (formData.model) submitData.model = formData.model;
       if (formData.vin) submitData.vin = formData.vin;
       if (formData.colour) submitData.colour = formData.colour;
       if (formData.bodyType) submitData.bodyType = formData.bodyType;
-      submitData.fuelType = formData.fuelType;
-      if (formData.engineCapacity !== "") {
+      if (formData.fuelType) submitData.fuelType = formData.fuelType;
+      if (formData.engineCapacity !== "" && !Number.isNaN(Number(formData.engineCapacity))) {
         submitData.engineCapacity = Number(formData.engineCapacity);
       }
       if (formData.driveType) submitData.driveType = formData.driveType;
 
-      submitData.transmission = formData.transmission;
-      if (formData.odometer !== "") {
+      if (formData.transmission) submitData.transmission = formData.transmission;
+      if (formData.odometer !== "" && !Number.isNaN(Number(formData.odometer))) {
         submitData.odometer = Number(formData.odometer);
       }
 
@@ -251,7 +251,7 @@ export default function VehicleForm({
         submitData.registrationNumber = formData.registrationNumber;
       if (formData.registrationExpiry)
         submitData.registrationExpiry = formData.registrationExpiry;
-      submitData.listingType = formData.listingType;
+      if (formData.listingType) submitData.listingType = formData.listingType;
       if (formData.price) submitData.price = Number(formData.price);
       if (formData.reservePrice)
         submitData.reservePrice = Number(formData.reservePrice);

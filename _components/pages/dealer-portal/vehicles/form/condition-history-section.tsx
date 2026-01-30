@@ -15,7 +15,7 @@ interface ConditionHistorySectionProps {
   onInputChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   errors?: Record<string, string>;
   disabled?: boolean;
@@ -45,10 +45,11 @@ export default function ConditionHistorySection({
           label="Condition"
           value={formData.condition}
           onChange={onInputChange}
+          error={errors?.condition}
           disabled={disabled}
         />
         {errors?.condition && (
-          <p className="text-red text-paragraph">{errors.condition}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.condition}</p>
         )}
 
         <FormInputTextarea
@@ -60,10 +61,11 @@ export default function ConditionHistorySection({
           rows={4}
           value={formData.serviceHistory}
           onChange={onInputChange}
+          error={errors?.serviceHistory}
           disabled={disabled}
         />
         {errors?.serviceHistory && (
-          <p className="text-red text-paragraph">{errors.serviceHistory}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.serviceHistory}</p>
         )}
 
         <FormInputSelect
@@ -76,10 +78,11 @@ export default function ConditionHistorySection({
           label="Accident History"
           value={formData.accidentHistory}
           onChange={onInputChange}
+          error={errors?.accidentHistory}
           disabled={disabled}
         />
         {errors?.accidentHistory && (
-          <p className="text-red text-paragraph">{errors.accidentHistory}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.accidentHistory}</p>
         )}
 
         <FormInputSelect
@@ -92,10 +95,11 @@ export default function ConditionHistorySection({
           label="Finance Owing"
           value={formData.financeOwing}
           onChange={onInputChange}
+          error={errors?.financeOwing}
           disabled={disabled}
         />
         {errors?.financeOwing && (
-          <p className="text-red text-paragraph">{errors.financeOwing}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.financeOwing}</p>
         )}
 
         <FormInputTextarea
@@ -107,10 +111,11 @@ export default function ConditionHistorySection({
           rows={4}
           value={formData.modifications}
           onChange={onInputChange}
+          error={errors?.modifications}
           disabled={disabled}
         />
         {errors?.modifications && (
-          <p className="text-red text-paragraph">{errors.modifications}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.modifications}</p>
         )}
 
         <FormInputTextarea
@@ -124,9 +129,6 @@ export default function ConditionHistorySection({
           onChange={onInputChange}
           disabled={disabled}
         />
-        {errors?.notes && (
-          <p className="text-red text-paragraph">{errors.notes}</p>
-        )}
       </div>
     </div>
   );

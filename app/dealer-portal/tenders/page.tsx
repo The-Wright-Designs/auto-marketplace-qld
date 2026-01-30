@@ -1,12 +1,14 @@
 "use client";
 
+import ListedVehiclesComponent from "@/_components/pages/dealer-portal/dashboard/listed-vehicles-component";
+
 export default function TendersPage() {
   return (
-    <div className="grid gap-5">
-      <h2 className="text-heading text-blue">Tenders</h2>
-      <p className="text-paragraph text-grey">
-        This is where the Tenders info will live
-      </p>
+    <div className="grid gap-10">
+      <h1 className="text-subheading full-hd:text-subheading-desktop">
+        Tenders
+      </h1>
+      <ListedVehiclesComponent listingType="tender" />
     </div>
   );
 }

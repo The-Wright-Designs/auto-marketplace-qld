@@ -68,7 +68,19 @@ export default function ListedVehiclesComponent({
             vehiclesWithImages.push({ vehicle, imageUrl });
           }
 
-          setVehicles(vehiclesWithImages);
+          const now = new Date();
+          const filteredVehicles = vehiclesWithImages.filter((item) => {
+            if (
+              item.vehicle.listingType === "tender" &&
+              item.vehicle.tenderDeadline
+            ) {
+              const deadline = new Date(item.vehicle.tenderDeadline);
+              return deadline > now;
+            }
+            return true;
+          });
+
+          setVehicles(filteredVehicles);
           setError(null);
         } else {
           setVehicles([]);

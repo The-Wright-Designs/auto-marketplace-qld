@@ -1,6 +1,6 @@
 export default function VehicleCardSkeleton() {
   return (
-    <div className="w-[250px]">
+    <div className="w-full min-w-[250px] phone:w-[300px]">
       <div className="aspect-[4/3] bg-grey rounded-t-md overflow-hidden animate-pulse">
         <div className="h-full w-full bg-grey-dark" />
       </div>

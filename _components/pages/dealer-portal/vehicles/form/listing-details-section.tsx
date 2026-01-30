@@ -49,7 +49,7 @@ export default function ListingDetailsSection({
           disabled={disabled}
         />
         {errors?.listingType && (
-          <p className="text-red text-paragraph">{errors.listingType}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.listingType}</p>
         )}
 
         <FormInputNumber
@@ -62,9 +62,10 @@ export default function ListingDetailsSection({
           value={formData.price}
           onChange={onInputChange}
           disabled={disabled}
+          error={errors?.price}
         />
         {errors?.price && (
-          <p className="text-red text-paragraph">{errors.price}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.price}</p>
         )}
 
         {showReservePrice && (
@@ -78,10 +79,13 @@ export default function ListingDetailsSection({
               step={1}
               value={formData.reservePrice}
               onChange={onInputChange}
+              error={errors?.reservePrice}
               disabled={disabled}
             />
             {errors?.reservePrice && (
-              <p className="text-red text-paragraph">{errors.reservePrice}</p>
+              <p className="text-red text-[16px] -mt-2">
+                {errors.reservePrice}
+              </p>
             )}
           </>
         )}
@@ -96,10 +100,13 @@ export default function ListingDetailsSection({
               label="Tender Deadline"
               value={formData.tenderDeadline}
               onChange={onInputChange}
+              error={errors?.tenderDeadline}
               disabled={disabled}
             />
             {errors?.tenderDeadline && (
-              <p className="text-red text-paragraph">{errors.tenderDeadline}</p>
+              <p className="text-red text-[16px] -mt-2">
+                {errors.tenderDeadline}
+              </p>
             )}
           </>
         )}

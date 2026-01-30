@@ -6,6 +6,7 @@ import { Vehicle } from "@/_types/vehicle-types";
 import { useState } from "react";
 import classNames from "classnames";
 import { formatPrice } from "@/_components/pages/dealer-portal/vehicles/vehicle-detail-view";
+import TenderCountdown from "@/_components/ui/tender-countdown";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -25,32 +26,32 @@ export default function VehicleCard({
   return (
     <Link
       href={`/dealer-portal/vehicles/${vehicle.id}/view`}
-      className="max-w-[250px] border border-blue rounded-md overflow-hidden"
+      className="w-full min-w-[250px] phone:w-[300px] border border-blue rounded-md overflow-hidden"
       onMouseEnter={() => setShowHover(true)}
       onMouseLeave={() => setShowHover(false)}
     >
-      <div className="bg-grey overflow-hidden">
+      <div className="bg-grey w-full overflow-hidden">
         <Image
           src={imageSrc}
           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
           width={400}
           height={3400}
           className={classNames(
-            "object-cover aspect-[4/3] w-[250px] h-full ease-in-out duration-500 delay-75",
+            "object-cover aspect-[4/3] h-full ease-in-out duration-500 delay-75",
             {
               "scale-[103%]": showHover,
               "blur-sm": !imageUrl,
-            }
+            },
           )}
         />
       </div>
       <ul
         className={classNames(
-          "px-4 py-2 grid grid-cols-[1fr_0.75fr] gap-5 ease-in-out duration-500 delay-75",
+          "px-4 py-2 grid grid-cols-2 gap-5 ease-in-out duration-500 delay-75",
           {
             "bg-blue/5": !showHover,
             "bg-blue/15": showHover,
-          }
+          },
         )}
       >
         <div>
@@ -68,9 +69,16 @@ export default function VehicleCard({
           </li>
         </div>
         <div className="place-items-end">
-          <li className="text-paragraph text-blue truncate">
-            {formatPrice(vehicle.price)}
-          </li>
+          {listingType === "tender" ? (
+            <TenderCountdown
+              tenderDeadline={vehicle.tenderDeadline}
+              small={true}
+            />
+          ) : (
+            <li className="text-paragraph text-blue truncate">
+              {formatPrice(vehicle.price)}
+            </li>
+          )}
           <li className="text-paragraph text-grey text-[16px] truncate">
             {vehicle.year}
           </li>
@@ -84,14 +92,14 @@ export default function VehicleCard({
               {
                 "bg-yellow text-blue": listingType === "tender",
                 "bg-blue text-white": listingType === "buy-now",
-              }
+              },
             )}
           >
             {listingType === "tender"
               ? "Tender"
               : listingType === "buy-now"
-              ? "Buy Now"
-              : null}
+                ? "Buy Now"
+                : null}
           </p>
         </div>
       </ul>

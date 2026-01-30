@@ -35,10 +35,11 @@ export default function RegistrationSection({
           label="Registration Number"
           value={formData.registrationNumber}
           onChange={onInputChange}
+          error={errors?.registrationNumber}
           disabled={disabled}
         />
         {errors?.registrationNumber && (
-          <p className="text-red text-paragraph">{errors.registrationNumber}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.registrationNumber}</p>
         )}
 
         <FormInputText
@@ -49,10 +50,11 @@ export default function RegistrationSection({
           label="Registration Expiry"
           value={formData.registrationExpiry}
           onChange={onInputChange}
+          error={errors?.registrationExpiry}
           disabled={disabled}
         />
         {errors?.registrationExpiry && (
-          <p className="text-red text-paragraph">{errors.registrationExpiry}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.registrationExpiry}</p>
         )}
       </div>
     </div>

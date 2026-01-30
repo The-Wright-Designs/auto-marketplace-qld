@@ -16,7 +16,7 @@ interface EngineDrivetrainSectionProps {
   onInputChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   errors?: Record<string, string>;
   disabled?: boolean;
@@ -49,7 +49,7 @@ export default function EngineDrivetrainSection({
           disabled={disabled}
         />
         {errors?.transmission && (
-          <p className="text-red text-paragraph">{errors.transmission}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.transmission}</p>
         )}
 
         <FormInputSelect
@@ -69,7 +69,7 @@ export default function EngineDrivetrainSection({
           disabled={disabled}
         />
         {errors?.fuelType && (
-          <p className="text-red text-paragraph">{errors.fuelType}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.fuelType}</p>
         )}
 
         <FormInputNumber
@@ -85,7 +85,7 @@ export default function EngineDrivetrainSection({
           disabled={disabled}
         />
         {errors?.engineCapacity && (
-          <p className="text-red text-paragraph">{errors.engineCapacity}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.engineCapacity}</p>
         )}
 
         <FormInputSelect
@@ -99,10 +99,11 @@ export default function EngineDrivetrainSection({
           label="Drive Type"
           value={formData.driveType}
           onChange={onInputChange}
+          error={errors?.driveType}
           disabled={disabled}
         />
         {errors?.driveType && (
-          <p className="text-red text-paragraph">{errors.driveType}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.driveType}</p>
         )}
 
         <FormInputNumber
@@ -117,11 +118,11 @@ export default function EngineDrivetrainSection({
           disabled={disabled}
         />
         {errors?.odometer && (
-          <p className="text-red text-paragraph">{errors.odometer}</p>
+          <p className="text-red text-[16px] -mt-2">{errors.odometer}</p>
         )}
 
-        <div className="grid grid-cols-2 gap-3">
-          <div>
+        <div className="grid gap-5 phone:grid-cols-2 phone:gap-3">
+          <div className="grid gap-5 phone:gap-3">
             <FormInputNumber
               id="seats"
               name="seats"
@@ -131,14 +132,15 @@ export default function EngineDrivetrainSection({
               max={10}
               value={formData.seats}
               onChange={onInputChange}
+              error={errors?.seats}
               disabled={disabled}
             />
             {errors?.seats && (
-              <p className="text-red text-paragraph">{errors.seats}</p>
+              <p className="text-red text-[16px] -mt-2">{errors.seats}</p>
             )}
           </div>
 
-          <div>
+          <div className="grid gap-5 phone:gap-3">
             <FormInputNumber
               id="doors"
               name="doors"
@@ -148,10 +150,11 @@ export default function EngineDrivetrainSection({
               max={6}
               value={formData.doors}
               onChange={onInputChange}
+              error={errors?.doors}
               disabled={disabled}
             />
             {errors?.doors && (
-              <p className="text-red text-paragraph">{errors.doors}</p>
+              <p className="text-red text-[16px] -mt-2">{errors.doors}</p>
             )}
           </div>
         </div>
