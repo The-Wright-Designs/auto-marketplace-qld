@@ -5,8 +5,9 @@ import VehicleImageSlider from "@/_components/ui/sliders/vehicle-image-slider";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { Vehicle } from "@/_types/vehicle-types";
 import BuyAndOfferComponent from "../purchase-components/buy-and-offer-component";
-import TenderCountdown from "@/_components/ui/tender-countdown";
 import classNames from "classnames";
+import BidComponent from "../purchase-components/bid-component";
+import { formatDate, formatDateTime } from "@/_lib/utils/date-formatter";
 
 interface VehicleDetailViewProps {
   vehicle: Vehicle;
@@ -43,26 +44,6 @@ const YES_NO_LABELS: Record<string, string> = {
   yes: "Yes",
   no: "No",
 };
-
-function formatDate(isoString: string | undefined): string {
-  if (!isoString) return "Not provided";
-  return new Date(isoString).toLocaleDateString("en-AU", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
-
-function formatDateTime(isoString: string | undefined): string {
-  if (!isoString) return "Not provided";
-  const date = new Date(isoString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  return `${year}/${month}/${day}, ${hours}:${minutes}`;
-}
 
 export function formatPrice(price: number | undefined): string {
   if (price === undefined) return "Not provided";
@@ -182,21 +163,28 @@ export default function VehicleDetailView({
         <div className="flex flex-col gap-10 desktop-small:sticky desktop-small:top-10 desktop-small:self-start">
           <div className="flex flex-col gap-5 tablet-small:flex-row tablet-small:gap-10 tablet-small:justify-between">
             <div className="flex flex-col gap-1">
-              <p
-                className={classNames(
-                  "px-2 py-1 place-self-start rounded-md text-[12px] leading-normal",
-                  {
-                    "bg-yellow text-blue": vehicle.listingType === "tender",
-                    "bg-blue text-white": vehicle.listingType === "buy-now",
-                  },
+              <div className="flex gap-3 items-center">
+                {vehicle.status === "draft" && (
+                  <p className="px-2 py-1 place-self-start rounded-md text-[12px] leading-normal bg-blue text-white">
+                    Draft
+                  </p>
                 )}
-              >
-                {vehicle.listingType === "tender"
-                  ? "Tender"
-                  : vehicle.listingType === "buy-now"
-                    ? "Buy Now"
-                    : null}
-              </p>
+                <p
+                  className={classNames(
+                    "px-2 py-1 place-self-start rounded-md text-[12px] leading-normal",
+                    {
+                      "bg-yellow text-blue": vehicle.listingType === "tender",
+                      "bg-blue text-white": vehicle.listingType === "buy-now",
+                    },
+                  )}
+                >
+                  {vehicle.listingType === "tender"
+                    ? "Tender"
+                    : vehicle.listingType === "buy-now"
+                      ? "Buy Now"
+                      : null}
+                </p>
+              </div>
               <h1 className="text-subheading text-blue">
                 {[vehicle.make, vehicle.model].filter(Boolean).join(" ") ||
                   "Vehicle Details"}
@@ -244,31 +232,60 @@ export default function VehicleDetailView({
           )}
 
           {vehicle.listingType === "tender" && vehicle.tenderDeadline && (
-            <TenderCountdown tenderDeadline={vehicle.tenderDeadline} />
+            <BidComponent
+              status={vehicle.status}
+              vehiclePrice={vehicle.price}
+              vehicleId={vehicle.id}
+              registrationNumber={vehicle.registrationNumber}
+              make={vehicle.make}
+              model={vehicle.model}
+              year={vehicle.year}
+              featuredImageUrl={
+                images.find(
+                  (img) => img.filename === vehicle.media?.primaryImage,
+                )?.url ||
+                images[0]?.url ||
+                ""
+              }
+              bodyType={vehicle.bodyType}
+              transmission={TRANSMISSION_LABELS[vehicle.transmission]}
+              engineCapacity={vehicle.engineCapacity}
+              fuelType={FUEL_TYPE_LABELS[vehicle.fuelType]}
+              driveType={vehicle.driveType}
+              colour={vehicle.colour}
+              vin={vehicle.vin}
+              tenderDeadline={vehicle.tenderDeadline}
+            />
           )}
 
           <div className="bg-white rounded-md border border-blue p-7 grid gap-10">
-            {sections.map((section) => (
-              <div key={section.title}>
-                <h2 className="text-paragraph-desktop text-blue font-semibold mb-5">
-                  {section.title}
-                </h2>
-                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
-                  {section.fields.map((field) =>
-                    field.value && field.value !== "Not provided" ? (
-                      <div key={field.label}>
-                        <p className="text-paragraph text-blue font-semibold">
-                          {field.label}
-                        </p>
-                        <p className="text-paragraph text-grey">
-                          {field.value}
-                        </p>
-                      </div>
-                    ) : null,
-                  )}
+            {sections
+              .filter((section) =>
+                section.fields.some(
+                  (field) => field.value && field.value !== "Not provided",
+                ),
+              )
+              .map((section) => (
+                <div key={section.title}>
+                  <h2 className="text-paragraph-desktop text-blue font-semibold mb-5">
+                    {section.title}
+                  </h2>
+                  <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
+                    {section.fields.map((field) =>
+                      field.value && field.value !== "Not provided" ? (
+                        <div key={field.label}>
+                          <p className="text-paragraph text-blue font-semibold">
+                            {field.label}
+                          </p>
+                          <p className="text-paragraph text-grey">
+                            {field.value}
+                          </p>
+                        </div>
+                      ) : null,
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

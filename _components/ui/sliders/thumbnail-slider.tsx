@@ -40,7 +40,7 @@ export default function ThumbnailSlider({
           <SwiperSlide key={image.filename}>
             <div
               className={classNames(
-                "relative aspect-video w-full rounded-md overflow-hidden flex items-center justify-center desktop:hover:cursor-pointer",
+                "relative aspect-video w-full rounded-md overflow-hidden flex items-center justify-center desktop:hover:cursor-pointer ease-in-out duration-300",
                 {
                   "opacity-60 desktop-small:hover:opacity-100":
                     index !== activeIndex,

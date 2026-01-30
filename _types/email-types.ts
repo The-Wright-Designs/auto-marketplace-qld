@@ -49,3 +49,25 @@ export interface OfferEmailTemplateProps {
   dealerFullName?: string;
   dealerPhone?: string;
 }
+
+export interface BidEmailTemplateProps {
+  userEmail: string;
+  registrationNumber: string;
+  make: string;
+  model: string;
+  year: number;
+  listPrice: string;
+  bidPrice: string;
+  featuredImageUrl: string;
+  bodyType?: string;
+  transmission?: string;
+  engineCapacity?: number;
+  fuelType?: string;
+  driveType?: string;
+  colour?: string;
+  vin?: string;
+  tenderDeadline?: string;
+  dealerFirstName?: string;
+  dealerFullName?: string;
+  dealerPhone?: string;
+}

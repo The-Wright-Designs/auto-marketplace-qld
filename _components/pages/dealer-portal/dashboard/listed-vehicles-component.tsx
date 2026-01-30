@@ -70,10 +70,10 @@ export default function ListedVehiclesComponent({
 
           const now = new Date();
           const filteredVehicles = vehiclesWithImages.filter((item) => {
-            if (
-              item.vehicle.listingType === "tender" &&
-              item.vehicle.tenderDeadline
-            ) {
+            if (item.vehicle.listingType === "tender") {
+              if (!item.vehicle.tenderDeadline || !item.vehicle.reservePrice) {
+                return false;
+              }
               const deadline = new Date(item.vehicle.tenderDeadline);
               return deadline > now;
             }

@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 import classNames from "classnames";
+import { formatDateTime } from "@/_lib/utils/date-formatter";
 
 interface TenderCountdownProps {
   tenderDeadline?: string;
   small?: boolean;
+  darkBackground?: boolean;
 }
 
 interface TimeLeft {
@@ -18,6 +20,7 @@ interface TimeLeft {
 export default function TenderCountdown({
   tenderDeadline,
   small = false,
+  darkBackground = false,
 }: TenderCountdownProps) {
   const calculateTimeLeft = useCallback((): TimeLeft | null => {
     if (!tenderDeadline) {
@@ -53,13 +56,14 @@ export default function TenderCountdown({
   if (!timeLeft) {
     return (
       <div
-        className={classNames("flex items-center justify-center", {
+        className={classNames("flex", {
           "px-2 bg-white rounded-md border border-blue": small,
         })}
       >
         <p
           className={classNames(
-            "text-grey font-bold uppercase",
+            "font-bold uppercase",
+            darkBackground ? "text-white" : "text-grey",
             small ? "text-[12px]" : "text-paragraph",
           )}
         >
@@ -79,51 +83,72 @@ export default function TenderCountdown({
     <div
       className={classNames({
         "px-1.5 py-[3px] bg-white rounded-md border border-blue": small,
+        "flex flex-wrap gap-x-2 items-center": !small,
       })}
     >
       {!small && (
-        <p className="text-blue uppercase text-[16px] font-semibold -mb-1">
+        <p
+          className={classNames(
+            "uppercase text-[16px] font-semibold",
+            darkBackground ? "text-yellow" : "text-blue",
+          )}
+        >
           Ends in
         </p>
       )}
       <div
         className={classNames(
           "flex items-center",
-          small ? "gap-1 justify-center" : "gap-1",
+          {
+            "gap-1 justify-center": small,
+            "gap-1": !small,
+          },
+          timeLeft.days !== 0 && !small ? "w-[122px]" : "w-[90px]",
         )}
       >
+        {timeLeft.days !== 0 && (
+          <div className={classNames("flex", { "items-end": small })}>
+            <span
+              className={classNames(
+                small
+                  ? darkBackground
+                    ? "font-semibold text-white text-[13.5px]"
+                    : "font-semibold text-blue text-[13.5px]"
+                  : darkBackground
+                    ? "text-[16px] text-white"
+                    : "text-[16px] text-grey",
+              )}
+            >
+              {timeLeft.days}
+            </span>
+            <span
+              className={classNames(
+                small ? "text-[12px] mb-[1.25px]" : "text-[16px]",
+                darkBackground ? "text-white" : "text-grey",
+              )}
+            >
+              d
+            </span>
+          </div>
+        )}
         <div className={classNames("flex", { "items-end": small })}>
           <span
             className={classNames(
               small
-                ? "font-semibold text-blue text-[13.5px]"
-                : "text-[16px] text-grey",
-            )}
-          >
-            {timeLeft.days}
-          </span>
-          <span
-            className={classNames(
-              "text-grey",
-              small ? "text-[12px] mb-[1.25px]" : "text-[16px]",
-            )}
-          >
-            d
-          </span>
-        </div>
-        <div className={classNames("flex", { "items-end": small })}>
-          <span
-            className={classNames(
-              "text-blue font-semibold",
-              small ? "text-[13.5px]" : "text-[16px] text-grey",
+                ? darkBackground
+                  ? "font-semibold text-white text-[13.5px]"
+                  : "font-semibold text-blue text-[13.5px]"
+                : darkBackground
+                  ? "text-[16px] text-white"
+                  : "text-[16px] text-grey",
             )}
           >
             {timeLeft.hours}
           </span>
           <span
             className={classNames(
-              "text-grey",
               small ? "text-[12px] mb-[1.25px]" : "text-[16px]",
+              darkBackground ? "text-white" : "text-grey",
             )}
           >
             h
@@ -132,16 +157,21 @@ export default function TenderCountdown({
         <div className={classNames("flex", { "items-end": small })}>
           <span
             className={classNames(
-              "text-blue font-semibold",
-              small ? "text-[13.5px]" : "text-[16px] text-grey",
+              small
+                ? darkBackground
+                  ? "font-semibold text-white text-[13.5px]"
+                  : "font-semibold text-blue text-[13.5px]"
+                : darkBackground
+                  ? "text-[16px] text-white"
+                  : "text-[16px] text-grey",
             )}
           >
             {timeLeft.minutes}
           </span>
           <span
             className={classNames(
-              "text-grey",
               small ? "text-[12px] mb-[1.25px]" : "text-[16px]",
+              darkBackground ? "text-white" : "text-grey",
             )}
           >
             m
@@ -149,11 +179,30 @@ export default function TenderCountdown({
         </div>
         {!small && (
           <div className="flex">
-            <span className="text-grey text-[16px]">{timeLeft.seconds}</span>
-            <span className="text-grey text-[16px]">s</span>
+            <span
+              className={classNames(
+                "text-[16px]",
+                darkBackground ? "text-white" : "text-grey",
+              )}
+            >
+              {timeLeft.seconds}
+            </span>
+            <span
+              className={classNames(
+                "text-[16px]",
+                darkBackground ? "text-white" : "text-grey",
+              )}
+            >
+              s
+            </span>
           </div>
         )}
       </div>
+      {!small && (
+        <p className="text-white/75 text-[16px] ml-1.5">
+          ({formatDateTime(tenderDeadline)})
+        </p>
+      )}
     </div>
   );
 }
