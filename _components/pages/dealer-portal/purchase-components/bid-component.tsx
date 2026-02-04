@@ -2,13 +2,15 @@
 
 import ButtonType from "@/_components/ui/buttons/button-type";
 import FormInputNumber from "@/_components/ui/form/form-input-number";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormInputCheckbox from "@/_components/ui/form/form-input-checkbox";
 import Link from "next/link";
 import { useAuth } from "@/_lib/auth/auth-context";
 import { sendBidEmails } from "@/_actions/bid-email-actions";
+import { placeBid, getDealerBidForVehicle } from "@/_actions/bid-actions";
 import TenderCountdown from "@/_components/ui/tender-countdown";
 import classNames from "classnames";
+import { Bid } from "@/_types/bid-types";
 
 interface BidComponentProps {
   status: string;
@@ -45,6 +47,7 @@ const BidComponent = ({
   colour,
   vin,
   tenderDeadline,
+  vehicleId,
 }: BidComponentProps) => {
   const { user } = useAuth();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -53,6 +56,24 @@ const BidComponent = ({
   const [bidSuccess, setBidSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [bidPrice, setBidPrice] = useState<string>("");
+  const [currentBid, setCurrentBid] = useState<Bid | null>(null);
+  const [isLoadingBid, setIsLoadingBid] = useState(true);
+
+  useEffect(() => {
+    const fetchExistingBid = async () => {
+      if (!user?.uid) return;
+
+      setIsLoadingBid(true);
+      const result = await getDealerBidForVehicle(vehicleId, user.uid);
+      if (result.success && result.data) {
+        setCurrentBid(result.data);
+        setBidPrice(result.data.bidPrice.toString());
+      }
+      setIsLoadingBid(false);
+    };
+
+    fetchExistingBid();
+  }, [vehicleId, user?.uid]);
 
   const isTenderClosed = tenderDeadline
     ? new Date(tenderDeadline) <= new Date()
@@ -79,7 +100,26 @@ const BidComponent = ({
     setError(null);
 
     try {
-      const result = await sendBidEmails({
+      const placeBidResult = await placeBid({
+        vehicleUid: vehicleId,
+        dealerUid: user.uid,
+        bidPrice: bidAmount,
+        vehicle: {
+          make,
+          model,
+          year,
+          registrationNumber,
+          featuredImageUrl,
+          tenderDeadline: tenderDeadline || "",
+        },
+      });
+
+      if (!placeBidResult.success) {
+        setError(placeBidResult.error);
+        return;
+      }
+
+      const emailResult = await sendBidEmails({
         userEmail: user.email,
         userUid: user.uid,
         registrationNumber,
@@ -99,12 +139,13 @@ const BidComponent = ({
         tenderDeadline,
       });
 
-      if (result.success) {
+      if (emailResult.success) {
         setBidSuccess(true);
         setShowConfirm(false);
         setAgreedToTerms(false);
+        setCurrentBid(placeBidResult.data || null);
       } else {
-        setError(result.error || "Failed to submit bid");
+        setError(emailResult.error || "Failed to submit bid");
       }
     } catch (err) {
       setError("An unexpected error occurred");
@@ -140,13 +181,23 @@ const BidComponent = ({
           <>
             {!isTenderClosed && (
               <>
+                {currentBid && !isLoadingBid && (
+                  <div className="col-span-2 bg-white/10 rounded-md p-3 mb-2">
+                    <p className="text-white text-[16px] uppercase flex items-center justify-between gap-2">
+                      Your current bid:{" "}
+                      <span className="text-white font-semiboldt text-paragraph">
+                        ${currentBid.bidPrice.toLocaleString()}
+                      </span>
+                    </p>
+                  </div>
+                )}
                 <FormInputNumber
                   placeholder="Enter your bid"
                   id="bidPrice"
                   name="bidPrice"
                   value={bidPrice}
                   onChange={(e) => setBidPrice(e.target.value)}
-                  disabled={status === "draft"}
+                  disabled={status === "draft" || isLoadingBid}
                   className="border-white bg-white"
                 />
                 {!showConfirm ? (
@@ -154,9 +205,9 @@ const BidComponent = ({
                     small
                     yellowStroke
                     onClick={handlePlaceBid}
-                    disabled={!bidPrice}
+                    disabled={!bidPrice || isLoadingBid}
                   >
-                    Place Bid
+                    {currentBid && !isLoadingBid ? "Update Bid" : "Place Bid"}
                   </ButtonType>
                 ) : (
                   <ButtonType
@@ -184,7 +235,7 @@ const BidComponent = ({
                         <Link
                           href="/terms-and-conditions"
                           target="_blank"
-                          className="underline hover:text-yellow transition-colors"
+                          className="underline text-white desktop:hover:text-yellow transition-colors"
                         >
                           Terms &amp; Conditions
                         </Link>
