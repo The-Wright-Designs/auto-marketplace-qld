@@ -28,7 +28,7 @@ function LoginContent() {
   const { setUser } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Use server action for form handling
   const [formResult, formAction, isPending] = useActionState(loginAction, null);
@@ -45,7 +45,7 @@ function LoginContent() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    setIsSubmitting(true);
+    setIsLoading(true);
 
     try {
       const formData = new FormData(e.currentTarget);
@@ -55,7 +55,7 @@ function LoginContent() {
       // Validate inputs
       if (!email || !password) {
         setError("Email and password are required");
-        setIsSubmitting(false);
+        setIsLoading(false);
         return;
       }
 
@@ -102,7 +102,7 @@ function LoginContent() {
       }
 
       setError(errorMessage);
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
@@ -110,6 +110,7 @@ function LoginContent() {
   useEffect(() => {
     if (formResult?.success && formResult.user) {
       setUser(formResult.user);
+      setIsLoading(false);
 
       const redirect = searchParams.get("redirect") || "/dealer-portal";
       router.push(redirect);
@@ -120,11 +121,9 @@ function LoginContent() {
   useEffect(() => {
     if (formResult && !formResult.success) {
       setError(formResult.message);
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   }, [formResult]);
-
-  const isFormDisabled = isPending || isSubmitting;
 
   return (
     <PageWrapper
@@ -154,7 +153,7 @@ function LoginContent() {
               placeholder="Email address"
               required
               label="Email"
-              disabled={isFormDisabled}
+              disabled={isPending}
             />
 
             <FormInputPassword
@@ -163,7 +162,7 @@ function LoginContent() {
               placeholder="Password"
               required
               label="Password"
-              disabled={isFormDisabled}
+              disabled={isPending}
               autoComplete="current-password"
             />
             {/* Display errors */}
@@ -176,8 +175,7 @@ function LoginContent() {
               <ButtonType
                 type="submit"
                 cssClasses="w-full"
-                disabled={isFormDisabled}
-                isLoading={isSubmitting}
+                isLoading={isLoading}
               >
                 Sign in
               </ButtonType>
@@ -193,7 +191,7 @@ function LoginContent() {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                disabled={isFormDisabled}
+                disabled={isPending}
                 className="text-blue text-[16px] font-light hover:text-blue/80 disabled:opacity-50"
               >
                 Forgot password?

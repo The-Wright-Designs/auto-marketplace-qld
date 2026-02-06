@@ -33,6 +33,10 @@ export async function placeBid(
       return { success: false, error: 'Dealer information not found.' };
     }
 
+    if (existingDoc.exists) {
+      return { success: false, error: 'You have already placed a bid on this vehicle.' };
+    }
+
     const dealerData = dealerSnapshot.docs[0].data();
     const dealer: BidDealerInfo = {
       firstName: dealerData.firstName || '',
@@ -41,38 +45,15 @@ export async function placeBid(
       phone: dealerData.phone || '',
     };
 
-    let bidData: Bid;
-
-    if (existingDoc.exists) {
-      const existing = existingDoc.data() as Bid;
-      const previousBids: BidHistoryEntry[] = [
-        ...existing.previousBids,
-        {
-          bidPrice: existing.bidPrice,
-          bidTimestamp: existing.bidTimestamp,
-        },
-      ];
-
-      bidData = {
-        vehicleUid,
-        dealerUid,
-        bidPrice,
-        bidTimestamp: new Date().toISOString(),
-        vehicle,
-        dealer,
-        previousBids,
-      };
-    } else {
-      bidData = {
-        vehicleUid,
-        dealerUid,
-        bidPrice,
-        bidTimestamp: new Date().toISOString(),
-        vehicle,
-        dealer,
-        previousBids: [],
-      };
-    }
+    const bidData: Bid = {
+      vehicleUid,
+      dealerUid,
+      bidPrice,
+      bidTimestamp: new Date().toISOString(),
+      vehicle,
+      dealer,
+      previousBids: [],
+    };
 
     await bidRef.set(bidData);
     return { success: true, data: bidData };

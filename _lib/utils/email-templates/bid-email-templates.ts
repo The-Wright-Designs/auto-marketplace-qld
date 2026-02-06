@@ -114,12 +114,9 @@ export const bidOwnerNotificationTemplate = ({
 };
 
 export const bidUserConfirmationTemplate = ({
-  userEmail,
-  registrationNumber,
   make,
   model,
   year,
-  listPrice,
   bidPrice,
   featuredImageUrl,
   bodyType,
@@ -128,7 +125,6 @@ export const bidUserConfirmationTemplate = ({
   fuelType,
   driveType,
   colour,
-  vin,
   dealerFirstName,
 }: BidEmailTemplateProps) => {
   return `<!DOCTYPE html>
@@ -238,27 +234,13 @@ export const bidUserConfirmationTemplate = ({
             : ""
         }
 
-        ${
-          vin
-            ? `<div class="field">
-          <span class="label">VIN:</span>
-          <span class="value">${vin}</span>
-        </div>`
-            : ""
-        }
-
-        <div class="field">
-          <span class="label">List Price:</span>
-          <span class="value">${listPrice}</span>
-        </div>
-
         <div class="bid-highlight">
           <span class="label">Your Bid:</span>
           <span class="value" style="font-size: 1.2rem; font-weight: bold;">${bidPrice}</span>
         </div>
 
         <h3 class="section-title">Next Steps:</h3>
-        <p>A member of the Auto Marketplace QLD team will review your bid and contact you within 1-2 business days.</p>
+        <p>If you placed the winning bid, a member of the Auto Marketplace QLD team will contact you within 1-2 business days upon the completion of the tender.</p>
 
         <div class="footer">
           <p>If you have any questions, please don&apos;t hesitate to contact us.</p>

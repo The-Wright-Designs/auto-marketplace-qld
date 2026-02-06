@@ -15,10 +15,10 @@ const ButtonType = ({
   traditionalButton,
   blueStroke,
   yellowStroke,
-  isLoading,
+  isLoading = false,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
-  const isButtonPending = isLoading !== undefined ? isLoading : pending;
+  const isPending = pending || isLoading;
 
   return (
     <button
@@ -28,17 +28,17 @@ const ButtonType = ({
       className={buttonStyles(
         cssClasses,
         disabled,
-        isButtonPending,
+        isPending,
         small,
         whiteButton,
         traditionalButton,
         blueStroke,
         yellowStroke,
       )}
-      disabled={disabled || isButtonPending}
+      disabled={disabled || isPending}
       title={title}
     >
-      {isButtonPending && type === "submit" ? (
+      {isPending && type === "submit" ? (
         <div className="py-[1px] min-w-[125px] flex justify-center">
           <div className="spinner-button" />
         </div>

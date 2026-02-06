@@ -126,7 +126,7 @@ export default function VehicleForm({
           tenderDeadline: initialData.tenderDeadline || "",
           status: initialData.status || "",
         }
-      : emptyFormData
+      : emptyFormData,
   );
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -194,7 +194,7 @@ export default function VehicleForm({
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -225,13 +225,20 @@ export default function VehicleForm({
       if (formData.colour) submitData.colour = formData.colour;
       if (formData.bodyType) submitData.bodyType = formData.bodyType;
       if (formData.fuelType) submitData.fuelType = formData.fuelType;
-      if (formData.engineCapacity !== "" && !Number.isNaN(Number(formData.engineCapacity))) {
+      if (
+        formData.engineCapacity !== "" &&
+        !Number.isNaN(Number(formData.engineCapacity))
+      ) {
         submitData.engineCapacity = Number(formData.engineCapacity);
       }
       if (formData.driveType) submitData.driveType = formData.driveType;
 
-      if (formData.transmission) submitData.transmission = formData.transmission;
-      if (formData.odometer !== "" && !Number.isNaN(Number(formData.odometer))) {
+      if (formData.transmission)
+        submitData.transmission = formData.transmission;
+      if (
+        formData.odometer !== "" &&
+        !Number.isNaN(Number(formData.odometer))
+      ) {
         submitData.odometer = Number(formData.odometer);
       }
 
@@ -323,12 +330,12 @@ export default function VehicleForm({
             if (base64Images.length > 0) {
               const uploadResult = await uploadProcessedImagesToStorage(
                 vehicleId,
-                base64Images
+                base64Images,
               );
 
               if (uploadResult.success && uploadResult.data) {
                 const storagePaths = uploadResult.data.map(
-                  (filename) => `vehicles/${vehicleId}/${filename}`
+                  (filename) => `vehicles/${vehicleId}/${filename}`,
                 );
                 await partialUpdateVehicle(vehicleId, {
                   images: storagePaths,
@@ -348,8 +355,8 @@ export default function VehicleForm({
           mode === "create"
             ? "Vehicle created successfully! Redirecting..."
             : isDraft
-            ? "Vehicle saved as draft! Redirecting..."
-            : "Vehicle updated successfully! Redirecting..."
+              ? "Vehicle saved as draft! Redirecting..."
+              : "Vehicle updated successfully! Redirecting...",
         );
         setTimeout(() => {
           router.push("/dealer-portal/vehicles");
@@ -357,7 +364,7 @@ export default function VehicleForm({
         }, 1500);
       } else {
         setGlobalError(
-          result.error || "Failed to save vehicle. Please try again."
+          result.error || "Failed to save vehicle. Please try again.",
         );
         setIsSubmitting(false);
       }
@@ -366,7 +373,7 @@ export default function VehicleForm({
       setGlobalError(
         error instanceof Error
           ? error.message
-          : "An unexpected error occurred. Please try again."
+          : "An unexpected error occurred. Please try again.",
       );
       setIsSubmitting(false);
     }
@@ -390,7 +397,7 @@ export default function VehicleForm({
         }, 1500);
       } else {
         setGlobalError(
-          result.error || "Failed to delete vehicle. Please try again."
+          result.error || "Failed to delete vehicle. Please try again.",
         );
       }
     } catch (error) {
@@ -398,7 +405,7 @@ export default function VehicleForm({
       setGlobalError(
         error instanceof Error
           ? error.message
-          : "An unexpected error occurred. Please try again."
+          : "An unexpected error occurred. Please try again.",
       );
     } finally {
       setIsDeleting(false);
@@ -537,12 +544,7 @@ export default function VehicleForm({
       </div>
 
       <div className="flex flex-col tablet:flex-row gap-5 pt-10">
-        <ButtonType
-          type="submit"
-          cssClasses="bg-blue text-white"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
+        <ButtonType type="submit" cssClasses="bg-blue text-white">
           {mode === "create"
             ? `Create Vehicle - As ${formData.status?.charAt(0).toUpperCase()}${
                 formData.status?.slice(1) || "Draft"

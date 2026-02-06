@@ -14,7 +14,6 @@ interface PasswordResetModalProps {
 function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formResult, formAction] = useActionState(resendResetLinkAction, null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,8 +26,6 @@ function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
     if (!executeRecaptcha) {
       return;
     }
-
-    setIsSubmitting(true);
 
     try {
       const recaptchaToken = await executeRecaptcha("password_reset_modal");
@@ -50,7 +47,6 @@ function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     if (formResult && formResult.success) {
-      setIsSubmitting(false);
       const timer = setTimeout(() => {
         onClose();
       }, 3000);
@@ -124,7 +120,6 @@ function PasswordResetModalContent({ onClose }: { onClose: () => void }) {
           <ButtonType
             type="submit"
             cssClasses="w-full"
-            isLoading={isSubmitting}
           >
             Send Reset Link
           </ButtonType>

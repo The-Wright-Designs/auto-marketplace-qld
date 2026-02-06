@@ -110,8 +110,6 @@ export const purchaseOwnerNotificationTemplate = ({
 };
 
 export const purchaseUserConfirmationTemplate = ({
-  userEmail,
-  registrationNumber,
   make,
   model,
   year,
@@ -123,7 +121,6 @@ export const purchaseUserConfirmationTemplate = ({
   fuelType,
   driveType,
   colour,
-  vin,
   dealerFirstName,
 }: PurchaseEmailTemplateProps) => {
   return `<!DOCTYPE html>
@@ -156,7 +153,7 @@ export const purchaseUserConfirmationTemplate = ({
 
         <div class="thank-you">
           <p><strong>Thank you for your purchase,${dealerFirstName ? ` ${dealerFirstName}` : ""}!</strong></p>
-          <p>Your purchase has been received and our team will be in touch with you soon to finalize the details.</p>
+          <p>Your purchase has been received and our team will be in touch with you soon to finalise the details.</p>
         </div>
 
         <img src="${featuredImageUrl}" alt="Vehicle" class="vehicle-image" />
@@ -228,15 +225,6 @@ export const purchaseUserConfirmationTemplate = ({
             ? `<div class="field">
           <span class="label">Colour:</span>
           <span class="value">${colour}</span>
-        </div>`
-            : ""
-        }
-
-        ${
-          vin
-            ? `<div class="field">
-          <span class="label">VIN:</span>
-          <span class="value">${vin}</span>
         </div>`
             : ""
         }
@@ -375,8 +363,6 @@ export const offerOwnerNotificationTemplate = ({
 };
 
 export const offerUserConfirmationTemplate = ({
-  userEmail,
-  registrationNumber,
   make,
   model,
   year,
@@ -389,7 +375,6 @@ export const offerUserConfirmationTemplate = ({
   fuelType,
   driveType,
   colour,
-  vin,
   dealerFirstName,
 }: OfferEmailTemplateProps) => {
   return `<!DOCTYPE html>
@@ -495,15 +480,6 @@ export const offerUserConfirmationTemplate = ({
             ? `<div class="field">
           <span class="label">Colour:</span>
           <span class="value">${colour}</span>
-        </div>`
-            : ""
-        }
-
-        ${
-          vin
-            ? `<div class="field">
-          <span class="label">VIN:</span>
-          <span class="value">${vin}</span>
         </div>`
             : ""
         }

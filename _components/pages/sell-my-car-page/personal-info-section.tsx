@@ -15,7 +15,6 @@ interface PersonalInfoSectionProps {
   onInputChange: (name: string, value: string) => void;
   imageCount: number;
   error: string | null;
-  isSubmitting?: boolean;
   rateLimitStatus?: {
     remaining: number;
     blocked: boolean;
@@ -28,7 +27,6 @@ const PersonalInfoSection = ({
   onInputChange,
   imageCount,
   error,
-  isSubmitting,
   rateLimitStatus,
 }: PersonalInfoSectionProps) => {
   return (
@@ -95,58 +93,10 @@ const PersonalInfoSection = ({
           )}
           <ButtonType
             type="submit"
-            disabled={imageCount < 2 || isSubmitting}
+            disabled={imageCount < 2}
             title={imageCount < 2 ? "Please upload at least 2 images" : ""}
           >
-            {isSubmitting ? (
-              <span>
-                Submitting
-                <span className="inline-flex">
-                  <span
-                    className="inline-block transition-all duration-300"
-                    style={{
-                      animation: "growShrink 1.4s infinite",
-                      animationDelay: "0s",
-                    }}
-                  >
-                    .
-                  </span>
-                  <span
-                    className="inline-block transition-all duration-300"
-                    style={{
-                      animation: "growShrink 1.4s infinite",
-                      animationDelay: "0.2s",
-                    }}
-                  >
-                    .
-                  </span>
-                  <span
-                    className="inline-block transition-all duration-300"
-                    style={{
-                      animation: "growShrink 1.4s infinite",
-                      animationDelay: "0.4s",
-                    }}
-                  >
-                    .
-                  </span>
-                </span>
-                <style jsx>{`
-                  @keyframes growShrink {
-                    0%,
-                    100% {
-                      transform: scale(0.8);
-                      opacity: 0.3;
-                    }
-                    50% {
-                      transform: scale(1.2);
-                      opacity: 1;
-                    }
-                  }
-                `}</style>
-              </span>
-            ) : (
-              "Submit Vehicle"
-            )}
+            Submit Vehicle
           </ButtonType>
           <RecaptchaNotice />
         </div>

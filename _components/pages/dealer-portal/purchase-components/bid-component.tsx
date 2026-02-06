@@ -67,7 +67,6 @@ const BidComponent = ({
       const result = await getDealerBidForVehicle(vehicleId, user.uid);
       if (result.success && result.data) {
         setCurrentBid(result.data);
-        setBidPrice(result.data.bidPrice.toString());
       }
       setIsLoadingBid(false);
     };
@@ -181,67 +180,69 @@ const BidComponent = ({
           <>
             {!isTenderClosed && (
               <>
-                {currentBid && !isLoadingBid && (
-                  <div className="col-span-2 bg-white/10 rounded-md p-3 mb-2">
-                    <p className="text-white text-[16px] uppercase flex items-center justify-between gap-2">
-                      Your current bid:{" "}
-                      <span className="text-white font-semiboldt text-paragraph">
-                        ${currentBid.bidPrice.toLocaleString()}
-                      </span>
+                {currentBid && !isLoadingBid ? (
+                  <div className="col-span-2 py-5">
+                    <p className="text-white text-[18px]">
+                      You have already placed a bid on this vehicle.
                     </p>
                   </div>
-                )}
-                <FormInputNumber
-                  placeholder="Enter your bid"
-                  id="bidPrice"
-                  name="bidPrice"
-                  value={bidPrice}
-                  onChange={(e) => setBidPrice(e.target.value)}
-                  disabled={status === "draft" || isLoadingBid}
-                  className="border-white bg-white"
-                />
-                {!showConfirm ? (
-                  <ButtonType
-                    small
-                    yellowStroke
-                    onClick={handlePlaceBid}
-                    disabled={!bidPrice || isLoadingBid}
-                  >
-                    {currentBid && !isLoadingBid ? "Update Bid" : "Place Bid"}
-                  </ButtonType>
                 ) : (
-                  <ButtonType
-                    small
-                    whiteButton
-                    disabled={!agreedToTerms || isSubmitting}
-                    onClick={handleConfirmBid}
-                  >
-                    {isSubmitting ? "Processing..." : "Confirm"}
-                  </ButtonType>
-                )}
+                  <>
+                    <FormInputNumber
+                      placeholder="Enter your bid"
+                      id="bidPrice"
+                      name="bidPrice"
+                      value={bidPrice}
+                      onChange={(e) => setBidPrice(e.target.value)}
+                      disabled={status === "draft" || isLoadingBid}
+                      className="border-white bg-white"
+                    />
+                    {!showConfirm ? (
+                      <ButtonType
+                        small
+                        yellowStroke
+                        onClick={handlePlaceBid}
+                        disabled={!bidPrice || isLoadingBid}
+                      >
+                        Place Bid
+                      </ButtonType>
+                    ) : (
+                      <ButtonType
+                        small
+                        whiteButton
+                        disabled={!agreedToTerms || isSubmitting}
+                        onClick={handleConfirmBid}
+                      >
+                        {isSubmitting ? "Processing..." : "Confirm"}
+                      </ButtonType>
+                    )}
 
-                {showConfirm && (
-                  <div className="mt-2 min-[500px]:col-span-2">
-                    <FormInputCheckbox
-                      id="bid-terms-agreement"
-                      name="bid-terms-agreement"
-                      checked={agreedToTerms}
-                      onChange={(e) =>
-                        setAgreedToTerms((e.target as HTMLInputElement).checked)
-                      }
-                    >
-                      <span className="text-white">
-                        By confirming this bid, you are agreeing to our{" "}
-                        <Link
-                          href="/terms-and-conditions"
-                          target="_blank"
-                          className="underline text-white desktop:hover:text-yellow transition-colors"
+                    {showConfirm && (
+                      <div className="mt-2 min-[500px]:col-span-2">
+                        <FormInputCheckbox
+                          id="bid-terms-agreement"
+                          name="bid-terms-agreement"
+                          checked={agreedToTerms}
+                          onChange={(e) =>
+                            setAgreedToTerms(
+                              (e.target as HTMLInputElement).checked,
+                            )
+                          }
                         >
-                          Terms &amp; Conditions
-                        </Link>
-                      </span>
-                    </FormInputCheckbox>
-                  </div>
+                          <span className="text-white">
+                            By confirming this bid, you are agreeing to our{" "}
+                            <Link
+                              href="/terms-and-conditions"
+                              target="_blank"
+                              className="underline text-white desktop:hover:text-yellow transition-colors"
+                            >
+                              Terms &amp; Conditions
+                            </Link>
+                          </span>
+                        </FormInputCheckbox>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {error && (

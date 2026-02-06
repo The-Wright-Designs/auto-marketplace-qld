@@ -29,8 +29,7 @@ const FormInputText = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        value={value ?? ""}
-        onChange={onChange}
+        {...(value !== undefined ? { value, onChange } : {})}
         className={formInputStyles(className, disabled, !!error)}
       />
     </div>

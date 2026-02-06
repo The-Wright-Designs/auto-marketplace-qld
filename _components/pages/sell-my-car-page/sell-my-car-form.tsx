@@ -16,7 +16,6 @@ const SellMyCarForm = () => {
   const [showFormSubmitted, setShowFormSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [imageCount, setImageCount] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -60,7 +59,6 @@ const SellMyCarForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setError(null);
 
     try {
@@ -68,9 +66,8 @@ const SellMyCarForm = () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         if (!executeRecaptcha) {
           setError(
-            "Security verification unavailable. Please refresh the page and try again."
+            "Security verification unavailable. Please refresh the page and try again.",
           );
-          setIsSubmitting(false);
           return;
         }
       }
@@ -109,8 +106,6 @@ const SellMyCarForm = () => {
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
       console.error("Sell my car form error:", err);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -157,7 +152,6 @@ const SellMyCarForm = () => {
                   onInputChange={handleInputChange}
                   imageCount={imageCount}
                   error={error}
-                  isSubmitting={isSubmitting}
                 />
                 <VehicleInfoSection
                   formData={formData}
@@ -170,60 +164,12 @@ const SellMyCarForm = () => {
                 <ButtonType
                   type="submit"
                   cssClasses="w-full min-[600px]:w-auto desktop-small:px-10"
-                  disabled={imageCount < 2 || isSubmitting}
+                  disabled={imageCount < 2}
                   title={
                     imageCount < 2 ? "Please upload at least 2 images" : ""
                   }
                 >
-                  {isSubmitting ? (
-                    <span>
-                      Submitting
-                      <span className="inline-flex">
-                        <span
-                          className="inline-block transition-all duration-300"
-                          style={{
-                            animation: "growShrink 1.4s infinite",
-                            animationDelay: "0s",
-                          }}
-                        >
-                          .
-                        </span>
-                        <span
-                          className="inline-block transition-all duration-300"
-                          style={{
-                            animation: "growShrink 1.4s infinite",
-                            animationDelay: "0.2s",
-                          }}
-                        >
-                          .
-                        </span>
-                        <span
-                          className="inline-block transition-all duration-300"
-                          style={{
-                            animation: "growShrink 1.4s infinite",
-                            animationDelay: "0.4s",
-                          }}
-                        >
-                          .
-                        </span>
-                      </span>
-                      <style jsx>{`
-                        @keyframes growShrink {
-                          0%,
-                          100% {
-                            transform: scale(0.8);
-                            opacity: 0.3;
-                          }
-                          50% {
-                            transform: scale(1.2);
-                            opacity: 1;
-                          }
-                        }
-                      `}</style>
-                    </span>
-                  ) : (
-                    "Submit Vehicle"
-                  )}
+                  Submit Vehicle
                 </ButtonType>
                 <RecaptchaNotice />
                 {imageCount < 2 && (
