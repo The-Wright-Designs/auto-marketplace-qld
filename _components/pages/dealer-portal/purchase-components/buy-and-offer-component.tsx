@@ -3,7 +3,7 @@
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { formatPrice } from "../vehicles/vehicle-detail-view";
 import FormInputNumber from "@/_components/ui/form/form-input-number";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import classNames from "classnames";
 import FormInputCheckbox from "@/_components/ui/form/form-input-checkbox";
 import Link from "next/link";
@@ -60,22 +60,28 @@ const BuyAndOfferComponent = ({
   const [currentPurchase, setCurrentPurchase] = useState<Purchase | null>(null);
   const [isLoadingPurchase, setIsLoadingPurchase] = useState(true);
 
-  useEffect(() => {
-    const fetchExistingPurchase = async () => {
-      if (!user?.uid) return;
+  const fetchExistingPurchase = useCallback(async () => {
+    if (!user?.uid) return;
 
-      setIsLoadingPurchase(true);
-      const result = await getDealerPurchaseForVehicle(vehicleId, user.uid);
-      if (result.success && result.data) {
-        setCurrentPurchase(result.data);
+    setIsLoadingPurchase(true);
+    const result = await getDealerPurchaseForVehicle(vehicleId, user.uid);
+    if (result.success && result.data) {
+      setCurrentPurchase(result.data);
+      if (activeTab === "offer") {
+        setActiveTab("buy");
       }
-      setIsLoadingPurchase(false);
-    };
+    }
+    setIsLoadingPurchase(false);
+  }, [user?.uid, vehicleId, activeTab]);
 
+  useEffect(() => {
     fetchExistingPurchase();
-  }, [vehicleId, user?.uid]);
+  }, [fetchExistingPurchase]);
 
   const handleTabChange = (tab: "buy" | "offer") => {
+    if (tab === "offer" && currentPurchase) {
+      return;
+    }
     setActiveTab(tab);
     setShowConfirm(false);
     setAgreedToTerms(false);
@@ -118,6 +124,7 @@ const BuyAndOfferComponent = ({
         setPurchaseSuccess(true);
         setShowConfirm(false);
         setAgreedToTerms(false);
+        await fetchExistingPurchase();
       } else {
         setError(result.error || "Failed to complete purchase");
       }
@@ -205,11 +212,13 @@ const BuyAndOfferComponent = ({
         </button>
         <button
           onClick={() => handleTabChange("offer")}
+          disabled={!!currentPurchase && !isLoadingPurchase}
           className={classNames(
             "border-2  border-white grid place-items-center p-2 min-[500px]:rounded-tr-md min-[500px]:border-l-0 transition-colors duration-300",
             {
               "bg-yellow min-[500px]:bg-white": activeTab === "offer",
               "bg-yellow/30 min-[500px]:bg-transparent": activeTab !== "offer",
+              "opacity-50 cursor-not-allowed": !!currentPurchase && !isLoadingPurchase,
             },
           )}
         >
