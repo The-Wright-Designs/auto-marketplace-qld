@@ -12,6 +12,7 @@ import {
   PurchaseEmailTemplateProps,
   OfferEmailTemplateProps,
 } from "@/_types/email-types";
+import { recordPurchase } from "@/_actions/purchase-actions";
 
 interface MailOptions {
   from: string;
@@ -24,6 +25,7 @@ interface MailOptions {
 interface PurchaseEmailData {
   userEmail: string;
   userUid: string;
+  vehicleId: string;
   registrationNumber: string;
   make: string;
   model: string;
@@ -76,6 +78,26 @@ export async function sendPurchaseEmails(
   error?: string;
 }> {
   try {
+    const purchaseRecord = await recordPurchase({
+      vehicleUid: purchaseData.vehicleId,
+      dealerUid: purchaseData.userUid,
+      purchasePrice: purchaseData.price,
+      vehicle: {
+        make: purchaseData.make,
+        model: purchaseData.model,
+        year: purchaseData.year,
+        registrationNumber: purchaseData.registrationNumber,
+        featuredImageUrl: purchaseData.featuredImageUrl,
+      },
+    });
+
+    if (!purchaseRecord.success) {
+      return {
+        success: false,
+        error: purchaseRecord.error,
+      };
+    }
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST as string,
       port: 587,

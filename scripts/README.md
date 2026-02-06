@@ -9,6 +9,7 @@ Initializes the Firestore `vehicles` collection with 6 sample vehicle listings f
 ### Purpose
 
 This script quickly populates your Firestore database with realistic sample vehicles, allowing you to:
+
 - Test vehicle listing queries and filters
 - Develop UI components for vehicle display
 - Test pagination and sorting functionality
@@ -21,6 +22,7 @@ npm run init-vehicles <admin-uid>
 ```
 
 **Example:**
+
 ```bash
 npm run init-vehicles "883jEfvHG7Pc6srpEauwB77D9293"
 ```
@@ -63,20 +65,21 @@ The script creates 6 diverse sample vehicles:
 
 ### Sample Vehicle Breakdown
 
-| Make | Model | Year | Type | Price | Status |
-|------|-------|------|------|-------|--------|
-| Toyota | Camry | 2022 | Buy-Now | $28,500 | Active |
-| Ford | Ranger | 2020 | Tender | $32,000* | Active |
-| Mazda | CX-5 | 2023 | Buy-Now | $42,500 | Active |
-| Holden | Commodore | 2019 | Tender | $15,000* | Draft |
-| Hyundai | i30 | 2021 | Buy-Now | $22,000 | Active |
-| Volkswagen | Golf | 2018 | Tender | $18,500* | Active |
+| Make       | Model     | Year | Type    | Price     | Status |
+| ---------- | --------- | ---- | ------- | --------- | ------ |
+| Toyota     | Camry     | 2022 | Buy-Now | $28,500   | Active |
+| Ford       | Ranger    | 2020 | Tender  | $32,000\* | Active |
+| Mazda      | CX-5      | 2023 | Buy-Now | $42,500   | Active |
+| Holden     | Commodore | 2019 | Tender  | $15,000\* | Draft  |
+| Hyundai    | i30       | 2021 | Buy-Now | $22,000   | Active |
+| Volkswagen | Golf      | 2018 | Tender  | $18,500\* | Active |
 
-*Reserve price shown
+\*Reserve price shown
 
 ### After Running
 
 Once complete:
+
 1. Check Firebase Console → Firestore → `vehicles` collection
 2. You should see 6 documents with all vehicle data
 3. Ready to:
@@ -94,14 +97,17 @@ Once complete:
 ### Troubleshooting
 
 **Error: "Service account object must contain a string 'project_id' property"**
+
 - Ensure `.env.local` contains all three Firebase Admin credentials
 - Check that the script is using `--env-file=.env.local` flag
 
 **Error: "auth/user-not-found"**
+
 - Verify the admin UID is valid
 - Check Firebase Console → Authentication → Users
 
 **Documents not appearing**
+
 - Check Firebase Console → Firestore Database → Collections
 - Verify you're looking at the correct Firebase project
 - Check browser cache (hard refresh)
@@ -132,7 +138,6 @@ const result = await createVehicle({
   model: "Camry",
   vin: "VIN123456789",
   colour: "White",
-  // ... other fields
   listingType: "buy-now",
   price: 28500,
   images: ["image0.jpg"],
@@ -177,7 +182,7 @@ const uploadResult = await uploadVehicleImages("vehicleId123", [
 // Delete an image
 const deleteImageResult = await deleteVehicleImage(
   "vehicleId123",
-  "image0.jpg"
+  "image0.jpg",
 );
 ```
 
@@ -200,10 +205,12 @@ interface ActionResult<T> {
 Creates a new vehicle listing.
 
 **Requirements:**
+
 - User must have admin claim (`admin: true`)
 - Input must validate against `createVehicleSchema`
 
 **Returns:**
+
 - Success: `{ id: string }` - The created vehicle's ID
 - Error: Error message if validation fails or user lacks permissions
 
@@ -212,6 +219,7 @@ Creates a new vehicle listing.
 Fetches a single vehicle by ID.
 
 **Returns:**
+
 - Success: `Vehicle` - Full vehicle object
 - Error: "Vehicle not found" or error message
 
@@ -220,16 +228,18 @@ Fetches a single vehicle by ID.
 Lists vehicles with optional filtering and pagination.
 
 **Filters:**
+
 ```typescript
 interface ListVehiclesFilters {
   listingType?: "tender" | "buy-now";
   status?: "draft" | "active" | "sold" | "delisted";
-  limit?: number;        // Default: 20
-  offset?: number;       // Default: 0
+  limit?: number; // Default: 20
+  offset?: number; // Default: 0
 }
 ```
 
 **Returns:**
+
 - Success: `Vehicle[]` - Array of matching vehicles
 - Error: Error message
 
@@ -238,11 +248,13 @@ interface ListVehiclesFilters {
 Updates an existing vehicle.
 
 **Requirements:**
+
 - User must have admin claim
 - Input is partial - only provided fields are updated
 - Images in input are merged with existing images
 
 **Returns:**
+
 - Success: `{ id: string }`
 - Error: "Vehicle not found" or error message
 
@@ -251,13 +263,16 @@ Updates an existing vehicle.
 Deletes a vehicle.
 
 **Behavior:**
+
 - **Soft delete** (default): Changes status to "delisted", preserves data
 - **Hard delete**: Removes document and all Storage images
 
 **Requirements:**
+
 - User must have admin claim
 
 **Returns:**
+
 - Success: `{ id: string }`
 - Error: "Vehicle not found" or error message
 
@@ -266,10 +281,12 @@ Deletes a vehicle.
 Adds images to a vehicle's media array.
 
 **Requirements:**
+
 - User must have admin claim
 - Vehicle must exist
 
 **Returns:**
+
 - Success: `{ images: string[] }` - All images (existing + new)
 - Error: "Vehicle not found" or error message
 
@@ -278,15 +295,18 @@ Adds images to a vehicle's media array.
 Removes an image from a vehicle.
 
 **Behavior:**
+
 - Deletes image from Storage
 - Updates media array in Firestore
 - If deleted image was primary, updates primary image to first remaining image
 
 **Requirements:**
+
 - User must have admin claim
 - Vehicle must exist
 
 **Returns:**
+
 - Success: `{ images: string[] }` - Remaining images
 - Error: "Vehicle not found" or error message
 
@@ -299,6 +319,7 @@ Sets admin custom claims on Firebase users to grant owner/admin access to the de
 ### Purpose
 
 This script grants the `admin: true` custom claim to specified Firebase users, allowing them to:
+
 - Access the "Vehicles" page in the dealer portal
 - Manage vehicle listings for tenders and immediate purchase
 - Perform owner-specific administrative tasks
@@ -310,6 +331,7 @@ npm run set-admin-claims <uid1> <uid2> ...
 ```
 
 **Example:**
+
 ```bash
 npm run set-admin-claims "883jEfvHG7Pc6srpEauwB77D9293" "vABl2i5z17TpzBuPhDSPjZ79HK52"
 ```
@@ -338,6 +360,7 @@ npm run set-admin-claims "883jEfvHG7Pc6srpEauwB77D9293" "vABl2i5z17TpzBuPhDSPjZ7
 ### How It Works
 
 The script:
+
 1. Accepts Firebase user UIDs as command-line arguments
 2. Uses Firebase Admin SDK to set custom claims
 3. Verifies the claim was set successfully
@@ -362,14 +385,17 @@ Custom claims are added to the user's JWT token and are available throughout the
 ### Troubleshooting
 
 **Error: "Service account object must contain a string 'project_id' property"**
+
 - Ensure `.env.local` contains all three Firebase Admin credentials
 - Check that the script is using `--env-file=.env.local` flag in package.json
 
 **Error: "auth/user-not-found"**
+
 - Verify the UID exists in Firebase Console
 - Ensure you copied the UID correctly (no extra spaces)
 
 **Changes not taking effect**
+
 - Users must log out and log back in to refresh their authentication token
 - Check browser console for any errors
 - Verify claim was set by checking Firebase Console → Authentication → Users → Custom Claims

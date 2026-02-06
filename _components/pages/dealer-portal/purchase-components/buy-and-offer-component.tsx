@@ -3,7 +3,7 @@
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { formatPrice } from "../vehicles/vehicle-detail-view";
 import FormInputNumber from "@/_components/ui/form/form-input-number";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames";
 import FormInputCheckbox from "@/_components/ui/form/form-input-checkbox";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import {
   sendPurchaseEmails,
   sendOfferEmails,
 } from "@/_actions/purchase-email-actions";
+import { getDealerPurchaseForVehicle } from "@/_actions/purchase-actions";
+import { Purchase } from "@/_types/purchase-types";
 
 interface BuyAndOfferComponentProps {
   vehiclePrice: number | undefined;
@@ -55,6 +57,23 @@ const BuyAndOfferComponent = ({
   const [offerSuccess, setOfferSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [offerPrice, setOfferPrice] = useState<string>("");
+  const [currentPurchase, setCurrentPurchase] = useState<Purchase | null>(null);
+  const [isLoadingPurchase, setIsLoadingPurchase] = useState(true);
+
+  useEffect(() => {
+    const fetchExistingPurchase = async () => {
+      if (!user?.uid) return;
+
+      setIsLoadingPurchase(true);
+      const result = await getDealerPurchaseForVehicle(vehicleId, user.uid);
+      if (result.success && result.data) {
+        setCurrentPurchase(result.data);
+      }
+      setIsLoadingPurchase(false);
+    };
+
+    fetchExistingPurchase();
+  }, [vehicleId, user?.uid]);
 
   const handleTabChange = (tab: "buy" | "offer") => {
     setActiveTab(tab);
@@ -79,6 +98,7 @@ const BuyAndOfferComponent = ({
       const result = await sendPurchaseEmails({
         userEmail: user.email,
         userUid: user.uid,
+        vehicleId,
         registrationNumber,
         make,
         model,
@@ -220,51 +240,64 @@ const BuyAndOfferComponent = ({
             </div>
           ) : (
             <>
-              <p className="text-white text-center text-[24px] font-semibold">
-                {formatPrice(vehiclePrice)}
-              </p>
-              {!showConfirm ? (
-                <ButtonType
-                  small
-                  yellowStroke
-                  onClick={() => setShowConfirm(true)}
-                  cssClasses="w-full min-[500px]:w-auto"
-                >
-                  Buy Now
-                </ButtonType>
-              ) : (
-                <ButtonType
-                  small
-                  whiteButton
-                  disabled={!agreedToTerms || isSubmitting}
-                  onClick={handleConfirmPurchase}
-                >
-                  {isSubmitting ? "Processing..." : "Confirm"}
-                </ButtonType>
-              )}
-
-              {showConfirm && (
-                <div className="mt-2 min-[500px]:col-span-2">
-                  <FormInputCheckbox
-                    id="terms-agreement"
-                    name="terms-agreement"
-                    checked={agreedToTerms}
-                    onChange={(e) =>
-                      setAgreedToTerms((e.target as HTMLInputElement).checked)
-                    }
-                  >
-                    <span className="text-white">
-                      By confirming this purchase, you are agreeing to our{" "}
-                      <Link
-                        href="/terms-and-conditions"
-                        target="_blank"
-                        className="underline hover:text-yellow transition-colors"
-                      >
-                        Terms &amp; Conditions
-                      </Link>
-                    </span>
-                  </FormInputCheckbox>
+              {currentPurchase && !isLoadingPurchase ? (
+                <div className="col-span-2 py-5">
+                  <p className="text-white text-[18px]">
+                    You have already made an offer to purchase this vehicle.
+                  </p>
                 </div>
+              ) : (
+                <>
+                  <p className="text-white text-center text-[24px] font-semibold">
+                    {formatPrice(vehiclePrice)}
+                  </p>
+                  {!showConfirm ? (
+                    <ButtonType
+                      small
+                      yellowStroke
+                      onClick={() => setShowConfirm(true)}
+                      disabled={isLoadingPurchase}
+                      cssClasses="w-full min-[500px]:w-auto"
+                    >
+                      Buy Now
+                    </ButtonType>
+                  ) : (
+                    <ButtonType
+                      small
+                      whiteButton
+                      disabled={!agreedToTerms || isSubmitting}
+                      onClick={handleConfirmPurchase}
+                    >
+                      {isSubmitting ? "Processing..." : "Confirm"}
+                    </ButtonType>
+                  )}
+
+                  {showConfirm && (
+                    <div className="mt-2 min-[500px]:col-span-2">
+                      <FormInputCheckbox
+                        id="terms-agreement"
+                        name="terms-agreement"
+                        checked={agreedToTerms}
+                        onChange={(e) =>
+                          setAgreedToTerms(
+                            (e.target as HTMLInputElement).checked,
+                          )
+                        }
+                      >
+                        <span className="text-white">
+                          By confirming this purchase, you are agreeing to our{" "}
+                          <Link
+                            href="/terms-and-conditions"
+                            target="_blank"
+                            className="underline hover:text-yellow transition-colors"
+                          >
+                            Terms &amp; Conditions
+                          </Link>
+                        </span>
+                      </FormInputCheckbox>
+                    </div>
+                  )}
+                </>
               )}
 
               {error && (
