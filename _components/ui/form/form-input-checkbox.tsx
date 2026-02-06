@@ -24,7 +24,7 @@ const FormInputCheckbox = ({
         className={formCheckboxStyles(className, disabled)}
       />
       {children && (
-        <label htmlFor={id} className="text-16px font-normal">
+        <label htmlFor={id} className="-mt-[3px] text-16px font-normal">
           {children}
         </label>
       )}

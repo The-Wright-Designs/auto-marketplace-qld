@@ -141,12 +141,19 @@ export default function VehicleDetailView({
     },
     {
       title: "Registration",
-      fields: [
-        {
-          label: "Registration Expiry",
-          value: formatDate(vehicle.registrationExpiry),
-        },
-      ],
+      fields: vehicle.isUnregistered
+        ? [
+            {
+              label: "Status",
+              value: "Unregistered",
+            },
+          ]
+        : [
+            {
+              label: "Registration Expiry",
+              value: formatDate(vehicle.registrationExpiry),
+            },
+          ],
     },
   ];
 

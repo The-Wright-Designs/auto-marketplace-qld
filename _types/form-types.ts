@@ -55,8 +55,9 @@ export interface FormInputSelectProps extends FormInputBaseProps {
   placeholder?: string;
 }
 
-export interface FormInputCheckboxProps extends Omit<FormInputBaseProps, 'placeholder'> {
+export interface FormInputCheckboxProps extends Omit<FormInputBaseProps, 'placeholder' | 'onChange'> {
   checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children?: React.ReactNode;
 }
 

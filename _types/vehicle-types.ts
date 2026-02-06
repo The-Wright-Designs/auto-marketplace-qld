@@ -23,6 +23,7 @@ export interface VehicleBasicInfo {
   notes: string;
   registrationExpiry: string;
   registrationNumber: string;
+  isUnregistered?: boolean;
 }
 
 export interface VehicleListing {

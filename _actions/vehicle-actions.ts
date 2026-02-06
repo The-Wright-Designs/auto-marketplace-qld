@@ -135,6 +135,7 @@ export async function getVehicle(
       notes: data.notes,
       registrationExpiry: data.registrationExpiry,
       registrationNumber: data.registrationNumber,
+      isUnregistered: data.isUnregistered || false,
       listingType: data.listingType,
       price: data.price,
       reservePrice: data.reservePrice,

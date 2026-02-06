@@ -77,11 +77,9 @@ export const vehicleBasicInfoSchema = z.object({
     .min(1, "Modifications details are required (or 'None')")
     .max(500),
   notes: z.string().max(1000).optional(),
-  registrationExpiry: z.string().min(1, "Registration expiry is required"),
-  registrationNumber: z
-    .string()
-    .min(1, "Registration Number is required")
-    .max(20),
+  registrationExpiry: z.string().optional(),
+  registrationNumber: z.string().max(20).optional(),
+  isUnregistered: z.boolean().optional(),
 });
 
 export const vehicleListingSchema = z.object({
@@ -130,15 +128,6 @@ const baseSchema = z
   .partial();
 
 const draftRequiredFields = {
-  registrationNumber: z
-    .string({
-      error: (issue) =>
-        issue.input === undefined
-          ? "Registration number is required"
-          : "Registration number must be text",
-    })
-    .min(1, "Registration number is required")
-    .max(20),
   year: z
     .number({
       error: (issue) =>
@@ -284,14 +273,6 @@ const allActiveFields = {
     })
     .min(1, "Modifications details are required (or 'None')")
     .max(500),
-  registrationExpiry: z
-    .string({
-      error: (issue) =>
-        issue.input === undefined
-          ? "Registration expiry is required"
-          : "Registration expiry must be text",
-    })
-    .min(1, "Registration expiry is required"),
 };
 
 const refineTender = (data: any, ctx: z.RefinementCtx) => {
@@ -313,15 +294,36 @@ const refineTender = (data: any, ctx: z.RefinementCtx) => {
   }
 };
 
+const refineRegistration = (data: any, ctx: z.RefinementCtx) => {
+  if (!data.isUnregistered) {
+    if (!data.registrationNumber || data.registrationNumber.trim() === "") {
+      ctx.addIssue({
+        code: "custom",
+        message: "Registration number is required",
+        path: ["registrationNumber"],
+      });
+    }
+    if (!data.registrationExpiry || data.registrationExpiry.trim() === "") {
+      ctx.addIssue({
+        code: "custom",
+        message: "Registration expiry is required",
+        path: ["registrationExpiry"],
+      });
+    }
+  }
+};
+
 const draftSchema = baseSchema
   .extend(draftRequiredFields)
   .extend({ status: z.literal("draft") })
-  .superRefine(refineTender);
+  .superRefine(refineTender)
+  .superRefine(refineRegistration);
 
 const activeSchema = baseSchema
   .extend(allActiveFields)
   .extend({ status: z.literal("active") })
-  .superRefine(refineTender);
+  .superRefine(refineTender)
+  .superRefine(refineRegistration);
 
 const soldSchema = baseSchema.extend({ status: z.literal("sold") });
 

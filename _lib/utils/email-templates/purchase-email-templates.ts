@@ -72,10 +72,10 @@ export const purchaseOwnerNotificationTemplate = ({
 
         <h3 class="section-title">Vehicle Details:</h3>
 
-        <div class="field">
+        ${registrationNumber ? `<div class="field">
           <span class="label">Registration Number:</span>
           <span class="value">${registrationNumber}</span>
-        </div>
+        </div>` : ''}
 
         <div class="field">
           <span class="label">Make:</span>
@@ -320,10 +320,10 @@ export const offerOwnerNotificationTemplate = ({
 
         <h3 class="section-title">Vehicle Details:</h3>
 
-        <div class="field">
+        ${registrationNumber ? `<div class="field">
           <span class="label">Registration Number:</span>
           <span class="value">${registrationNumber}</span>
-        </div>
+        </div>` : ''}
 
         <div class="field">
           <span class="label">Make:</span>

@@ -54,6 +54,7 @@ interface FormData {
   notes: string;
   registrationNumber: string;
   registrationExpiry: string;
+  isUnregistered: boolean;
   listingType: string;
   price: number | string;
   reservePrice: number | string;
@@ -83,6 +84,7 @@ const emptyFormData: FormData = {
   notes: "",
   registrationNumber: "",
   registrationExpiry: "",
+  isUnregistered: false,
   listingType: "",
   price: "",
   reservePrice: "",
@@ -120,6 +122,7 @@ export default function VehicleForm({
           notes: initialData.notes,
           registrationNumber: initialData.registrationNumber,
           registrationExpiry: initialData.registrationExpiry,
+          isUnregistered: initialData.isUnregistered || false,
           listingType: initialData.listingType,
           price: initialData.price,
           reservePrice: initialData.reservePrice || "",
@@ -165,6 +168,7 @@ export default function VehicleForm({
         notes: initialData.notes,
         registrationNumber: initialData.registrationNumber,
         registrationExpiry: initialData.registrationExpiry,
+        isUnregistered: initialData.isUnregistered || false,
         listingType: initialData.listingType,
         price: initialData.price,
         reservePrice: initialData.reservePrice || "",
@@ -205,6 +209,24 @@ export default function VehicleForm({
       setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleUnregisteredChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setFormData((prev) => ({
+      ...prev,
+      isUnregistered: isChecked,
+      registrationNumber: isChecked ? "" : prev.registrationNumber,
+      registrationExpiry: isChecked ? "" : prev.registrationExpiry,
+    }));
+    if (isChecked) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.registrationNumber;
+        delete newErrors.registrationExpiry;
         return newErrors;
       });
     }
@@ -254,10 +276,13 @@ export default function VehicleForm({
       if (formData.modifications)
         submitData.modifications = formData.modifications;
       if (formData.notes) submitData.notes = formData.notes;
-      if (formData.registrationNumber)
-        submitData.registrationNumber = formData.registrationNumber;
-      if (formData.registrationExpiry)
-        submitData.registrationExpiry = formData.registrationExpiry;
+      submitData.isUnregistered = formData.isUnregistered;
+      if (!formData.isUnregistered) {
+        if (formData.registrationNumber)
+          submitData.registrationNumber = formData.registrationNumber;
+        if (formData.registrationExpiry)
+          submitData.registrationExpiry = formData.registrationExpiry;
+      }
       if (formData.listingType) submitData.listingType = formData.listingType;
       if (formData.price) submitData.price = Number(formData.price);
       if (formData.reservePrice)
@@ -504,8 +529,10 @@ export default function VehicleForm({
             formData={{
               registrationNumber: formData.registrationNumber,
               registrationExpiry: formData.registrationExpiry,
+              isUnregistered: formData.isUnregistered,
             }}
             onInputChange={handleInputChange}
+            onUnregisteredChange={handleUnregisteredChange}
             errors={errors}
             disabled={isSubmitting}
           />
