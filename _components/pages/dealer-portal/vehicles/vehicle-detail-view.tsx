@@ -158,7 +158,39 @@ export default function VehicleDetailView({
   ];
 
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-10 relative">
+      {vehicle.status === "sold" && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+          <div className="bg-white/80 p-10 rounded-md flex flex-col gap-5 items-center">
+            <h2 className="text-heading text-blue">Vehicle Sold</h2>
+            <ButtonType
+              type="button"
+              onClick={() => router.back()}
+              cssClasses="w-fit"
+              small
+            >
+              Back
+            </ButtonType>
+          </div>
+        </div>
+      )}
+
+      {vehicle.status === "delisted" && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+          <div className="bg-white/80 p-10 rounded-md flex flex-col gap-5 items-center">
+            <h2 className="text-heading text-blue">No Longer Available</h2>
+            <ButtonType
+              type="button"
+              onClick={() => router.back()}
+              cssClasses="w-fit"
+              small
+            >
+              Back
+            </ButtonType>
+          </div>
+        </div>
+      )}
+
       <ButtonType
         type="button"
         onClick={() => router.back()}
@@ -215,6 +247,7 @@ export default function VehicleDetailView({
         <div className="grid gap-10">
           {vehicle.listingType === "buy-now" && (
             <BuyAndOfferComponent
+              vehicleStatus={vehicle.status}
               vehiclePrice={vehicle.price}
               vehicleId={vehicle.id}
               registrationNumber={vehicle.registrationNumber}

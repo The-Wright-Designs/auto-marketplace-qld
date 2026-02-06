@@ -14,8 +14,10 @@ import {
 } from "@/_actions/purchase-email-actions";
 import { getDealerPurchaseForVehicle } from "@/_actions/purchase-actions";
 import { Purchase } from "@/_types/purchase-types";
+import { VehicleStatus } from "@/_types/vehicle-types";
 
 interface BuyAndOfferComponentProps {
+  vehicleStatus: VehicleStatus;
   vehiclePrice: number | undefined;
   vehicleId: string;
   registrationNumber: string;
@@ -33,6 +35,7 @@ interface BuyAndOfferComponentProps {
 }
 
 const BuyAndOfferComponent = ({
+  vehicleStatus,
   vehiclePrice,
   vehicleId,
   registrationNumber,
@@ -59,6 +62,8 @@ const BuyAndOfferComponent = ({
   const [offerPrice, setOfferPrice] = useState<string>("");
   const [currentPurchase, setCurrentPurchase] = useState<Purchase | null>(null);
   const [isLoadingPurchase, setIsLoadingPurchase] = useState(true);
+
+  const isVehicleActive = vehicleStatus === "active";
 
   const fetchExistingPurchase = useCallback(async () => {
     if (!user?.uid) return;
@@ -249,7 +254,13 @@ const BuyAndOfferComponent = ({
             </div>
           ) : (
             <>
-              {currentPurchase && !isLoadingPurchase ? (
+              {!isVehicleActive ? (
+                <div className="col-span-2 py-5">
+                  <p className="text-white text-[18px]">
+                    This vehicle is not available for purchase.
+                  </p>
+                </div>
+              ) : currentPurchase && !isLoadingPurchase ? (
                 <div className="col-span-2 py-5">
                   <p className="text-white text-[18px]">
                     You have already made an offer to purchase this vehicle.
@@ -332,27 +343,37 @@ const BuyAndOfferComponent = ({
             </div>
           ) : (
             <>
-              <FormInputNumber
-                placeholder="Enter your offer"
-                id="offerPrice"
-                name="offerPrice"
-                value={offerPrice}
-                onChange={(e) => setOfferPrice(e.target.value)}
-                className="border-white bg-white"
-              />
-              <ButtonType
-                small
-                yellowStroke
-                onClick={handleSubmitOffer}
-                disabled={isSubmitting || !offerPrice}
-              >
-                {isSubmitting ? "Submitting..." : "Submit Offer"}
-              </ButtonType>
-
-              {error && (
-                <div className="col-span-2 mt-2 bg-red/50 rounded-md p-3">
-                  <p className="text-white text-[14px]">{error}</p>
+              {!isVehicleActive ? (
+                <div className="col-span-2 py-5">
+                  <p className="text-white text-[18px]">
+                    This vehicle is not available for offers.
+                  </p>
                 </div>
+              ) : (
+                <>
+                  <FormInputNumber
+                    placeholder="Enter your offer"
+                    id="offerPrice"
+                    name="offerPrice"
+                    value={offerPrice}
+                    onChange={(e) => setOfferPrice(e.target.value)}
+                    className="border-white bg-white"
+                  />
+                  <ButtonType
+                    small
+                    yellowStroke
+                    onClick={handleSubmitOffer}
+                    disabled={isSubmitting || !offerPrice}
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Offer"}
+                  </ButtonType>
+
+                  {error && (
+                    <div className="col-span-2 mt-2 bg-red/50 rounded-md p-3">
+                      <p className="text-white text-[14px]">{error}</p>
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}

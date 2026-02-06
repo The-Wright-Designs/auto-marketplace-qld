@@ -605,7 +605,7 @@ export default function VehicleForm({
       {showDeleteConfirm && (
         <DeleteConfirmationModal
           title="Delete Vehicle"
-          description="Are you sure you want to delete this vehicle? This action cannot be undone."
+          description="Are you sure you want to delete this vehicle?"
           itemName={`${formData.year || "Unknown"} ${
             formData.make || "Unknown"
           } ${formData.model || "Unknown"}`}

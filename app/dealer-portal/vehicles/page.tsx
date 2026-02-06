@@ -466,7 +466,7 @@ export default function VehiclesPage() {
       {deleteConfirmId && (
         <DeleteConfirmationModal
           title="Delete Vehicle"
-          description="Are you sure you want to delete this vehicle? This action cannot be undone."
+          description="Are you sure you want to delete this vehicle?"
           isLoading={isDeleting}
           onConfirm={() => handleDelete(deleteConfirmId)}
           onCancel={() => setDeleteConfirmId(null)}

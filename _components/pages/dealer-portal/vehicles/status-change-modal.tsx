@@ -15,7 +15,7 @@ const STATUS_DESCRIPTIONS: Record<VehicleStatus, string> = {
   active: "This vehicle will be visible to the public.",
   sold: "This vehicle has been sold.",
   delisted:
-    "This vehicle has been delisted and is no longer available for sale.",
+    "This vehicle has been delisted and is no longer available for sale. IT WILL BE REMOVED FROM THE DEALER PORTAL COMPLETELY.",
 };
 
 interface StatusChangeModalProps {

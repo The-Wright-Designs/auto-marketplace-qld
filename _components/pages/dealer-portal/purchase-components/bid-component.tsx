@@ -78,6 +78,8 @@ const BidComponent = ({
     ? new Date(tenderDeadline) <= new Date()
     : false;
 
+  const isVehicleActive = status === "active";
+
   const handlePlaceBid = () => {
     setShowConfirm(true);
     setError(null);
@@ -178,7 +180,13 @@ const BidComponent = ({
           </div>
         ) : (
           <>
-            {!isTenderClosed && (
+            {!isVehicleActive ? (
+              <div className="col-span-2 py-5">
+                <p className="text-white text-[18px]">
+                  This vehicle is not available for bidding.
+                </p>
+              </div>
+            ) : !isTenderClosed ? (
               <>
                 {currentBid && !isLoadingBid ? (
                   <div className="col-span-2 py-5">
@@ -194,7 +202,7 @@ const BidComponent = ({
                       name="bidPrice"
                       value={bidPrice}
                       onChange={(e) => setBidPrice(e.target.value)}
-                      disabled={status === "draft" || isLoadingBid}
+                      disabled={isLoadingBid}
                       className="border-white bg-white"
                     />
                     {!showConfirm ? (
@@ -251,18 +259,20 @@ const BidComponent = ({
                   </div>
                 )}
               </>
-            )}
+            ) : null}
 
-            <div
-              className={classNames("phone:col-span-2", {
-                "border-t border-white pt-2": !isTenderClosed,
-              })}
-            >
-              <TenderCountdown
-                tenderDeadline={tenderDeadline}
-                darkBackground={true}
-              />
-            </div>
+            {isVehicleActive && (
+              <div
+                className={classNames("phone:col-span-2", {
+                  "border-t border-white pt-2": !isTenderClosed,
+                })}
+              >
+                <TenderCountdown
+                  tenderDeadline={tenderDeadline}
+                  darkBackground={true}
+                />
+              </div>
+            )}
           </>
         )}
       </div>
