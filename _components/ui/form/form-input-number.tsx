@@ -16,6 +16,7 @@ const FormInputNumber = ({
   value,
   onChange,
   error,
+  prefix,
 }: FormInputNumberProps) => {
   return (
     <div>
@@ -24,20 +25,27 @@ const FormInputNumber = ({
           {label}
         </label>
       )}
-      <input
-        type="number"
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        required={required}
-        min={min}
-        max={max}
-        step={step}
-        disabled={disabled}
-        value={value}
-        onChange={onChange}
-        className={`${formInputStyles(className, disabled, !!error)} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
-      />
+      <div className="relative">
+        {prefix && (
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-black/70">
+            {prefix}
+          </span>
+        )}
+        <input
+          type="number"
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          min={min}
+          max={max}
+          step={step}
+          disabled={disabled}
+          value={value}
+          onChange={onChange}
+          className={`${formInputStyles(className, disabled, !!error)} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${prefix ? "pl-7" : ""}`}
+        />
+      </div>
     </div>
   );
 };

@@ -358,6 +358,7 @@ const BuyAndOfferComponent = ({
                     value={offerPrice}
                     onChange={(e) => setOfferPrice(e.target.value)}
                     className="border-white bg-white"
+                    prefix="$"
                   />
                   <ButtonType
                     small

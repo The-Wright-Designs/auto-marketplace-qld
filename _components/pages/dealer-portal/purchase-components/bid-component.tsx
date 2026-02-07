@@ -212,6 +212,7 @@ const BidComponent = ({
                       onChange={(e) => setBidPrice(e.target.value)}
                       disabled={isLoadingBid}
                       className="border-white bg-white"
+                      prefix="$"
                     />
                     {!showConfirm ? (
                       <ButtonType

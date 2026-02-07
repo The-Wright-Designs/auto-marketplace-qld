@@ -55,7 +55,7 @@ export default function ListingDetailsSection({
         <FormInputNumber
           id="price"
           name="price"
-          placeholder="Price ($)"
+          placeholder="Price"
           label="Price (Buy Now)"
           min={0}
           step={1}
@@ -63,6 +63,7 @@ export default function ListingDetailsSection({
           onChange={onInputChange}
           disabled={disabled}
           error={errors?.price}
+          prefix="$"
         />
         {errors?.price && (
           <p className="text-red text-[16px] -mt-2">{errors.price}</p>
@@ -73,7 +74,7 @@ export default function ListingDetailsSection({
             <FormInputNumber
               id="reservePrice"
               name="reservePrice"
-              placeholder="Reserve Price ($) - Optional"
+              placeholder="Reserve Price - Optional"
               label="Reserve Price"
               min={0}
               step={1}
@@ -81,6 +82,7 @@ export default function ListingDetailsSection({
               onChange={onInputChange}
               error={errors?.reservePrice}
               disabled={disabled}
+              prefix="$"
             />
             {errors?.reservePrice && (
               <p className="text-red text-[16px] -mt-2">

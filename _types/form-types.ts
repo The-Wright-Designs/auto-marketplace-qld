@@ -32,6 +32,7 @@ export interface FormInputNumberProps extends FormInputBaseProps {
   min?: number;
   max?: number;
   step?: number;
+  prefix?: string;
 }
 
 export interface FormInputTelProps extends FormInputBaseProps {
