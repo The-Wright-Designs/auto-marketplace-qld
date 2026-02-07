@@ -72,7 +72,36 @@ export async function getDealerBids(dealerUid: string): Promise<ActionResponse<B
       .get();
 
     const bids = snapshot.docs.map((doc) => doc.data() as Bid);
-    return { success: true, data: bids };
+
+    const vehicleIds = [...new Set(bids.map(bid => bid.vehicleUid))];
+
+    const vehiclePromises = vehicleIds.map(id =>
+      adminDb.collection('vehicles').doc(id).get()
+    );
+    const vehicleDocs = await Promise.all(vehiclePromises);
+
+    const vehicleMap = new Map();
+    vehicleDocs.forEach(doc => {
+      if (doc.exists) {
+        vehicleMap.set(doc.id, doc.data());
+      }
+    });
+
+    const updatedBids = bids.map(bid => {
+      const vehicleData = vehicleMap.get(bid.vehicleUid);
+      if (vehicleData && vehicleData.tenderDeadline) {
+        return {
+          ...bid,
+          vehicle: {
+            ...bid.vehicle,
+            tenderDeadline: vehicleData.tenderDeadline,
+          },
+        };
+      }
+      return bid;
+    });
+
+    return { success: true, data: updatedBids };
   } catch (error) {
     console.error('Get dealer bids error:', error);
     return { success: false, error: 'Failed to fetch bids. Please try again.' };

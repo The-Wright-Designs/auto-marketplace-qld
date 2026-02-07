@@ -11,6 +11,7 @@ import { placeBid, getDealerBidForVehicle } from "@/_actions/bid-actions";
 import TenderCountdown from "@/_components/ui/tender-countdown";
 import classNames from "classnames";
 import { Bid } from "@/_types/bid-types";
+import ButtonLink from "@/_components/ui/buttons/button-link";
 
 interface BidComponentProps {
   status: string;
@@ -189,10 +190,17 @@ const BidComponent = ({
             ) : !isTenderClosed ? (
               <>
                 {currentBid && !isLoadingBid ? (
-                  <div className="col-span-2 py-5">
+                  <div className="col-span-2 py-5 flex flex-col gap-5 items-start">
                     <p className="text-white text-[18px]">
                       You have already placed a bid on this vehicle.
                     </p>
+                    <ButtonLink
+                      href="/dealer-portal/my-bids"
+                      ariaLabel="My Bids page"
+                      traditionalButton
+                    >
+                      My Bids
+                    </ButtonLink>
                   </div>
                 ) : (
                   <>

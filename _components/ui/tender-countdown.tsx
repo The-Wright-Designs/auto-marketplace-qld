@@ -107,7 +107,12 @@ export default function TenderCountdown({
         )}
       >
         {timeLeft.days !== 0 && (
-          <div className={classNames("flex", { "items-end": small })}>
+          <div
+            className={classNames("flex", {
+              "items-end": small,
+              hidden: timeLeft.days === 0 && small,
+            })}
+          >
             <span
               className={classNames(
                 small
@@ -177,26 +182,34 @@ export default function TenderCountdown({
             m
           </span>
         </div>
-        {!small && (
-          <div className="flex">
-            <span
-              className={classNames(
-                "text-[16px]",
-                darkBackground ? "text-white" : "text-grey",
-              )}
-            >
-              {timeLeft.seconds}
-            </span>
-            <span
-              className={classNames(
-                "text-[16px]",
-                darkBackground ? "text-white" : "text-grey",
-              )}
-            >
-              s
-            </span>
-          </div>
-        )}
+        <div
+          className={classNames("flex", {
+            "items-end": small,
+            hidden: timeLeft.days !== 0 && small,
+          })}
+        >
+          <span
+            className={classNames(
+              small
+                ? darkBackground
+                  ? "font-semibold text-white text-[13.5px]"
+                  : "font-semibold text-blue text-[13.5px]"
+                : darkBackground
+                  ? "text-[16px] text-white"
+                  : "text-[16px] text-grey",
+            )}
+          >
+            {timeLeft.seconds}
+          </span>
+          <span
+            className={classNames(
+              small ? "text-[12px] mb-[1.25px]" : "text-[16px]",
+              darkBackground ? "text-white" : "text-grey",
+            )}
+          >
+            s
+          </span>
+        </div>
       </div>
       {!small && (
         <p className="text-white/75 text-[16px] ml-1.5">
