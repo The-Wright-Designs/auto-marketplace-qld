@@ -96,7 +96,7 @@ export default function VehicleDetailView({
           ? [
               {
                 label: "Tender Deadline",
-                value: formatDateTime(vehicle.tenderDeadline),
+                value: `${formatDateTime(vehicle.tenderDeadline)} AEST/AEDT`,
               },
             ]
           : []),

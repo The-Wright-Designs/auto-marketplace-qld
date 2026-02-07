@@ -71,3 +71,22 @@ export interface BidEmailTemplateProps {
   dealerFullName?: string;
   dealerPhone?: string;
 }
+
+export interface TenderCloseBidEntry {
+  rank: number;
+  dealerName: string;
+  dealerEmail: string;
+  dealerPhone: string;
+  bidPrice: string;
+}
+
+export interface TenderCloseEmailTemplateProps {
+  make: string;
+  model: string;
+  year: number;
+  registrationNumber: string;
+  featuredImageUrl: string;
+  listPrice: string;
+  tenderDeadline: string;
+  bids: TenderCloseBidEntry[];
+}

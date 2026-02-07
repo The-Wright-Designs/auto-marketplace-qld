@@ -24,7 +24,7 @@ export default function BidCard({ bid }: BidCardProps) {
       onMouseEnter={() => setShowHover(true)}
       onMouseLeave={() => setShowHover(false)}
     >
-      <div className="bg-grey w-full overflow-hidden">
+      <div className="bg-grey w-full overflow-hidden relative">
         <Image
           src={imageSrc}
           alt={`${bid.vehicle.year} ${bid.vehicle.make} ${bid.vehicle.model}`}
@@ -38,6 +38,19 @@ export default function BidCard({ bid }: BidCardProps) {
             },
           )}
         />
+        {bid.tenderResult && (
+          <div
+            className={classNames(
+              "absolute top-2 right-2 px-3 py-1 rounded-md text-white text-[12px]",
+              {
+                "bg-green": bid.tenderResult === "won",
+                "bg-red": bid.tenderResult === "lost",
+              },
+            )}
+          >
+            {bid.tenderResult === "won" ? "Successful" : "Unsuccessful"}
+          </div>
+        )}
       </div>
       <ul
         className={classNames(

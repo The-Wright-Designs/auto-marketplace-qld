@@ -138,9 +138,9 @@ export default function VehiclesPage() {
     const filtered = vehicles.filter((vehicle) => {
       const query = searchQuery.toLowerCase();
       return (
-        vehicle.make.toLowerCase().includes(query) ||
-        vehicle.model.toLowerCase().includes(query) ||
-        vehicle.vin.toLowerCase().includes(query)
+        (vehicle.make?.toLowerCase() || "").includes(query) ||
+        (vehicle.model?.toLowerCase() || "").includes(query) ||
+        (vehicle.vin?.toLowerCase() || "").includes(query)
       );
     });
 

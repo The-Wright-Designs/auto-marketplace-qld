@@ -213,7 +213,7 @@ export default function TenderCountdown({
       </div>
       {!small && (
         <p className="text-white/75 text-[16px] ml-1.5">
-          ({formatDateTime(tenderDeadline)})
+          ({formatDateTime(tenderDeadline)} AEST/AEDT)
         </p>
       )}
     </div>

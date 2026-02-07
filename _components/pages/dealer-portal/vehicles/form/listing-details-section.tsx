@@ -103,6 +103,9 @@ export default function ListingDetailsSection({
               error={errors?.tenderDeadline}
               disabled={disabled}
             />
+            <p className="text-grey text-[14px] -mt-3">
+              Enter time in AEST/AEDT (Brisbane time)
+            </p>
             {errors?.tenderDeadline && (
               <p className="text-red text-[16px] -mt-2">
                 {errors.tenderDeadline}
