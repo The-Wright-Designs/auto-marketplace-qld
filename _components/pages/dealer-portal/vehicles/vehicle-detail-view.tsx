@@ -255,11 +255,9 @@ export default function VehicleDetailView({
               make={vehicle.make}
               model={vehicle.model}
               year={vehicle.year}
-              featuredImageUrl={
-                images.find(
-                  (img) => img.filename === vehicle.media?.primaryImage,
-                )?.url ||
-                images[0]?.url ||
+              featuredImagePath={
+                vehicle.media?.primaryImage ||
+                (vehicle.media?.images && vehicle.media.images[0]) ||
                 ""
               }
               bodyType={vehicle.bodyType}

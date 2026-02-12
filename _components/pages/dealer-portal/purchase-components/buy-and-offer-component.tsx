@@ -24,7 +24,7 @@ interface BuyAndOfferComponentProps {
   make: string;
   model: string;
   year: number;
-  featuredImageUrl: string;
+  featuredImagePath: string;
   bodyType?: string;
   transmission?: string;
   engineCapacity?: number;
@@ -42,7 +42,7 @@ const BuyAndOfferComponent = ({
   make,
   model,
   year,
-  featuredImageUrl,
+  featuredImagePath,
   bodyType,
   transmission,
   engineCapacity,
@@ -115,7 +115,7 @@ const BuyAndOfferComponent = ({
         model,
         year,
         price: vehiclePrice,
-        featuredImageUrl,
+        featuredImagePath,
         bodyType,
         transmission,
         engineCapacity,
@@ -160,13 +160,14 @@ const BuyAndOfferComponent = ({
       const result = await sendOfferEmails({
         userEmail: user.email,
         userUid: user.uid,
+        vehicleId,
         registrationNumber,
         make,
         model,
         year,
         listPrice: vehiclePrice,
         offerPrice: offerAmount,
-        featuredImageUrl,
+        featuredImagePath,
         bodyType,
         transmission,
         engineCapacity,
@@ -248,6 +249,7 @@ const BuyAndOfferComponent = ({
                 Purchase Confirmed!
               </p>
               <p className="text-white text-[16px]">
+                This vehicle has been marked as sold and removed from listings.
                 Confirmation emails have been sent. Our team will be in touch
                 soon.
               </p>

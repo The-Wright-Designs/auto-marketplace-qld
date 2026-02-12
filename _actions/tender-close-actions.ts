@@ -61,13 +61,21 @@ export async function processExpiredTenders(): Promise<{
         }
 
         const allBids = bidsResult.data || [];
+        const reservePrice = vehicleData.reservePrice || 0;
         const sortedBids = allBids.sort((a, b) => b.bidPrice - a.bidPrice);
-        const topBids = sortedBids.slice(0, 5);
+
+        const qualifyingBids = sortedBids.filter(
+          (bid) => bid.bidPrice >= reservePrice,
+        );
+        const topQualifyingBids = qualifyingBids.slice(0, 5);
 
         for (let i = 0; i < sortedBids.length; i++) {
           const bid = sortedBids[i];
           const bidDocId = `${bid.vehicleUid}_${bid.dealerUid}`;
-          const tenderResult = i === 0 ? "won" : "lost";
+
+          const meetsReserve = bid.bidPrice >= reservePrice;
+          const isHighestBid = i === 0;
+          const tenderResult = isHighestBid && meetsReserve ? "won" : "lost";
 
           try {
             await adminDb
@@ -82,7 +90,7 @@ export async function processExpiredTenders(): Promise<{
           }
         }
 
-        const formattedBids: TenderCloseBidEntry[] = topBids.map(
+        const formattedBids: TenderCloseBidEntry[] = topQualifyingBids.map(
           (bid, index) => ({
             rank: index + 1,
             dealerName: `${bid.dealer.firstName} ${bid.dealer.surname}`,
@@ -100,11 +108,18 @@ export async function processExpiredTenders(): Promise<{
         });
 
         let featuredImageUrl = "";
-        if (topBids.length > 0 && topBids[0].vehicle.featuredImageUrl) {
-          featuredImageUrl = topBids[0].vehicle.featuredImageUrl;
+        if (
+          topQualifyingBids.length > 0 &&
+          topQualifyingBids[0].vehicle.featuredImageUrl
+        ) {
+          featuredImageUrl = topQualifyingBids[0].vehicle.featuredImageUrl;
         } else if (vehicleData.media?.primaryImage) {
           featuredImageUrl = vehicleData.media.primaryImage;
         }
+
+        const formattedReservePrice = vehicleData.reservePrice
+          ? `$${vehicleData.reservePrice.toLocaleString("en-AU")}`
+          : undefined;
 
         const emailTemplateData: TenderCloseEmailTemplateProps = {
           make: vehicleData.make,
@@ -113,6 +128,7 @@ export async function processExpiredTenders(): Promise<{
           registrationNumber: vehicleData.registrationNumber || "",
           featuredImageUrl,
           listPrice: formattedListPrice,
+          reservePrice: formattedReservePrice,
           tenderDeadline: formattedDeadline,
           bids: formattedBids,
         };

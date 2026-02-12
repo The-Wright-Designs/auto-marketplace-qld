@@ -7,6 +7,7 @@ export const tenderCloseEmailTemplate = ({
   registrationNumber,
   featuredImageUrl,
   listPrice,
+  reservePrice,
   tenderDeadline,
   bids,
 }: TenderCloseEmailTemplateProps) => {
@@ -42,7 +43,7 @@ export const tenderCloseEmailTemplate = ({
       <div class="content">
         <h2>Tender Closed - Top Bidders</h2>
 
-        <p>The tender has closed for the following vehicle. Below are the top ${bids.length > 0 ? `${Math.min(bids.length, 5)} bidder${bids.length > 1 ? 's' : ''}` : 'bidders'}.</p>
+        <p>The tender has closed for the following vehicle.${bids.length > 0 ? ` Below are the top qualifying bidder${bids.length > 1 ? 's' : ''} that met the reserve price.` : ''}</p>
 
         <img src="${featuredImageUrl}" alt="Vehicle" class="vehicle-image" />
 
@@ -73,6 +74,11 @@ export const tenderCloseEmailTemplate = ({
           <span class="value">${listPrice}</span>
         </div>
 
+        ${reservePrice ? `<div class="field">
+          <span class="label">Reserve Price:</span>
+          <span class="value">${reservePrice}</span>
+        </div>` : ''}
+
         <div class="field">
           <span class="label">Tender Deadline:</span>
           <span class="value">${tenderDeadline}</span>
@@ -102,7 +108,7 @@ export const tenderCloseEmailTemplate = ({
         </table>
         ` : `
         <div class="no-bids">
-          <p><strong>No bids were received for this tender.</strong></p>
+          <p><strong>${reservePrice ? `No bids met the reserve price of ${reservePrice}.` : 'No bids were received for this tender.'}</strong></p>
         </div>
         `}
 

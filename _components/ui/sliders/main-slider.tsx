@@ -47,6 +47,7 @@ export default function MainSlider({
                 fill
                 className="object-contain"
                 priority={index === 0}
+                sizes="100vw (max-width:1280px), 600px"
               />
             </div>
           </SwiperSlide>

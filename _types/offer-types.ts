@@ -1,4 +1,4 @@
-export interface PurchaseVehicleInfo {
+export interface OfferVehicleInfo {
   make: string;
   model: string;
   year: number;
@@ -7,18 +7,19 @@ export interface PurchaseVehicleInfo {
   featuredImageUrl?: string;
 }
 
-export interface PurchaseDealerInfo {
+export interface OfferDealerInfo {
   firstName: string;
   surname: string;
   email: string;
   phone: string;
 }
 
-export interface Purchase {
+export interface Offer {
   vehicleUid: string;
   dealerUid: string;
-  purchasePrice: number;
-  purchaseTimestamp: string;
-  vehicle: PurchaseVehicleInfo;
-  dealer: PurchaseDealerInfo;
+  offerPrice: number;
+  listPrice: number;
+  offerTimestamp: string;
+  vehicle: OfferVehicleInfo;
+  dealer: OfferDealerInfo;
 }

@@ -1,7 +1,7 @@
 'use server';
 
 import { adminStorage } from '@/_lib/firebase/storage-admin';
-import { Bid } from '@/_types/bid-types';
+import { Offer } from '@/_types/offer-types';
 
 interface ActionResult<T> {
   success: boolean;
@@ -9,8 +9,8 @@ interface ActionResult<T> {
   error?: string;
 }
 
-export async function getBidImageUrls(
-  bids: Bid[]
+export async function getOfferImageUrls(
+  offers: Offer[]
 ): Promise<ActionResult<Record<string, string>>> {
   try {
     const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
@@ -24,11 +24,11 @@ export async function getBidImageUrls(
     const bucket = adminStorage.bucket(bucketName);
     const imageUrls: Record<string, string> = {};
 
-    for (const bid of bids) {
-      let imagePath = bid.vehicle.featuredImagePath;
+    for (const offer of offers) {
+      let imagePath = offer.vehicle.featuredImagePath;
 
-      if (!imagePath && bid.vehicle.featuredImageUrl) {
-        const urlMatch = bid.vehicle.featuredImageUrl.match(/\/([^/?]+\.[a-z]{3,4})(\?|$)/i);
+      if (!imagePath && offer.vehicle.featuredImageUrl) {
+        const urlMatch = offer.vehicle.featuredImageUrl.match(/\/([^/?]+\.[a-z]{3,4})(\?|$)/i);
         if (urlMatch) {
           imagePath = urlMatch[1];
         }
@@ -42,7 +42,7 @@ export async function getBidImageUrls(
       if (imagePath.startsWith('vehicles/')) {
         fullPath = imagePath;
       } else {
-        fullPath = `vehicles/${bid.vehicleUid}/${imagePath}`;
+        fullPath = `vehicles/${offer.vehicleUid}/${imagePath}`;
       }
 
       const file = bucket.file(fullPath);
@@ -52,7 +52,7 @@ export async function getBidImageUrls(
         expires: Date.now() + 60 * 60 * 1000,
       });
 
-      imageUrls[bid.vehicleUid] = url;
+      imageUrls[offer.vehicleUid] = url;
     }
 
     return {
@@ -63,7 +63,7 @@ export async function getBidImageUrls(
     const message = error instanceof Error ? error.message : 'Unknown error';
     return {
       success: false,
-      error: `Failed to get bid image URLs: ${message}`,
+      error: `Failed to get offer image URLs: ${message}`,
     };
   }
 }

@@ -2,6 +2,7 @@
 
 import nodemailer from "nodemailer";
 import { adminDb } from "@/_lib/firebase/firestore-admin";
+import { adminStorage } from "@/_lib/firebase/storage-admin";
 import {
   purchaseOwnerNotificationTemplate,
   purchaseUserConfirmationTemplate,
@@ -12,7 +13,11 @@ import {
   PurchaseEmailTemplateProps,
   OfferEmailTemplateProps,
 } from "@/_types/email-types";
-import { recordPurchase } from "@/_actions/purchase-actions";
+import {
+  recordPurchase,
+  updateVehicleStatusOnPurchase,
+} from "@/_actions/purchase-actions";
+import { recordOffer } from "@/_actions/offer-actions";
 
 interface MailOptions {
   from: string;
@@ -31,7 +36,7 @@ interface PurchaseEmailData {
   model: string;
   year: number;
   price: number;
-  featuredImageUrl: string;
+  featuredImagePath: string;
   bodyType?: string;
   transmission?: string;
   engineCapacity?: number;
@@ -78,6 +83,33 @@ export async function sendPurchaseEmails(
   error?: string;
 }> {
   try {
+    let featuredImageUrl = '';
+
+    if (purchaseData.featuredImagePath) {
+      const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+      if (bucketName) {
+        try {
+          const bucket = adminStorage.bucket(bucketName);
+          let fullPath: string;
+          if (purchaseData.featuredImagePath.startsWith('vehicles/')) {
+            fullPath = purchaseData.featuredImagePath;
+          } else {
+            fullPath = `vehicles/${purchaseData.vehicleId}/${purchaseData.featuredImagePath}`;
+          }
+          const file = bucket.file(fullPath);
+
+          const [url] = await file.getSignedUrl({
+            action: 'read',
+            expires: Date.now() + 60 * 60 * 1000,
+          });
+
+          featuredImageUrl = url;
+        } catch (error) {
+          console.error('Failed to generate signed URL for email:', error);
+        }
+      }
+    }
+
     const purchaseRecord = await recordPurchase({
       vehicleUid: purchaseData.vehicleId,
       dealerUid: purchaseData.userUid,
@@ -87,7 +119,7 @@ export async function sendPurchaseEmails(
         model: purchaseData.model,
         year: purchaseData.year,
         registrationNumber: purchaseData.registrationNumber,
-        featuredImageUrl: purchaseData.featuredImageUrl,
+        featuredImagePath: purchaseData.featuredImagePath,
       },
     });
 
@@ -96,6 +128,16 @@ export async function sendPurchaseEmails(
         success: false,
         error: purchaseRecord.error,
       };
+    }
+
+    const statusUpdate = await updateVehicleStatusOnPurchase(
+      purchaseData.vehicleId,
+    );
+    if (!statusUpdate.success) {
+      console.error(
+        `Failed to update vehicle status for ${purchaseData.vehicleId}:`,
+        statusUpdate.error,
+      );
     }
 
     const transporter = nodemailer.createTransport({
@@ -120,7 +162,7 @@ export async function sendPurchaseEmails(
       model: purchaseData.model,
       year: purchaseData.year,
       price: formattedPrice,
-      featuredImageUrl: purchaseData.featuredImageUrl,
+      featuredImageUrl,
       bodyType: purchaseData.bodyType,
       transmission: purchaseData.transmission,
       engineCapacity: purchaseData.engineCapacity,
@@ -172,13 +214,14 @@ export async function sendPurchaseEmails(
 interface OfferEmailData {
   userEmail: string;
   userUid: string;
+  vehicleId: string;
   registrationNumber: string;
   make: string;
   model: string;
   year: number;
   listPrice: number;
   offerPrice: number;
-  featuredImageUrl: string;
+  featuredImagePath: string;
   bodyType?: string;
   transmission?: string;
   engineCapacity?: number;
@@ -195,6 +238,54 @@ export async function sendOfferEmails(
   error?: string;
 }> {
   try {
+    let featuredImageUrl = '';
+
+    if (offerData.featuredImagePath) {
+      const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+      if (bucketName) {
+        try {
+          const bucket = adminStorage.bucket(bucketName);
+          let fullPath: string;
+          if (offerData.featuredImagePath.startsWith('vehicles/')) {
+            fullPath = offerData.featuredImagePath;
+          } else {
+            fullPath = `vehicles/${offerData.vehicleId}/${offerData.featuredImagePath}`;
+          }
+          const file = bucket.file(fullPath);
+
+          const [url] = await file.getSignedUrl({
+            action: 'read',
+            expires: Date.now() + 60 * 60 * 1000,
+          });
+
+          featuredImageUrl = url;
+        } catch (error) {
+          console.error('Failed to generate signed URL for email:', error);
+        }
+      }
+    }
+
+    const offerRecord = await recordOffer({
+      vehicleUid: offerData.vehicleId,
+      dealerUid: offerData.userUid,
+      offerPrice: offerData.offerPrice,
+      listPrice: offerData.listPrice,
+      vehicle: {
+        make: offerData.make,
+        model: offerData.model,
+        year: offerData.year,
+        registrationNumber: offerData.registrationNumber,
+        featuredImagePath: offerData.featuredImagePath,
+      },
+    });
+
+    if (!offerRecord.success) {
+      return {
+        success: false,
+        error: offerRecord.error,
+      };
+    }
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST as string,
       port: 587,
@@ -219,7 +310,7 @@ export async function sendOfferEmails(
       year: offerData.year,
       listPrice: formattedListPrice,
       offerPrice: formattedOfferPrice,
-      featuredImageUrl: offerData.featuredImageUrl,
+      featuredImageUrl,
       bodyType: offerData.bodyType,
       transmission: offerData.transmission,
       engineCapacity: offerData.engineCapacity,

@@ -57,7 +57,7 @@ export async function recordPurchase(
       model: vehicle.model,
       year: vehicle.year,
       registrationNumber: vehicle.registrationNumber || "",
-      featuredImageUrl: vehicle.featuredImageUrl || "",
+      featuredImagePath: vehicle.featuredImagePath || "",
     };
 
     const purchaseData: Purchase = {
@@ -119,6 +119,25 @@ export async function getDealerPurchases(
     return {
       success: false,
       error: "Failed to fetch purchases. Please try again.",
+    };
+  }
+}
+
+export async function updateVehicleStatusOnPurchase(
+  vehicleId: string,
+): Promise<ActionResponse> {
+  try {
+    const vehicleRef = adminDb.collection("vehicles").doc(vehicleId);
+    await vehicleRef.update({
+      status: "sold",
+      "metadata.updatedAt": new Date().toISOString(),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error(`Failed to update vehicle status for ${vehicleId}:`, error);
+    return {
+      success: false,
+      error: "Failed to update vehicle status.",
     };
   }
 }

@@ -87,6 +87,7 @@ export interface TenderCloseEmailTemplateProps {
   registrationNumber: string;
   featuredImageUrl: string;
   listPrice: string;
+  reservePrice?: string;
   tenderDeadline: string;
   bids: TenderCloseBidEntry[];
 }
