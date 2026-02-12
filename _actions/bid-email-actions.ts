@@ -2,6 +2,7 @@
 
 import nodemailer from "nodemailer";
 import { adminDb } from "@/_lib/firebase/firestore-admin";
+import { adminStorage } from "@/_lib/firebase/storage-admin";
 import {
   bidOwnerNotificationTemplate,
   bidUserConfirmationTemplate,
@@ -25,7 +26,8 @@ interface BidEmailData {
   year: number;
   bidPrice: number;
   listPrice: number;
-  featuredImageUrl: string;
+  featuredImagePath: string;
+  vehicleId: string;
   bodyType?: string;
   transmission?: string;
   engineCapacity?: number;
@@ -73,6 +75,27 @@ export async function sendBidEmails(
   error?: string;
 }> {
   try {
+    let featuredImageUrl = '';
+
+    if (bidData.featuredImagePath) {
+      const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+      if (bucketName) {
+        try {
+          const bucket = adminStorage.bucket(bucketName);
+          const file = bucket.file(`vehicles/${bidData.vehicleId}/${bidData.featuredImagePath}`);
+
+          const [url] = await file.getSignedUrl({
+            action: 'read',
+            expires: Date.now() + 60 * 60 * 1000,
+          });
+
+          featuredImageUrl = url;
+        } catch (error) {
+          console.error('Failed to generate signed URL for email:', error);
+        }
+      }
+    }
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST as string,
       port: 587,
@@ -97,7 +120,7 @@ export async function sendBidEmails(
       year: bidData.year,
       listPrice: formattedListPrice,
       bidPrice: formattedBidPrice,
-      featuredImageUrl: bidData.featuredImageUrl,
+      featuredImageUrl,
       bodyType: bidData.bodyType,
       transmission: bidData.transmission,
       engineCapacity: bidData.engineCapacity,

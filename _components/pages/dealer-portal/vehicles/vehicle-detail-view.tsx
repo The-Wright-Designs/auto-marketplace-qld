@@ -8,6 +8,7 @@ import BuyAndOfferComponent from "../purchase-components/buy-and-offer-component
 import classNames from "classnames";
 import BidComponent from "../purchase-components/bid-component";
 import { formatDate, formatDateTime } from "@/_lib/utils/date-formatter";
+import ButtonLink from "@/_components/ui/buttons/button-link";
 
 interface VehicleDetailViewProps {
   vehicle: Vehicle;
@@ -163,14 +164,14 @@ export default function VehicleDetailView({
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
           <div className="bg-white/80 p-10 rounded-md flex flex-col gap-5 items-center">
             <h2 className="text-heading text-blue">Vehicle Sold</h2>
-            <ButtonType
-              type="button"
-              onClick={() => router.back()}
+            <ButtonLink
+              href="/dealer-portal"
               cssClasses="w-fit"
-              small
+              ariaLabel="Dealer Portal"
+              traditionalButton
             >
               Back
-            </ButtonType>
+            </ButtonLink>
           </div>
         </div>
       )}
@@ -280,11 +281,9 @@ export default function VehicleDetailView({
               make={vehicle.make}
               model={vehicle.model}
               year={vehicle.year}
-              featuredImageUrl={
-                images.find(
-                  (img) => img.filename === vehicle.media?.primaryImage,
-                )?.url ||
-                images[0]?.url ||
+              featuredImagePath={
+                vehicle.media?.primaryImage ||
+                (vehicle.media?.images && vehicle.media.images[0]) ||
                 ""
               }
               bodyType={vehicle.bodyType}

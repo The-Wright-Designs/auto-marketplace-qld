@@ -3,7 +3,8 @@ export interface BidVehicleInfo {
   model: string;
   year: number;
   registrationNumber: string;
-  featuredImageUrl: string;
+  featuredImagePath: string;
+  featuredImageUrl?: string;
   tenderDeadline: string;
 }
 

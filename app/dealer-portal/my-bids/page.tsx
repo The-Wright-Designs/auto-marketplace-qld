@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/_lib/auth/auth-context";
 import { getDealerBids } from "@/_actions/bid-actions";
+import { getBidImageUrls } from "@/_actions/get-bid-image-urls";
 import DealerBidsComponent from "@/_components/pages/dealer-portal/my-bids/dealer-bids-component";
 import { Bid } from "@/_types/bid-types";
 import { useState, useEffect } from "react";
@@ -23,7 +24,18 @@ export default function MyBidsPage() {
 
       const result = await getDealerBids(user.uid);
       if (result.success && result.data) {
-        setBids(result.data);
+        const imageUrlsResult = await getBidImageUrls(result.data);
+        const imageUrls = imageUrlsResult.success && imageUrlsResult.data ? imageUrlsResult.data : {};
+
+        const bidsWithUrls = result.data.map(bid => ({
+          ...bid,
+          vehicle: {
+            ...bid.vehicle,
+            featuredImageUrl: imageUrls[bid.vehicleUid] || ''
+          }
+        }));
+
+        setBids(bidsWithUrls);
       }
       setIsLoadingBids(false);
     };

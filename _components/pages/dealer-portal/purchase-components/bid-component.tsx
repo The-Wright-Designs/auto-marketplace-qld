@@ -21,7 +21,7 @@ interface BidComponentProps {
   make: string;
   model: string;
   year: number;
-  featuredImageUrl: string;
+  featuredImagePath: string;
   bodyType?: string;
   transmission?: string;
   engineCapacity?: number;
@@ -39,7 +39,7 @@ const BidComponent = ({
   make,
   model,
   year,
-  featuredImageUrl,
+  featuredImagePath,
   bodyType,
   transmission,
   engineCapacity,
@@ -111,7 +111,7 @@ const BidComponent = ({
           model,
           year,
           registrationNumber,
-          featuredImageUrl,
+          featuredImagePath,
           tenderDeadline: tenderDeadline || "",
         },
       });
@@ -130,7 +130,8 @@ const BidComponent = ({
         year,
         bidPrice: bidAmount,
         listPrice: vehiclePrice,
-        featuredImageUrl,
+        featuredImagePath,
+        vehicleId,
         bodyType,
         transmission,
         engineCapacity,
