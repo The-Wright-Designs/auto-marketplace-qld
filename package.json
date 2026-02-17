@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "set-admin-claims": "tsx --env-file=.env.local scripts/set-admin-claims.ts",
-    "init-vehicles": "tsx --env-file=.env.local scripts/init-vehicles.ts"
+    "remove-admin-claims": "tsx --env-file=.env.local scripts/remove-admin-claims.ts"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

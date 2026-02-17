@@ -2,7 +2,7 @@
 
 import { adminDb } from "@/_lib/firebase/firestore-admin";
 import { adminStorage } from "@/_lib/firebase/storage-admin";
-import { isAdmin, getCurrentUser } from "@/_lib/auth/get-current-user";
+import { isAdmin, isAuthenticated, getCurrentUser } from "@/_lib/auth/get-current-user";
 import {
   createVehicleSchema,
   updateVehicleSchema,
@@ -595,11 +595,11 @@ export async function getVehicleImagesWithUrls(vehicleId: string): Promise<
   }>
 > {
   try {
-    const hasAdminAccess = await isAdmin();
-    if (!hasAdminAccess) {
+    const authenticated = await isAuthenticated();
+    if (!authenticated) {
       return {
         success: false,
-        error: "Only admin users can access vehicle images",
+        error: "You must be logged in to access vehicle images",
       };
     }
 
@@ -669,11 +669,11 @@ export async function getMultipleVehicleImagesWithUrls(
   >
 > {
   try {
-    const hasAdminAccess = await isAdmin();
-    if (!hasAdminAccess) {
+    const authenticated = await isAuthenticated();
+    if (!authenticated) {
       return {
         success: false,
-        error: "Only admin users can access vehicle images",
+        error: "You must be logged in to access vehicle images",
       };
     }
 

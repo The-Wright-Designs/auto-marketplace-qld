@@ -1,7 +1,7 @@
 "use server";
 
 import { adminStorage } from "@/_lib/firebase/storage-admin";
-import { isAdmin } from "@/_lib/auth/get-current-user";
+import { isAuthenticated } from "@/_lib/auth/get-current-user";
 
 interface ActionResult<T> {
   success: boolean;
@@ -14,11 +14,11 @@ export async function getVehicleImageUrls(
   filenames: string[]
 ): Promise<ActionResult<string[]>> {
   try {
-    const hasAdminAccess = await isAdmin();
-    if (!hasAdminAccess) {
+    const authenticated = await isAuthenticated();
+    if (!authenticated) {
       return {
         success: false,
-        error: "Only admin users can access vehicle images",
+        error: "You must be logged in to access vehicle images",
       };
     }
 
