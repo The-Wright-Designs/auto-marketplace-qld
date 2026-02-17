@@ -24,12 +24,9 @@ const AboutPageComponent = () => {
             sizes="(max-width:1000px) 100vw, 50vw"
             width={1000}
             height={800}
-            className={classNames(
-              "h-full w-full object-cover aspect-video desktop-small:aspect-auto",
-              {
-                "hidden tablet:block": index === 1,
-              }
-            )}
+            className={classNames("h-full w-full object-cover aspect-video", {
+              "hidden tablet:block": index === 1,
+            })}
           />
         ))}
       </div>

@@ -116,6 +116,6 @@ export default function LightboxSlider({
         </button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

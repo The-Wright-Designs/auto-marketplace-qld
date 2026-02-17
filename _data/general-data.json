@@ -98,11 +98,11 @@
       ],
       "images": [
         {
-          "src": "/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif",
+          "src": "/images/about/auto-marketplace-qld-1.jpg",
           "alt": "Auto Marketplace QLD"
         },
         {
-          "src": "/images/placeholders/01-2025-honda-civic-sedan-sport-touring-hybrid-67e7f55ddd5d9.jpg",
+          "src": "/images/about/auto-marketplace-qld-2.jpeg",
           "alt": "Auto Marketplace QLD"
         }
       ]
@@ -114,7 +114,7 @@
         "We know cars inside and out, and We know what makes a good deal. With Auto Marketplace QLD, We have built more than just a marketplace — We've built a smarter, more secure way for people to sell their cars with confidence."
       ],
       "image": {
-        "src": "/images/placeholders/_128000013_merc-benz-ayl-010.jpg",
+        "src": "/images/about/auto-marketplace-qld-3.jpg",
         "alt": "Auto Marketplace QLD"
       }
     },
@@ -143,11 +143,7 @@
           "description": "Happy with the offer? Great! Once you accept, pay the success fee, arrange free pick-up, and receive your money quickly—it's that easy.",
           "icon": "CreditCard"
         }
-      ],
-      "image": {
-        "src": "/images/placeholders/how-it-works.jpg",
-        "alt": "How It Works"
-      }
+      ]
     },
     "faqs": [
       {
@@ -232,6 +228,10 @@
       }
     ],
     "fees": {
+      "image": {
+        "src": "/images/about/auto-marketplace-qld-4.jpg",
+        "alt": "Auto Marketplace Queensland"
+      },
       "sellerFees": [
         {
           "saleValue": {

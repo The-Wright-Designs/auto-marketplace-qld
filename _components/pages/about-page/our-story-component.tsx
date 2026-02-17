@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import aboutPageData from "@/_data/general-data.json";
-import classNames from "classnames";
 
 const {
   aboutPage: { ourStorySection },

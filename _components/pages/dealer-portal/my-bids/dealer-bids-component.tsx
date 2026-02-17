@@ -17,7 +17,7 @@ export default function DealerBidsComponent({
 }: DealerBidsComponentProps) {
   if (loading) {
     return (
-      <div className="grid gap-5 phone:grid-cols-2 tablet-small:grid-cols-3 tablet:grid-cols-4">
+      <div className="flex flex-wrap gap-5">
         {Array.from({ length: 4 }).map((_, index) => (
           <VehicleCardSkeleton key={index} />
         ))}
@@ -47,7 +47,7 @@ export default function DealerBidsComponent({
   }
 
   return (
-    <div className="grid gap-5 phone:grid-cols-2 tablet-small:grid-cols-3 tablet:grid-cols-4">
+    <div className="flex flex-wrap gap-5">
       {filteredBids.map((bid) => (
         <BidCard key={`${bid.vehicleUid}_${bid.dealerUid}`} bid={bid} />
       ))}

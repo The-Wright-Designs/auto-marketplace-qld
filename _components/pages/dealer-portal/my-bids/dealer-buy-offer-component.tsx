@@ -18,7 +18,7 @@ export default function DealerBuyOfferComponent({
 }: DealerBuyOfferComponentProps) {
   if (loading) {
     return (
-      <div className="grid gap-5 phone:grid-cols-2 tablet-small:grid-cols-3 tablet:grid-cols-4">
+      <div className="flex flex-wrap gap-5">
         {Array.from({ length: 4 }).map((_, index) => (
           <VehicleCardSkeleton key={index} />
         ))}
@@ -38,7 +38,7 @@ export default function DealerBuyOfferComponent({
   }
 
   return (
-    <div className="grid gap-5 phone:grid-cols-2 tablet-small:grid-cols-3 tablet:grid-cols-4">
+    <div className="flex flex-wrap gap-5">
       {items.map((item) => (
         <BuyOfferCard
           key={`${item.vehicleUid}_${item.dealerUid}`}

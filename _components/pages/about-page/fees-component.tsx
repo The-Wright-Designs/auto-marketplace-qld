@@ -1,7 +1,3 @@
-"use client";
-
-import Image from "next/image";
-
 interface FeeRange {
   saleValue: {
     from: number;
@@ -25,8 +21,8 @@ const FeesComponent = ({ fees }: FeesComponentProps) => {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="w-full border-collapse min-w-[600px]">
+    <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-blue/10 [&::-webkit-scrollbar-thumb]:bg-blue [&::-webkit-scrollbar-thumb]:rounded-full">
+      <table className="w-full border-collapse min-w-[450px] tablet:min-w-[600px]">
         <thead>
           <tr className="border-b-2 border-blue">
             <th className="text-left py-4 text-paragraph font-bold whitespace-nowrap">

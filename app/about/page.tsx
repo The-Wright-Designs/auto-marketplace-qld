@@ -2,7 +2,7 @@ import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import AboutPageComponent from "@/_components/pages/about-page/about-page-component";
 import OurStoryComponent from "@/_components/pages/about-page/our-story-component";
 import FaqComponent from "@/_components/pages/about-page/faq-component";
-import FeesComponent from "@/_lib/fees-component";
+import FeesComponent from "@/_components/pages/about-page/fees-component";
 import generalData from "@/_data/general-data.json";
 import HowItWorksComponent from "@/_components/pages/about-page/how-it-works-component";
 import Image from "next/image";
@@ -44,11 +44,11 @@ const AboutPage = () => {
           <div className="grid gap-7 desktop-small:grid-cols-2 gap-x-10">
             <FeesComponent fees={generalData.aboutPage.fees.sellerFees} />
             <Image
-              src="/images/placeholders/BLOG-FEATURED-IMAGE-7.png"
-              alt="Auto Marketplace Queensland"
+              src={generalData.aboutPage.fees.image.src}
+              alt={generalData.aboutPage.fees.image.alt}
               width={1000}
               height={800}
-              className="w-full h-auto object-cover aspect-video desktop-small:aspect-auto"
+              className="w-full h-full object-cover aspect-video desktop-small:aspect-auto"
             />
           </div>
         </section>
