@@ -188,7 +188,7 @@ export async function sendWelcomeAfterResetEmail(
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const emailHtmlContent = welcomeEmailTemplate({
-      loginLink: "https://auto-marketplace-qld.netlify.app/for-dealers/login",
+      loginLink: "https://automarketplaceqld.com.au/for-dealers/login",
       userName,
     });
 

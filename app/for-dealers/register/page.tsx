@@ -1,6 +1,18 @@
 import { DealerRegistrationForm } from "@/_components/pages/for-dealers/register/dealer-registration-form";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dealer Registration | Auto Marketplace QLD",
+  description:
+    "Register as a dealer on Auto Marketplace QLD and start listing vehicles today.",
+  openGraph: {
+    title: "Dealer Registration | Auto Marketplace QLD",
+    description:
+      "Register as a dealer on Auto Marketplace QLD and start listing vehicles today.",
+  },
+};
 
 const RegisterPage = () => {
   return (

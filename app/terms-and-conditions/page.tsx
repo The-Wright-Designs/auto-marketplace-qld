@@ -1,7 +1,15 @@
 import termsData from "@/_data/terms-and-conditions.json";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
+import { Metadata } from "next";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions | Auto Marketplace QLD",
+  description:
+    "Read the website terms and conditions of use for Auto Marketplace QLD.",
+  robots: { index: false },
+};
 
 interface ContentItem {
   type: "paragraph" | "list";

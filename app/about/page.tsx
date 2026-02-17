@@ -6,8 +6,20 @@ import FeesComponent from "@/_components/pages/about-page/fees-component";
 import generalData from "@/_data/general-data.json";
 import HowItWorksComponent from "@/_components/pages/about-page/how-it-works-component";
 import Image from "next/image";
+import { Metadata } from "next";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "About | Auto Marketplace QLD",
+  description:
+    "Learn about Auto Marketplace QLD — our story, how it works, seller fees, and frequently asked questions.",
+  openGraph: {
+    title: "About | Auto Marketplace QLD",
+    description:
+      "Learn about Auto Marketplace QLD — our story, how it works, seller fees, and frequently asked questions.",
+  },
+};
 
 const AboutPage = () => {
   return (

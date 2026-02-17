@@ -1,8 +1,16 @@
 import Link from "next/link";
 import privacyData from "@/_data/privacy-policy.json";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
+import { Metadata } from "next";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Auto Marketplace QLD",
+  description:
+    "Read the Auto Marketplace QLD privacy policy to understand how we collect, use, and protect your personal information.",
+  robots: { index: false },
+};
 
 interface ContentItem {
   type: "paragraph" | "list";

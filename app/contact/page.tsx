@@ -2,6 +2,18 @@ import { ContactForm } from "@/_components/pages/contact-page/contact-form";
 import ShowEmailAddress from "@/_components/ui/contact/show-email-address";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact | Auto Marketplace QLD",
+  description:
+    "Get in touch with the Auto Marketplace QLD team. We're here to help with any questions about selling your vehicle.",
+  openGraph: {
+    title: "Contact | Auto Marketplace QLD",
+    description:
+      "Get in touch with the Auto Marketplace QLD team. We're here to help with any questions about selling your vehicle.",
+  },
+};
 
 const contactStyles =
   "grid place-self-start tablet-small:grid-cols-[85px_1fr] items-center";

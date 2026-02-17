@@ -23,7 +23,7 @@ export function passwordResetEmailTemplate({
                 <tr>
                   <td align="center" style="padding-bottom: 30px;">
                     <a href="https://automarketplaceqld.com.au" target="_blank" style="display: inline-block;">
-                      <img src="https://auto-marketplace-qld.netlify.app//logo/amq-logo.png" alt="Auto Marketplace QLD" width="200" height="200" style="display: block; max-width: 100%; height: auto;" border="0">
+                      <img src="https://automarketplaceqld.com.au//logo/amq-logo.png" alt="Auto Marketplace QLD" width="200" height="200" style="display: block; max-width: 100%; height: auto;" border="0">
                     </a>
                   </td>
                 </tr>

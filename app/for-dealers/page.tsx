@@ -1,6 +1,18 @@
 import ButtonLink from "@/_components/ui/buttons/button-link";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "For Dealers | Auto Marketplace QLD",
+  description:
+    "Join Queensland's trusted vehicle marketplace. Expand your inventory and accelerate sales with our secure dealer platform.",
+  openGraph: {
+    title: "For Dealers | Auto Marketplace QLD",
+    description:
+      "Join Queensland's trusted vehicle marketplace. Expand your inventory and accelerate sales with our secure dealer platform.",
+  },
+};
 
 const ForDealers = () => {
   return (
