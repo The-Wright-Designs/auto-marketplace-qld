@@ -18,9 +18,10 @@ export default function BuyOfferCard({ item, type }: BuyOfferCardProps) {
     item.vehicle.featuredImageUrl || "/images/placeholder-vehicle.png";
   const [showHover, setShowHover] = useState(false);
 
-  const price = type === "purchase"
-    ? (item as Purchase).purchasePrice
-    : (item as Offer).offerPrice;
+  const price =
+    type === "purchase"
+      ? (item as Purchase).purchasePrice
+      : (item as Offer).offerPrice;
 
   return (
     <Link
@@ -64,11 +65,11 @@ export default function BuyOfferCard({ item, type }: BuyOfferCardProps) {
             {type === "purchase" ? "Purchased:" : "Offer:"}
           </li>
         </div>
-        <div className="place-items-end">
-          <li className="text-paragraph text-grey text-[16px] truncate">
+        <div className="grid">
+          <li className="text-paragraph justify-self-end text-grey text-[16px] truncate">
             {item.vehicle.year}
           </li>
-          <li className="text-paragraph text-blue truncate font-semibold">
+          <li className="text-paragraph justify-self-end self-end text-blue truncate font-semibold row-span-2">
             {formatPrice(price)}
           </li>
         </div>

@@ -69,27 +69,6 @@ export async function processExpiredTenders(): Promise<{
         );
         const topQualifyingBids = qualifyingBids.slice(0, 5);
 
-        for (let i = 0; i < sortedBids.length; i++) {
-          const bid = sortedBids[i];
-          const bidDocId = `${bid.vehicleUid}_${bid.dealerUid}`;
-
-          const meetsReserve = bid.bidPrice >= reservePrice;
-          const isHighestBid = i === 0;
-          const tenderResult = isHighestBid && meetsReserve ? "won" : "lost";
-
-          try {
-            await adminDb
-              .collection("bids")
-              .doc(bidDocId)
-              .update({ tenderResult });
-          } catch (error) {
-            console.error(
-              `Failed to update tenderResult for bid ${bidDocId}:`,
-              error,
-            );
-          }
-        }
-
         const formattedBids: TenderCloseBidEntry[] = topQualifyingBids.map(
           (bid, index) => ({
             rank: index + 1,

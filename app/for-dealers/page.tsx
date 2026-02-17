@@ -36,11 +36,11 @@ const ForDealers = () => {
         </div>
         <div className="h-full">
           <Image
-            src="/images/placeholders/_128000013_merc-benz-ayl-010.jpg"
+            src="/images/about/auto-marketplace-qld-3.jpg"
             alt="Dealership showcase"
             width={800}
             height={500}
-            className="object-cover w-full h-full"
+            className="object-cover aspect-video w-full h-full"
           />
         </div>
       </div>

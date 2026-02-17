@@ -28,5 +28,4 @@ export interface Bid {
   vehicle: BidVehicleInfo;
   dealer: BidDealerInfo;
   previousBids: BidHistoryEntry[];
-  tenderResult?: "won" | "lost";
 }

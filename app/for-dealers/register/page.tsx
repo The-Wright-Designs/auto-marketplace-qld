@@ -13,7 +13,7 @@ const RegisterPage = () => {
       </div>
       <div className="h-full">
         <Image
-          src="/images/placeholders/_128000013_merc-benz-ayl-010.jpg"
+          src="/images/about/auto-marketplace-qld-4.jpg"
           alt="Dealership showcase"
           width={1200}
           height={800}
