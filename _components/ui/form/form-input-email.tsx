@@ -12,6 +12,7 @@ const FormInputEmail = ({
   disabled = false,
   value,
   onChange,
+  autoComplete,
 }: FormInputEmailProps) => {
   return (
     <div>
@@ -29,6 +30,7 @@ const FormInputEmail = ({
         disabled={disabled}
         value={value}
         onChange={onChange}
+        {...(autoComplete && { autoComplete })}
         className={formInputStyles(className, disabled)}
       />
     </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import { ContactForm } from "@/_components/pages/contact-page/contact-form";
 import ShowEmailAddress from "@/_components/ui/contact/show-email-address";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
@@ -12,7 +10,7 @@ const ContactPage = () => {
   return (
     <PageWrapper
       useMainElement
-      cssClasses="grid gap-7 tablet:grid-cols-2 tablet:gap-x-10"
+      cssClasses="grid gap-7 tablet:grid-cols-2 tablet:gap-x-5"
     >
       <div className="grid gap-7">
         <h2 className="text-subheading tablet:col-span-2 full-hd:text-subheading-desktop">
@@ -24,17 +22,13 @@ const ContactPage = () => {
               <p className="font-bold">Email:</p>
               <ShowEmailAddress />
             </div>
-            {/* <div className={contactStyles}>
-                <p className="font-bold">Phone:</p>
-                <ShowPhoneNumber />
-              </div> */}
           </div>
           <hr className="border-black/25" />
           <ContactForm />
         </div>
       </div>
       <Image
-        src="/images/placeholders/jaguar-e-gt-2-copy-6788058583eae.avif"
+        src="/images/about/auto-marketplace-qld-2.jpeg"
         alt="Auto Marketplace QLD"
         sizes="(max-width:1000px) 100vw, 50vw"
         width={1000}

@@ -21,10 +21,12 @@ export interface FormInputBaseProps {
 export interface FormInputTextProps extends FormInputBaseProps {
   placeholder: string;
   type?: string;
+  autoComplete?: string;
 }
 
 export interface FormInputEmailProps extends FormInputBaseProps {
   placeholder: string;
+  autoComplete?: string;
 }
 
 export interface FormInputNumberProps extends FormInputBaseProps {
@@ -37,6 +39,7 @@ export interface FormInputNumberProps extends FormInputBaseProps {
 
 export interface FormInputTelProps extends FormInputBaseProps {
   placeholder: string;
+  autoComplete?: string;
 }
 
 export interface FormInputTextareaProps extends FormInputBaseProps {

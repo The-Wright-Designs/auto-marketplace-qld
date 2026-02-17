@@ -14,6 +14,7 @@ const FormInputText = ({
   onChange,
   type = "text",
   error,
+  autoComplete,
 }: FormInputTextProps) => {
   return (
     <div>
@@ -30,6 +31,7 @@ const FormInputText = ({
         required={required}
         disabled={disabled}
         {...(value !== undefined ? { value, onChange } : {})}
+        {...(autoComplete && { autoComplete })}
         className={formInputStyles(className, disabled, !!error)}
       />
     </div>

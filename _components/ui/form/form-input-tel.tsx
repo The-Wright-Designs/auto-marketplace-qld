@@ -12,6 +12,7 @@ const FormInputTel = ({
   disabled = false,
   value,
   onChange,
+  autoComplete,
 }: FormInputTelProps) => {
   const isValidPhoneChar = (char: string): boolean => {
     return /^[0-9+\-() ]$/.test(char);
@@ -84,6 +85,7 @@ const FormInputTel = ({
         required={required}
         disabled={disabled}
         {...(value !== undefined ? { value, onChange } : {})}
+        {...(autoComplete && { autoComplete })}
         onKeyDown={handleKeyDown}
         onPaste={handlePaste}
         className={formInputStyles(className, disabled)}

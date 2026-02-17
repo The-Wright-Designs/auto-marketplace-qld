@@ -154,6 +154,7 @@ function LoginContent() {
               required
               label="Email"
               disabled={isPending}
+              autoComplete="email"
             />
 
             <FormInputPassword

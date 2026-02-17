@@ -83,16 +83,28 @@ export const ContactForm = () => {
               tabIndex={-1}
               autoComplete="off"
             />
-            <FormInputText id="name" name="name" placeholder="Name" required />
+            <FormInputText
+              id="name"
+              name="name"
+              placeholder="Name"
+              required
+              autoComplete="name"
+            />
 
             <FormInputEmail
               id="email"
               name="email"
               placeholder="Email"
               required
+              autoComplete="email"
             />
 
-            <FormInputTel id="phone" name="phone" placeholder="Phone" />
+            <FormInputTel
+              id="phone"
+              name="phone"
+              placeholder="Phone"
+              autoComplete="tel"
+            />
 
             <FormInputTextarea
               id="message"

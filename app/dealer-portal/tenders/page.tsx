@@ -1,5 +1,3 @@
-"use client";
-
 import ListedVehiclesComponent from "@/_components/pages/dealer-portal/dashboard/listed-vehicles-component";
 
 export default function TendersPage() {

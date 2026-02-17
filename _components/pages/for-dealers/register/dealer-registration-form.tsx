@@ -98,6 +98,7 @@ export const DealerRegistrationForm = () => {
                 name="firstName"
                 placeholder="First Name"
                 required
+                autoComplete="given-name"
               />
 
               <FormInputText
@@ -105,6 +106,7 @@ export const DealerRegistrationForm = () => {
                 name="lastName"
                 placeholder="Last Name"
                 required
+                autoComplete="family-name"
               />
 
               <FormInputEmail
@@ -112,6 +114,7 @@ export const DealerRegistrationForm = () => {
                 name="email"
                 placeholder="Email"
                 required
+                autoComplete="email"
               />
 
               <FormInputTel
@@ -119,6 +122,7 @@ export const DealerRegistrationForm = () => {
                 name="phone"
                 placeholder="Phone"
                 required
+                autoComplete="tel"
               />
             </div>
             <div>

@@ -48,6 +48,7 @@ const PersonalInfoSection = ({
             labelClassName="visually-hidden"
             value={formData.firstName}
             onChange={(e) => onInputChange("firstName", e.target.value)}
+            autoComplete="given-name"
           />
 
           <FormInputText
@@ -59,6 +60,7 @@ const PersonalInfoSection = ({
             labelClassName="visually-hidden"
             value={formData.lastName}
             onChange={(e) => onInputChange("lastName", e.target.value)}
+            autoComplete="family-name"
           />
 
           <FormInputTel
@@ -70,6 +72,7 @@ const PersonalInfoSection = ({
             labelClassName="visually-hidden"
             value={formData.contactNumber}
             onChange={(e) => onInputChange("contactNumber", e.target.value)}
+            autoComplete="tel"
           />
 
           <FormInputEmail
@@ -81,6 +84,7 @@ const PersonalInfoSection = ({
             labelClassName="visually-hidden"
             value={formData.email}
             onChange={(e) => onInputChange("email", e.target.value)}
+            autoComplete="email"
           />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import privacyData from "@/_data/privacy-policy.json";
 import { PageWrapper } from "@/_lib/utils/page-wrapper";
