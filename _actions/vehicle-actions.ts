@@ -336,6 +336,19 @@ export async function partialUpdateVehicle(
 
     await docRef.update(updateData);
 
+    if (validatedData.status === "active") {
+      const purchasesSnapshot = await adminDb
+        .collection("purchases")
+        .where("vehicleUid", "==", vehicleId)
+        .get();
+
+      if (!purchasesSnapshot.empty) {
+        const batch = adminDb.batch();
+        purchasesSnapshot.docs.forEach((doc) => batch.delete(doc.ref));
+        await batch.commit();
+      }
+    }
+
     return {
       success: true,
       data: { id: vehicleId },
