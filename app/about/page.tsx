@@ -55,13 +55,15 @@ const AboutPage = () => {
           <h3>Seller Fees</h3>
           <div className="grid gap-7 desktop-small:grid-cols-2 gap-x-10">
             <FeesComponent fees={generalData.aboutPage.fees.sellerFees} />
-            <Image
-              src={generalData.aboutPage.fees.image.src}
-              alt={generalData.aboutPage.fees.image.alt}
-              width={1000}
-              height={800}
-              className="w-full h-full object-cover aspect-video desktop-small:aspect-auto"
-            />
+            <div>
+              <Image
+                src={generalData.aboutPage.fees.image.src}
+                alt={generalData.aboutPage.fees.image.alt}
+                width={1000}
+                height={800}
+                className="w-full h-full object-cover aspect-video desktop-small:aspect-auto"
+              />
+            </div>
           </div>
         </section>
         <div id="faqs" className="-translate-y-28" />
